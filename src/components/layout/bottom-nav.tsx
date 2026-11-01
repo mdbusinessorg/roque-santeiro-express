@@ -24,8 +24,8 @@ export function BottomNav() {
           const active = href === "/" ? path === "/" : path.startsWith(href);
           return (
             <li key={href}>
-              <Link href={href} className={cn("relative flex flex-col items-center gap-0.5 rounded-2xl py-1.5 text-[10.5px] font-medium transition", active ? "text-brand-600" : "text-ink/55")}>
-                <span className={cn("grid h-8 w-12 place-items-center rounded-full transition", active && "bg-brand-50")}>
+              <Link href={href} className={cn("relative flex flex-col items-center gap-0.5 rounded-2xl py-1.5 text-[10.5px] font-medium transition", active ? "text-white" : "text-ink/50")}>
+                <span className={cn("grid h-8 w-12 place-items-center rounded-full transition", active && "bg-white/10")}>
                   <Icon className="h-[21px] w-[21px]" strokeWidth={active ? 2.4 : 1.9} />
                 </span>
                 {label}

@@ -32,7 +32,7 @@ export default async function Home() {
       <CategoryStrip cats={cats} />
       <QuadCards products={all.products} />
 
-      <Section title={<span className="flex items-center gap-2"><Zap className="h-5 w-5 fill-brand-600 text-brand-600" />Ofertas relâmpago</span>} subtitle="Descontos reais por tempo limitado" href="/pesquisa?ofertas=1">
+      <Section title={<span className="flex items-center gap-2"><Zap className="h-5 w-5 fill-brand-600 text-brand-600" />Ofertas relâmpago</span>} subtitle="Descontos reais por tempo limitado" href="/pesquisa?ofertas=1" band>
         <div className="no-scrollbar -mx-3 flex snap-x gap-2.5 overflow-x-auto px-3 pb-1">
           {deals.products.map((p) => <ProductCard key={p.id} p={p} compact className="w-[42%] shrink-0 snap-start sm:w-48" />)}
         </div>
@@ -44,7 +44,7 @@ export default async function Home() {
         </Section>
       )}
 
-      <Section title="Lojas em destaque" subtitle="Visite as lojas e compre directamente" href="/lojas">
+      <Section title="Lojas em destaque" subtitle="Visite as lojas e compre directamente" href="/lojas" band>
         <div className="card flex flex-col items-center p-5">
           <LogosCarousel count={4} className="gap-3 sm:gap-10">
             {stores.concat(stores).map((s, i) => (

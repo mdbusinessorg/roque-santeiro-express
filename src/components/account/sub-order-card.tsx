@@ -33,10 +33,10 @@ export function Timeline({ status, events, createdAt }: { status: string; events
         const e = reached.get(s); const done = !!e || FLOW.indexOf(s) <= lastIdx; const active = s === cur && !bad;
         return (
           <motion.li key={s} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="relative flex gap-3 pb-4 last:pb-0">
-            {i < steps.length - 1 && <span className="absolute left-[11px] top-6 h-full w-0.5 bg-line"><motion.span className="block w-full bg-brand-600" initial={{ height: 0 }} animate={{ height: done && FLOW.indexOf(steps[i + 1]) <= lastIdx ? "100%" : 0 }} transition={{ duration: 0.5, delay: i * 0.08 }} /></span>}
-            <span className={`relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 ${done ? "border-brand-600 bg-brand-600 text-white" : "border-line bg-white"}`}>
+            {i < steps.length - 1 && <span className="absolute left-[11px] top-6 h-full w-0.5 bg-line"><motion.span className="block w-full bg-promo" initial={{ height: 0 }} animate={{ height: done && FLOW.indexOf(steps[i + 1]) <= lastIdx ? "100%" : 0 }} transition={{ duration: 0.5, delay: i * 0.08 }} /></span>}
+            <span className={`relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 ${done ? "border-promo bg-promo text-white" : "border-line bg-surface"}`}>
               {done && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
-              {active && <span className="absolute inset-0 animate-ping rounded-full bg-brand-500/40 motion-reduce:hidden" />}
+              {active && <span className="absolute inset-0 animate-ping rounded-full bg-promo/40 motion-reduce:hidden" />}
             </span>
             <div className="min-w-0 pt-0.5">
               <p className={`text-sm ${done ? "font-semibold text-ink" : "text-ink/45"}`}>{SUB_STATUS[s]}</p>

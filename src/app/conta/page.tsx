@@ -64,7 +64,7 @@ export default function AccountPage() {
 
   return (
     <div className="mx-auto max-w-2xl pt-4">
-      <div className="brand-gradient relative overflow-hidden rounded-[1.75rem] p-5 text-white">
+      <div className="brand-gradient relative overflow-hidden rounded-[1.75rem] p-5 text-white ring-1 ring-white/10">
         <div className="absolute -right-10 -top-12 h-40 w-40 rounded-full bg-promo/30 blur-3xl" />
         <div className="relative flex items-center gap-4">
           <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-white/15 text-2xl font-extrabold uppercase ring-2 ring-white/30">{name.slice(0, 1)}</div>

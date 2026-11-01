@@ -27,10 +27,10 @@ export function Newsletter() {
           }}
         >
           <div className="relative flex-1">
-            <Mail className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-brand-600" />
-            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="O seu email" className="h-12 w-full rounded-full bg-white pl-10 pr-4 text-[15px] text-ink outline-none" />
+            <Mail className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
+            <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="O seu email" className="h-12 w-full rounded-full bg-white pl-10 pr-4 text-[15px] text-zinc-900 outline-none placeholder:text-zinc-500" />
           </div>
-          <button disabled={state === "busy"} className="h-12 rounded-full bg-white px-5 text-sm font-bold text-brand-700">Subscrever</button>
+          <button disabled={state === "busy"} className="h-12 rounded-full bg-white px-5 text-sm font-bold text-zinc-900">Subscrever</button>
         </form>
       )}
       {state === "err" && <p className="mt-2 text-sm text-white/85">Não foi possível subscrever. Tente novamente.</p>}

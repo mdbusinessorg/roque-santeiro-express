@@ -33,7 +33,7 @@ export function Tracker() {
           )}
           <div className="mt-3 flex flex-wrap gap-2">
             <button onClick={() => choose(true, true)} className="btn-primary flex-1 py-2.5">Aceitar</button>
-            <button onClick={() => choose(false, false)} className="btn flex-1 border border-line bg-white py-2.5 text-ink">Só essenciais</button>
+            <button onClick={() => choose(false, false)} className="btn flex-1 border border-white/15 bg-white/[0.04] py-2.5 text-ink">Só essenciais</button>
             {more ? <button onClick={() => choose(an, mk)} className="btn w-full py-2 text-brand-600">Guardar escolha</button>
               : <button onClick={() => setMore(true)} className="btn w-full py-2 text-ink/60">Personalizar</button>}
           </div>

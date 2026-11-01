@@ -41,9 +41,9 @@ export default function Notifications() {
         <div className="card divide-y divide-line overflow-hidden">
           {rows.map((n, i) => { const I = icon(n.type); return (
             <motion.button key={n.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 10) * 0.03 }} onClick={() => open(n)} className={`flex w-full items-start gap-3 p-4 text-left transition hover:bg-mist ${n.read_at ? "" : "bg-brand-50/60"}`}>
-              <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${n.read_at ? "bg-mist text-ink/50" : "bg-brand-600 text-white"}`}><I className="h-4 w-4" /></span>
+              <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${n.read_at ? "bg-mist text-ink/50" : "bg-promo text-white"}`}><I className="h-4 w-4" /></span>
               <span className="min-w-0 flex-1"><span className="block text-sm font-semibold">{n.title}</span>{n.body && <span className="block text-xs text-ink/60">{n.body}</span>}<span className="mt-0.5 block text-[11px] text-ink/40">{new Date(n.created_at).toLocaleString("pt-AO")}</span></span>
-              {!n.read_at && <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-600" />}
+              {!n.read_at && <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-promo" />}
             </motion.button>
           ); })}
         </div>

@@ -24,7 +24,7 @@ export function FlexCarousel({ items, height = 320, gap = 10 }: { items: FlexIte
             onMouseEnter={() => setActive(i)}
             onFocus={() => setActive(i)}
             onClick={(e) => { if (!on) { e.preventDefault(); setActive(i); } }}
-            className="relative min-w-0 overflow-hidden rounded-[1.4rem] border border-line bg-white"
+            className="relative min-w-0 overflow-hidden rounded-[1.4rem] border border-white/10 well"
             style={{ flex: on ? 5 : 1 }}
           >
             <Link href={it.href} className="block h-full w-full" aria-label={it.title}>

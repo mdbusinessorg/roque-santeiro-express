@@ -6,13 +6,13 @@ import { cn, discountPct, kz } from "@/lib/utils";
 export function ProductCard({ p, compact, className }: { p: Product; compact?: boolean; className?: string }) {
   const off = discountPct(Number(p.price), p.compare_at_price ? Number(p.compare_at_price) : null);
   return (
-    <Link href={`/produto/${p.slug}`} className={cn("card group flex flex-col overflow-hidden transition duration-300 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-[0_18px_36px_-22px_rgba(23,54,92,0.4)] active:scale-[0.98]", className)}>
-      <div className="relative aspect-square border-b border-line bg-mist">
+    <Link href={`/produto/${p.slug}`} className={cn("card group flex flex-col overflow-hidden transition duration-300 hover:-translate-y-0.5 hover:border-white/15 hover:shadow-[0_22px_44px_-22px_rgba(0,0,0,0.95)] active:scale-[0.98]", className)}>
+      <div className="relative aspect-square border-b border-black/20 well">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={p.images?.[0]} alt={p.name} loading="lazy" className="h-full w-full object-contain p-3 mix-blend-multiply transition duration-300 group-hover:scale-105" />
         {off > 0 && <span className="absolute left-2 top-2 rounded-md bg-promo px-1.5 py-0.5 text-[11px] font-bold text-white shadow-sm">-{off}%</span>}
         {p.sponsored && <span className="glass absolute right-2 top-2 rounded-full px-2 py-0.5 text-[10px] font-semibold text-ink/70">Patrocinado</span>}
-        {p.stock <= 0 && <span className="absolute inset-x-2 bottom-2 rounded-full bg-ink/75 py-1 text-center text-[11px] font-semibold text-white">Esgotado</span>}
+        {p.stock <= 0 && <span className="absolute inset-x-2 bottom-2 rounded-full bg-black/75 py-1 text-center text-[11px] font-semibold text-white">Esgotado</span>}
       </div>
       <div className={cn("flex flex-1 flex-col gap-1 p-3", compact && "p-2.5")}>
         <p className={cn("line-clamp-2 text-[13.5px] leading-snug text-ink", compact && "text-[12.5px]")}>{p.name}</p>
@@ -43,15 +43,15 @@ export function ProductGrid({ products, className }: { products: Product[]; clas
   );
 }
 
-export function Section({ title, href, children, subtitle }: { title: React.ReactNode; href?: string; children: React.ReactNode; subtitle?: string }) {
+export function Section({ title, href, children, subtitle, band }: { title: React.ReactNode; href?: string; children: React.ReactNode; subtitle?: string; band?: boolean }) {
   return (
-    <section className="mt-6">
+    <section className={band ? "section-band mt-6 overflow-hidden px-3 py-4 sm:px-5 sm:py-5" : "mt-6"}>
       <div className="mb-3 flex items-end justify-between gap-3 px-1">
         <div>
-          <h2 className="flex items-center gap-2.5 text-[19px] font-extrabold tracking-tight text-ink sm:text-2xl"><span className="h-5 w-1 shrink-0 rounded-full bg-brand-600 sm:h-6" aria-hidden />{title}</h2>
+          <h2 className="flex items-center gap-2.5 text-[19px] font-extrabold tracking-tight text-ink sm:text-2xl"><span className="h-5 w-1 shrink-0 rounded-full bg-promo sm:h-6" aria-hidden />{title}</h2>
           {subtitle && <p className="text-[13px] text-ink/55">{subtitle}</p>}
         </div>
-        {href && <Link href={href} className="shrink-0 rounded-full border border-line bg-white px-3 py-1 text-[13px] font-semibold text-brand-600 transition hover:border-brand-300">Ver tudo</Link>}
+        {href && <Link href={href} className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-[13px] font-semibold text-brand-600 transition hover:border-brand-300">Ver tudo</Link>}
       </div>
       {children}
     </section>

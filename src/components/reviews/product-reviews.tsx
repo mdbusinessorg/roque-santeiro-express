@@ -71,7 +71,7 @@ export function ProductReviews({ productId, rating, count, storeName }: { produc
         <div className="card p-4 text-sm">
           <div className="no-scrollbar flex gap-2 overflow-x-auto pb-1">
             {[["recentes", "Mais relevantes"], ["melhores", "Melhor classificação"], ["piores", "Pior classificação"], ["fotos", "Com fotos"]].map(([k, l]) => (
-              <button key={k} onClick={() => setSort(k)} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${sort === k ? "bg-ink text-white" : "bg-mist text-ink/70"}`}>{l}</button>
+              <button key={k} onClick={() => setSort(k)} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${sort === k ? "bg-white text-zinc-900" : "bg-mist text-ink/70"}`}>{l}</button>
             ))}
           </div>
           {msg && <p className="mt-2 rounded-xl bg-brand-50 p-2 text-xs">{msg}</p>}

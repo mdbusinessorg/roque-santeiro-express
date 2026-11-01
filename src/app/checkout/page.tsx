@@ -1,5 +1,7 @@
 "use client";
 
+import { track } from "@/lib/tracking";
+
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -28,6 +30,7 @@ export default function CheckoutPage() {
 
   useEffect(() => { if (!loading && !user) router.replace("/entrar?next=/checkout"); }, [loading, user, router]);
   useEffect(() => { if (profile) setF((x) => ({ ...x, name: x.name || profile.full_name || "", phone: x.phone || profile.phone || "" })); }, [profile]);
+  useEffect(() => { if (items.length) track("InitiateCheckout", { value: subtotal, currency: "AOA", num_items: items.reduce((a, i) => a + i.quantity, 0), content_ids: items.map((i) => i.product_id) }); }, [items.length > 0]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     const ids = Object.keys(groups);
     if (!ids.length) return;

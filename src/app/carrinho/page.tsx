@@ -1,5 +1,7 @@
 "use client";
 
+import { RecoRail } from "@/components/recs/reco-rail";
+
 import Link from "next/link";
 import { Minus, Plus, ShoppingBag, Store, Trash2 } from "lucide-react";
 import { useCart } from "@/lib/cart/cart";
@@ -56,6 +58,7 @@ export default function CartPage() {
         <p className="mt-1 text-xs text-ink/50">{Object.keys(groups).length} {Object.keys(groups).length === 1 ? "loja" : "lojas"} neste carrinho</p>
         <Link href="/checkout" className="btn-primary mt-4 h-12 w-full">Finalizar compra</Link>
       </aside>
+      <div className="md:col-span-full">{items[0] && <RecoRail kind="bought_together" productId={items[0].product_id} exclude={items.map((i) => i.product_id)} title="Complete a sua compra" />}</div>
     </div>
   );
 }

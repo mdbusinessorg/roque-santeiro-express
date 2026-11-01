@@ -10,7 +10,7 @@ export type Product = {
   id: string; store_id: string; category_id: string | null; slug: string; name: string; description: string | null;
   brand: string | null; sku: string | null; price: number; compare_at_price: number | null; stock: number;
   images: string[]; specs: Record<string, string>; status: string; featured: boolean; sponsored: boolean;
-  sold_count: number; rating: number; rating_count: number; created_at: string;
+  sold_count: number; rating: number; rating_count: number; rank_score?: number; created_at: string;
   stores?: Pick<Store, "id" | "name" | "slug" | "is_official" | "logo_url" | "province"> | null;
   categories?: Pick<Category, "id" | "name" | "slug"> | null;
 };

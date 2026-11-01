@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { RecoRail } from "@/components/recs/reco-rail";
 import { Zap } from "lucide-react";
 import { getCategories, getProducts, getStores } from "@/lib/data/queries";
 import { ProductCard, ProductGrid, Section } from "@/components/store/product-card";
@@ -49,9 +50,12 @@ export default async function Home() {
       </Section>
 
       <Section title="Produtos em destaque" href="/pesquisa"><ProductGrid products={featured.products} /></Section>
-      <Section title="Mais vendidos" href="/pesquisa?ordem=vendidos"><ProductGrid products={all.products.slice(0, 10)} /></Section>
+      {all.products.some((x) => x.sold_count > 0) && <Section title="Mais vendidos" href="/pesquisa?ordem=vendidos"><ProductGrid products={[...all.products].filter((x) => x.sold_count > 0).sort((a, b) => b.sold_count - a.sold_count).slice(0, 10)} /></Section>}
       <Section title="Novidades" href="/pesquisa?ordem=novos"><ProductGrid products={fresh.products} /></Section>
       <RecentlyViewed />
+      <RecoRail kind="for_you" title="Recomendados para si" subtitle="Com base no que vê e compra" />
+      <RecoRail kind="popular_week" title="Populares esta semana" subtitle="Mais procurados nos últimos 7 dias" />
+      <RecoRail kind="top_rated" title="Mais bem avaliados" subtitle="Ranking por avaliações verificadas" href="/pesquisa?ordem=avaliacao" />
 
       <section className="card mt-8 overflow-hidden p-6 sm:p-10">
         <WordsStagger className="text-[22px] font-bold leading-snug tracking-tight text-ink sm:text-3xl">

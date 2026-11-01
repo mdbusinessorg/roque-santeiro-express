@@ -10,11 +10,11 @@ import { SellerNav } from "@/components/seller/seller-nav";
 import { StoreGate } from "@/components/seller/store-gate";
 
 type Row = {
-  id: string; status: string; delivery_method: string; shipping_fee: number; subtotal: number; commission_amount: number; seller_net: number; tracking_code: string | null; created_at: string;
+  id: string; status: string; delivery_method: string; shipping_fee: number; subtotal: number; commission_amount: number; seller_net: number; tracking_code: string | null; carrier: string | null; estimated_delivery: string | null; created_at: string;
   orders: { number: number; payment_status: string; contact_name: string; contact_phone: string; address: Record<string, string> };
   order_items: { id: string; name: string; quantity: number; line_total: number }[];
 };
-const NEXT = ["confirmed", "preparing", "ready", "shipped", "delivered", "cancelled"];
+const NEXT = ["confirmed", "preparing", "packed", "handed_over", "in_transit", "at_hub", "out_for_delivery", "delivered", "exception", "cancelled", "returned"];
 
 export default function SellerOrders() {
   const { store } = useMyStore("/vendedor/encomendas");
@@ -29,12 +29,13 @@ export default function SellerOrders() {
 
   async function setStatus(id: string, status: string) {
     if (status === "cancelled" && !confirm("Cancelar esta encomenda? O stock é reposto.")) return;
-    const { error } = await supabaseBrowser().rpc("set_sub_order_status", { p_sub: id, p_status: status });
+    const note = ["exception", "cancelled", "returned", "at_hub"].includes(status) ? prompt(status === "at_hub" ? "Centro de distribuição (opcional)" : "Motivo (visível para o cliente)") : null;
+    const { error } = await supabaseBrowser().rpc("set_sub_order_status", { p_sub: id, p_status: status, p_note: note });
     setMsg(error ? rpcError(error) : null); load();
   }
-  async function setTracking(id: string, code: string) {
-    const { error } = await supabaseBrowser().rpc("set_tracking", { p_sub: id, p_code: code });
-    setMsg(error ? rpcError(error) : "Código de seguimento guardado.");
+  async function setShipping(id: string, f: FormData) {
+    const { error } = await supabaseBrowser().rpc("set_shipping", { p_sub: id, p_carrier: String(f.get("c") ?? ""), p_code: String(f.get("t") ?? ""), p_eta: String(f.get("eta") ?? "") || null });
+    setMsg(error ? rpcError(error) : "Dados de envio guardados."); load();
   }
 
   return (
@@ -60,11 +61,13 @@ export default function SellerOrders() {
                     <option value={r.status}>{SUB_STATUS[r.status]}</option>
                     {NEXT.filter((s) => s !== r.status).map((s) => <option key={s} value={s}>{SUB_STATUS[s]}</option>)}
                   </select>
-                  <form onSubmit={(e) => { e.preventDefault(); setTracking(r.id, String(new FormData(e.currentTarget).get("t") ?? "")); }} className="flex flex-1 gap-2">
-                    <input name="t" defaultValue={r.tracking_code ?? ""} placeholder="Código de seguimento" className="input h-10 py-1.5 text-sm" />
-                    <button className="btn-ghost h-10 px-3 py-1.5">Guardar</button>
-                  </form>
                 </div>
+                <form onSubmit={(e) => { e.preventDefault(); setShipping(r.id, new FormData(e.currentTarget)); }} className="mt-2 grid gap-2 sm:grid-cols-[1fr_1fr_auto_auto]">
+                  <input name="c" defaultValue={r.carrier ?? (r.delivery_method === "seller" ? store?.name ?? "" : "")} placeholder="Transportador" className="input h-10 py-1.5 text-sm" />
+                  <input name="t" defaultValue={r.tracking_code ?? ""} placeholder="Código de seguimento" className="input h-10 py-1.5 text-sm" />
+                  <input name="eta" type="date" defaultValue={r.estimated_delivery ?? ""} aria-label="Previsão de entrega" className="input h-10 py-1.5 text-sm" />
+                  <button className="btn-ghost h-10 px-3 py-1.5">Guardar envio</button>
+                </form>
               </div>
             ))}
           </div>

@@ -7,6 +7,7 @@ import { Heart, MapPin, Search, ShoppingCart, User, Store } from "lucide-react";
 import { useCart } from "@/lib/cart/cart";
 import { useAuth, isStaff } from "@/lib/auth";
 import { supabaseBrowser } from "@/lib/supabase/client";
+import { NotificationBell } from "@/components/notifications/bell";
 
 type Suggest = { slug: string; name: string; images: string[] };
 
@@ -80,6 +81,7 @@ export function Header() {
               <User className="h-5 w-5" /><span className="hidden max-w-28 truncate md:inline">{user ? profile?.full_name?.split(" ")[0] || "Conta" : "Entrar"}</span>
             </Link>
             <Link href="/conta/favoritos" className="hidden rounded-full p-2 hover:bg-white/10 md:block" aria-label="Favoritos"><Heart className="h-5 w-5" /></Link>
+            <NotificationBell className="relative grid h-9 w-9 place-items-center rounded-full hover:bg-white/10" />
             <Link href="/carrinho" className="relative hidden rounded-full p-2 hover:bg-white/10 md:block" aria-label="Carrinho">
               <ShoppingCart className="h-5 w-5" />
               {count > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-white px-1 text-center text-[10px] font-bold leading-[18px] text-brand-600">{count}</span>}

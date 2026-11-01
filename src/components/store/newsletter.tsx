@@ -1,5 +1,7 @@
 "use client";
 
+import { track } from "@/lib/tracking";
+
 import { useState } from "react";
 import { Mail } from "lucide-react";
 import { supabaseBrowser } from "@/lib/supabase/client";
@@ -20,6 +22,7 @@ export function Newsletter() {
             e.preventDefault();
             setState("busy");
             const { error } = await supabaseBrowser().from("newsletter").insert({ email: email.trim().toLowerCase() });
+            if (!error) track("Lead", { content_name: "newsletter" });
             setState(error && !error.message.includes("duplicate") ? "err" : "ok");
           }}
         >

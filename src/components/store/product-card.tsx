@@ -16,8 +16,8 @@ export function ProductCard({ p, compact, className }: { p: Product; compact?: b
       </div>
       <div className={cn("flex flex-1 flex-col gap-1 p-3", compact && "p-2.5")}>
         <p className={cn("line-clamp-2 text-[13.5px] leading-snug text-ink", compact && "text-[12.5px]")}>{p.name}</p>
-        {p.rating_count > 0 && (
-          <p className="flex items-center gap-1 text-[11.5px] text-ink/60"><Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />{Number(p.rating).toFixed(1)} <span>({p.rating_count})</span>{p.sold_count > 0 && <span>· {p.sold_count} vendidos</span>}</p>
+        {(p.rating_count > 0 || p.sold_count > 0) && (
+          <p className="flex items-center gap-1 text-[11.5px] text-ink/60">{p.rating_count > 0 && <><Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />{Number(p.rating).toFixed(1)} <span>({p.rating_count})</span></>}{p.sold_count > 0 && <span>{p.rating_count > 0 && "· "}{p.sold_count} vendidos</span>}</p>
         )}
         <div className="mt-auto pt-1">
           <p className={cn("text-[16.5px] font-extrabold tracking-tight", off > 0 ? "text-brand-600" : "text-ink")}>{kz(p.price)}</p>

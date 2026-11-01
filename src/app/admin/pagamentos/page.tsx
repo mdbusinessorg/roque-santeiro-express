@@ -1,5 +1,7 @@
 "use client";
 
+import { sendServerPurchase } from "@/lib/tracking";
+
 import { useCallback, useEffect, useState } from "react";
 import { FileText } from "lucide-react";
 import { supabaseBrowser } from "@/lib/supabase/client";
@@ -33,6 +35,7 @@ export default function AdminPayments() {
   async function setPay(o: Row, status: string) {
     if (!confirm(`Marcar encomenda #${o.number} como "${PAY_STATUS[status]}"? Confirme que verificou o pagamento no banco.`)) return;
     const { error } = await supabaseBrowser().rpc("admin_set_payment", { p_order: o.id, p_status: status });
+    if (!error && status === "paid") void sendServerPurchase(o.id);
     setMsg(error ? rpcError(error) : `#${o.number}: ${PAY_STATUS[status]}`); load();
   }
   async function setPayout(p: Payout, status: string) {

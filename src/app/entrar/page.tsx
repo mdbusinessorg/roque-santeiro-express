@@ -1,5 +1,7 @@
 "use client";
 
+import { track } from "@/lib/tracking";
+
 import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -32,6 +34,7 @@ function AuthForm() {
       return;
     }
     if (!res.data.session) { setMsg("Conta criada. Verifique o seu email para confirmar."); return; }
+    if (mode !== "login") track("CompleteRegistration", { status: true });
     await refresh();
     router.replace(next);
   }

@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useAuth, isStaff } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
-const tabs = [["/admin", "Vendedores"], ["/admin/pagamentos", "Pagamentos e encomendas"], ["/admin/config", "Configuração"]];
+const tabs = [["/admin", "Vendedores"], ["/admin/pagamentos", "Pagamentos e encomendas"], ["/admin/avaliacoes", "Avaliações"], ["/admin/tracking", "Tracking"], ["/admin/config", "Configuração"]];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const { user, profile, loading } = useAuth();

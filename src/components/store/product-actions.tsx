@@ -1,5 +1,8 @@
 "use client";
 
+import { motion, AnimatePresence } from "motion/react";
+import { interact, track } from "@/lib/tracking";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Heart, Minus, Plus, ShoppingCart } from "lucide-react";
@@ -22,7 +25,14 @@ export function ProductActions({ item }: { item: Omit<CartItem, "quantity"> }) {
     const sb = supabaseBrowser();
     if (fav) await sb.from("wishlists").delete().eq("user_id", user.id).eq("product_id", item.product_id);
     else await sb.from("wishlists").upsert({ user_id: user.id, product_id: item.product_id });
+    if (!fav) { track("AddToWishlist", { content_ids: [item.product_id], content_type: "product", value: Number(item.price), currency: "AOA" }); interact({ kind: "wishlist", product_id: item.product_id }); }
     setFav(!fav);
+  }
+  function addCart(go?: boolean) {
+    add(item, qty);
+    track("AddToCart", { content_ids: [item.product_id], content_type: "product", value: Number(item.price) * qty, currency: "AOA", num_items: qty });
+    interact({ kind: "cart", product_id: item.product_id });
+    if (go) router.push("/carrinho"); else { setAdded(true); setTimeout(() => setAdded(false), 1800); }
   }
 
   return (
@@ -37,14 +47,20 @@ export function ProductActions({ item }: { item: Omit<CartItem, "quantity"> }) {
           {out ? "Esgotado" : item.stock < 10 ? `Só restam ${item.stock}` : "Em stock"}
         </span>
         <button onClick={toggleFav} aria-label="Favorito" className="glass ml-auto grid h-11 w-11 place-items-center rounded-full">
-          <Heart className={cn("h-5 w-5", fav ? "fill-red-500 text-red-500" : "text-brand-700")} />
+          <motion.span key={String(fav)} initial={{ scale: 0.6 }} animate={{ scale: [0.6, 1.25, 1] }} transition={{ duration: 0.35 }} className="grid place-items-center">
+            <Heart className={cn("h-5 w-5", fav ? "fill-brand-600 text-brand-600" : "text-ink/70")} />
+          </motion.span>
         </button>
       </div>
       <div className="fixed inset-x-0 bottom-[84px] z-30 flex gap-2 px-3 md:static md:px-0">
-        <button disabled={out} onClick={() => { add(item, qty); setAdded(true); setTimeout(() => setAdded(false), 1800); }} className="btn-ghost h-12 flex-1 border-brand-200 bg-white/90">
-          {added ? <Check className="h-5 w-5" /> : <ShoppingCart className="h-5 w-5" />}{added ? "Adicionado" : "Adicionar"}
+        <button disabled={out} onClick={() => addCart()} className="btn-ghost h-12 flex-1 border-brand-200 bg-white/90">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span key={String(added)} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} transition={{ duration: 0.18 }} className="flex items-center gap-2">
+              {added ? <Check className="h-5 w-5 text-emerald-600" /> : <ShoppingCart className="h-5 w-5" />}{added ? "Adicionado" : "Adicionar"}
+            </motion.span>
+          </AnimatePresence>
         </button>
-        <button disabled={out} onClick={() => { add(item, qty); router.push("/carrinho"); }} className="btn-primary h-12 flex-1">Comprar agora</button>
+        <button disabled={out} onClick={() => addCart(true)} className="btn-primary h-12 flex-1">Comprar agora</button>
       </div>
     </div>
   );

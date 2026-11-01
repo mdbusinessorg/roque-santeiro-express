@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-const tabs = [["/vendedor", "Resumo"], ["/vendedor/produtos", "Produtos"], ["/vendedor/encomendas", "Encomendas"], ["/vendedor/loja", "Perfil da loja"]];
+const tabs = [["/vendedor", "Resumo"], ["/vendedor/produtos", "Produtos"], ["/vendedor/encomendas", "Encomendas"], ["/vendedor/avaliacoes", "Avaliações"], ["/vendedor/loja", "Perfil da loja"]];
 
 export function SellerNav() {
   const path = usePathname();

@@ -28,8 +28,9 @@ export async function getProducts(o: Opts = {}): Promise<{ products: Product[]; 
     case "preco_asc": q = q.order("price"); break;
     case "preco_desc": q = q.order("price", { ascending: false }); break;
     case "novos": q = q.order("created_at", { ascending: false }); break;
-    case "avaliacao": q = q.order("rating", { ascending: false }); break;
-    default: q = q.order("sponsored", { ascending: false }).order("sold_count", { ascending: false });
+    case "avaliacao": q = q.order("rank_score", { ascending: false }); break;
+    case "vendidos": q = q.order("sold_count", { ascending: false }); break;
+    default: q = q.order("rank_score", { ascending: false }).order("created_at", { ascending: false });
   }
   const { data, count } = await q.range((page - 1) * limit, page * limit - 1);
   return { products: (data as Product[]) ?? [], total: count ?? 0 };

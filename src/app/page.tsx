@@ -28,7 +28,7 @@ export default async function Home() {
 
   return (
     <div className="pt-3">
-      <Hero featured={featured.products} all={all.products} />
+      <Hero featured={featured.products} all={all.products} deals={deals.products} fresh={fresh.products} cats={cats} />
       <TrustMarquee />
       <CategoryStrip cats={cats} />
       <QuadCards products={all.products} />

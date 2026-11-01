@@ -1,13 +1,9 @@
 import Link from "next/link";
-import { BadgeCheck, CreditCard, Headphones, ShieldCheck, Store as StoreIcon, Truck, Zap } from "lucide-react";
+import { ArrowRight, BadgeCheck, CreditCard, Headphones, ShieldCheck, Store as StoreIcon, Truck } from "lucide-react";
 import type { Category, Product } from "@/lib/types";
 import { kz } from "@/lib/utils";
-import { AnimatedGradient } from "@/components/effects/animated-gradient";
-import { BlurReveal } from "@/components/effects/blur-reveal";
-import { HighlightedText } from "@/components/effects/highlighted-text";
-import { FlowButton } from "@/components/effects/flow-button";
+import { HeroSlider, type HeroSlide } from "@/components/store/hero-slider";
 import { Marquee } from "@/components/effects/marquee";
-import { SpecialText } from "@/components/effects/special-text";
 
 const trust = [
   { icon: Truck, t: "Entrega em todas as províncias" },
@@ -18,76 +14,74 @@ const trust = [
   { icon: StoreIcon, t: "Centenas de lojas angolanas" },
 ];
 
-const STAGE: { img: string; cls: string; shadow: string }[] = [
-  { img: "/p/tv.webp", cls: "left-[16%] top-[2%] w-[60%] z-10", shadow: "w-[70%]" },
-  { img: "/p/laptop.webp", cls: "left-[0%] bottom-[8%] w-[44%] z-20", shadow: "w-[80%]" },
-  { img: "/p/smartphone.webp", cls: "right-[3%] bottom-[6%] w-[25%] z-30", shadow: "w-[60%]" },
-  { img: "/p/earbuds.webp", cls: "left-[47%] bottom-[-2%] w-[17%] z-40", shadow: "w-[70%]" },
-  { img: "/p/sneakers.webp", cls: "right-[0%] top-[6%] hidden w-[27%] sm:block z-0", shadow: "w-[75%]" },
-];
-const HERO_POINTS = [
-  { icon: Truck, t: "Entrega nas 18 províncias" },
-  { icon: ShieldCheck, t: "Compra protegida" },
-  { icon: BadgeCheck, t: "Lojas verificadas" },
-];
+const pct = (p: Product) => (p.compare_at_price && p.compare_at_price > p.price ? Math.round((1 - p.price / p.compare_at_price) * 100) : 0);
+const DEAL_TITLES = ["Grande saldo!", "Oferta da semana!", "Preço especial!", "Promoção!"];
 
-export function Hero({ featured, all = [] }: { featured: Product[]; all?: Product[] }) {
-  const pool = [...featured, ...all];
-  const byImg = (src: string) => pool.find((p) => p.images?.[0] === src);
-  const tags = [byImg("/p/tv.webp"), byImg("/p/smartphone.webp")];
+function PromoCard({ href, image, tag, title, sub, tone }: { href: string; image?: string; tag?: string; title: React.ReactNode; sub: string; tone: string }) {
   return (
-    <section className="relative mt-3 overflow-hidden rounded-[1.75rem] border border-line bg-white shadow-[0_24px_60px_-40px_rgba(25,25,25,0.45)]">
-            <div className="pointer-events-none absolute right-[8%] top-[46%] hidden h-[380px] w-[380px] -translate-y-1/2 rounded-full border border-brand-600/15 bg-[radial-gradient(circle,rgba(18,169,139,0.07),transparent_65%)] sm:block" aria-hidden />
-      <div className="relative grid items-center gap-2 sm:grid-cols-[1fr_1.12fr]">
-        <div className="px-5 pt-7 sm:py-14 sm:pl-12 sm:pr-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-600"><Zap className="h-3.5 w-3.5 fill-brand-600" /><SpecialText>OFERTAS DA SEMANA</SpecialText></span>
-          <h1 className="mt-4 text-[31px] font-extrabold leading-[1.06] tracking-[-0.02em] text-ink sm:text-[54px]">
-            <BlurReveal>O grande mercado</BlurReveal>{" "}
-            <HighlightedText delay={0.6}>digital</HighlightedText>{" "}
-            <BlurReveal delay={0.3}>de Angola</BlurReveal>
-          </h1>
-          <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink/65 sm:text-base">Milhares de produtos de lojas angolanas num só carrinho. Pague com Multicaixa Express ou transferência e receba em casa.</p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            <FlowButton href="/pesquisa?ofertas=1">Ver ofertas</FlowButton>
-            <Link href="/vender" className="btn border border-line bg-white text-ink hover:border-brand-300 hover:text-brand-600">Abrir a minha loja</Link>
-          </div>
-          <ul className="mt-6 hidden flex-wrap gap-x-5 gap-y-2 text-[13px] font-medium text-ink/70 sm:flex">
-            {HERO_POINTS.map(({ icon: I, t }) => <li key={t} className="flex items-center gap-1.5"><I className="h-4 w-4 text-brand-600" />{t}</li>)}
-          </ul>
-        </div>
-        <div className="relative mx-auto h-[250px] w-full max-w-[460px] sm:h-[430px] sm:max-w-none">
-          {STAGE.map((s) => {
-            const p = byImg(s.img);
-            const inner = (
-              <>
-                <span className={`absolute bottom-[4%] left-1/2 h-[9%] -translate-x-1/2 rounded-[50%] bg-black/20 blur-md ${s.shadow}`} aria-hidden />
+    <Link href={href} className={`group relative flex min-h-[160px] flex-col overflow-hidden rounded-[1.4rem] border border-line p-3.5 transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-24px_rgba(24,24,27,0.45)] sm:p-5 lg:min-h-0 lg:flex-1 ${tone}`}>
+      <span className="pointer-events-none absolute bottom-3 right-3 h-16 w-16 bg-[radial-gradient(rgba(24,24,27,0.12)_1px,transparent_1.5px)] [background-size:8px_8px]" aria-hidden />
+      {tag && <span className="mb-1.5 self-start rounded-full bg-ink px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wide text-white sm:text-[10.5px]">{tag}</span>}
+      <p className="relative z-10 line-clamp-2 max-w-[62%] text-[14px] font-extrabold leading-tight text-ink sm:text-lg">{title}</p>
+      <p className="relative z-10 mt-1 line-clamp-1 max-w-[60%] text-[11.5px] text-ink/60 sm:text-sm">{sub}</p>
+      <span className="relative z-10 mt-auto inline-flex items-center gap-1 pt-3 text-[12px] font-bold text-ink underline decoration-ink/30 underline-offset-4 group-hover:text-promo sm:text-[13px]"><span className="sm:hidden">Ver</span><span className="hidden sm:inline">Comprar agora</span> <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" /></span>
+      {/* eslint-disable-next-line @next/next/no-img-element */ image && <img src={image} alt="" className="absolute -bottom-1 -right-2 aspect-square w-[46%] object-contain mix-blend-multiply transition duration-500 group-hover:-translate-y-1 group-hover:scale-105 sm:w-[46%]" />}
+    </Link>
+  );
+}
+
+export function Hero({ featured, all = [], deals = [], fresh = [], cats = [] }: { featured: Product[]; all?: Product[]; deals?: Product[]; fresh?: Product[]; cats?: Category[] }) {
+  const seen = new Set<string>();
+  const pool = [...deals, ...featured, ...all].filter((p) => p.images?.[0] && p.stock > 0 && !seen.has(p.id) && !!seen.add(p.id));
+  const slides: HeroSlide[] = pool.slice(0, 4).map((p, k) => ({
+    href: `/produto/${p.slug}`,
+    image: p.images[0],
+    tag: pct(p) ? `-${pct(p)}% de desconto` : "Em destaque",
+    title: pct(p) ? DEAL_TITLES[k % DEAL_TITLES.length] : "Novidade!",
+    subtitle: p.name,
+    price: p.price,
+    compare: pct(p) ? p.compare_at_price : null,
+    cta: p.brand ? `Comprar ${p.brand}` : "Comprar agora",
+  }));
+  const shown = new Set(slides.map((s) => s.href));
+  const best = [...deals].filter((p) => p.images?.[0] && pct(p)).sort((a, b) => pct(b) - pct(a))[0];
+  const nova = [...fresh, ...all].find((p) => p.images?.[0] && p.stock > 0 && !shown.has(`/produto/${p.slug}`) && p.id !== best?.id && p.category_id !== best?.category_id);
+
+  return (
+    <section className="mt-3">
+      <h1 className="sr-only">Roque Santeiro Express — o grande mercado digital de Angola</h1>
+      <div className="grid gap-3 lg:grid-cols-[230px_minmax(0,1fr)_290px]">
+        <aside className="hidden flex-col rounded-[1.4rem] border border-line bg-white p-4 lg:flex">
+          <p className="text-[15px] font-extrabold text-ink">Categorias</p>
+          <span className="mb-2 mt-1.5 h-0.5 w-6 rounded-full bg-promo" />
+          <nav className="flex flex-1 flex-col overflow-hidden">
+            {cats.slice(0, 8).map((c) => (
+              <Link key={c.id} href={`/categoria/${c.slug}`} className="group flex items-center gap-2.5 rounded-xl px-1.5 py-[7px] text-[13.5px] text-ink/75 transition hover:bg-mist hover:text-promo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={s.img} alt={p?.name ?? ""} className="relative aspect-square w-full object-contain mix-blend-multiply transition duration-500 group-hover:-translate-y-1.5 group-hover:scale-[1.03]" />
-              </>
-            );
-            return p
-              ? <Link key={s.img} href={`/produto/${p.slug}`} className={`group absolute ${s.cls}`}>{inner}</Link>
-              : <div key={s.img} className={`group absolute ${s.cls}`}>{inner}</div>;
-          })}
-          {tags[0] && (
-            <Link href={`/produto/${tags[0].slug}`} className="glass absolute left-[6%] top-[8%] z-50 rounded-2xl px-3 py-2 transition hover:-translate-y-0.5 sm:left-[4%] sm:top-[14%]">
-              <p className="max-w-[130px] truncate text-[11px] text-ink/60">{tags[0].name}</p>
-              <p className="text-sm font-extrabold text-brand-600">{kz(tags[0].price)}</p>
-            </Link>
-          )}
-          {tags[1] && (
-            <Link href={`/produto/${tags[1].slug}`} className="glass absolute bottom-[34%] right-[2%] z-50 hidden rounded-2xl px-3 py-2 transition hover:-translate-y-0.5 sm:block">
-              <p className="max-w-[130px] truncate text-[11px] text-ink/60">{tags[1].name}</p>
-              <p className="text-sm font-extrabold text-brand-600">{kz(tags[1].price)}</p>
-            </Link>
-          )}
-        </div>
-      </div>
-      <div className="relative overflow-hidden text-white">
-        <AnimatedGradient />
-        <div className="relative flex items-center justify-between gap-3 px-5 py-3 sm:px-12">
-          <p className="text-[13px] font-semibold sm:text-sm">Até <b className="text-base sm:text-lg">-40%</b> em electrónica<span className="hidden sm:inline">, casa e moda</span></p>
-          <Link href="/pesquisa?ofertas=1" className="shrink-0 rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-brand-600 transition active:scale-95">Comprar já</Link>
+                <img src={c.image_url ?? ""} alt="" className="h-6 w-6 shrink-0 object-contain" />
+                <span className="truncate">{c.name}</span>
+              </Link>
+            ))}
+          </nav>
+          <Link href="/categorias" className="mt-1 flex items-center gap-1 px-1.5 text-[13px] font-bold text-promo">Todas as categorias <ArrowRight className="h-3.5 w-3.5" /></Link>
+        </aside>
+        <HeroSlider slides={slides} />
+        <div className="grid grid-cols-2 gap-3 lg:flex lg:flex-col">
+          <PromoCard
+            href="/pesquisa?ofertas=1"
+            image={best?.images[0]}
+            title={best ? <>Até <span className="text-promo">-{pct(best)}%</span> de desconto</> : "Ofertas da semana"}
+            sub={best?.categories?.name ?? "Descontos reais"}
+            tone="bg-[linear-gradient(135deg,#fff3f2,#fde4e2)]"
+          />
+          <PromoCard
+            href={nova ? `/produto/${nova.slug}` : "/pesquisa?sort=new"}
+            image={nova?.images[0]}
+            tag="Novidade"
+            title={nova?.name ?? "Acabou de chegar"}
+            sub={nova ? kz(nova.price) : "Novos produtos"}
+            tone="bg-[linear-gradient(135deg,#f3f4f8,#e6e8ef)]"
+          />
         </div>
       </div>
     </section>

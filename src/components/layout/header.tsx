@@ -71,7 +71,7 @@ export function Header() {
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-3 pb-3 pt-[calc(env(safe-area-inset-top)+0.6rem)] sm:px-5">
           <Link href="/" className="shrink-0 leading-none" aria-label="Roque Santeiro Express">
             <span className="block text-[17px] font-extrabold tracking-tight sm:text-xl">Roque Santeiro</span>
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.3em] text-white/75">Express</span>
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ff7a7e]">Express</span>
           </Link>
           <div className="hidden flex-1 md:flex"><Suspense><SearchBox /></Suspense></div>
           <nav className="ml-auto flex items-center gap-1 text-sm">

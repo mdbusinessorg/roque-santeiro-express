@@ -1,23 +1,47 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import { Camera, Loader2, Star, X } from "lucide-react";
 import { supabaseBrowser, uploadMedia } from "@/lib/supabase/client";
 import { rpcError } from "@/lib/rpc-error";
 
 const ASPECTS = ["Qualidade", "Conforme a descrição", "Entrega", "Embalagem", "Atendimento"];
 
-export function StarPicker({ value, onChange, size = 28 }: { value: number; onChange: (v: number) => void; size?: number }) {
+const LABELS = ["Mau", "Razoável", "Bom", "Muito bom", "Excelente"];
+
+export function StarPicker({ value, onChange, size = 30 }: { value: number; onChange: (v: number) => void; size?: number }) {
   const [hover, setHover] = useState(0);
+  const [pop, setPop] = useState(0);
+  const shown = hover || value;
   return (
-    <div className="flex gap-1" role="radiogroup" aria-label="Classificação">
-      {[1, 2, 3, 4, 5].map((n) => (
-        <motion.button type="button" key={n} whileTap={{ scale: 0.8 }} whileHover={{ scale: 1.12 }} role="radio" aria-checked={value === n} aria-label={`${n} estrelas`}
-          onMouseEnter={() => setHover(n)} onMouseLeave={() => setHover(0)} onClick={() => onChange(n)}>
-          <Star style={{ width: size, height: size }} className={`transition-colors ${(hover || value) >= n ? "fill-amber-400 text-amber-400" : "text-line"}`} />
-        </motion.button>
-      ))}
+    <div className="flex items-end gap-1.5" role="radiogroup" aria-label="Classificação" onMouseLeave={() => setHover(0)}>
+      {[1, 2, 3, 4, 5].map((n) => {
+        const lit = shown >= n;
+        const peek = hover === n;
+        return (
+          <div key={n} className="relative">
+            <AnimatePresence>
+              {peek && (
+                <motion.span initial={{ opacity: 0, y: 6, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 4 }} className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-ink px-2 py-1 text-[11px] font-semibold text-white">
+                  {LABELS[n - 1]}
+                </motion.span>
+              )}
+            </AnimatePresence>
+            <motion.button
+              type="button" role="radio" aria-checked={value === n} aria-label={`${n} estrelas — ${LABELS[n - 1]}`}
+              animate={{ y: peek ? -7 : 0, scale: pop === n ? [1, 1.3, 1] : peek ? 1.15 : 1 }}
+              transition={{ duration: 0.32 }}
+              whileTap={{ scale: 0.85 }}
+              onMouseEnter={() => setHover(n)} onFocus={() => setHover(n)} onBlur={() => setHover(0)}
+              onClick={() => { const v = value === n ? 0 : n; onChange(v); setPop(v ? n : 0); setTimeout(() => setPop(0), 350); }}
+            >
+              <Star style={{ width: size, height: size }} className={`transition-colors duration-200 ${lit ? "fill-amber-400 text-amber-400" : "text-line"}`} />
+            </motion.button>
+          </div>
+        );
+      })}
+      {value > 0 && <span className="ml-2 pb-1 text-sm font-semibold text-ink/70">{LABELS[value - 1]}</span>}
     </div>
   );
 }

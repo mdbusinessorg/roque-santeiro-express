@@ -10,6 +10,8 @@ import { WordsStagger } from "@/components/effects/words-stagger";
 import { RecentlyViewed } from "@/components/store/recently-viewed";
 import { Newsletter } from "@/components/store/newsletter";
 import { StoreAvatar } from "@/components/store/store-avatar";
+import { FlexCarousel } from "@/components/effects/flex-carousel";
+import { kz } from "@/lib/utils";
 
 export const revalidate = 60;
 
@@ -35,6 +37,12 @@ export default async function Home() {
           {deals.products.map((p) => <ProductCard key={p.id} p={p} compact className="w-[42%] shrink-0 snap-start sm:w-48" />)}
         </div>
       </Section>
+
+      {featured.products.length >= 3 && (
+        <Section title="Escolhas da semana" subtitle="Toque para ver em destaque" href="/pesquisa">
+          <FlexCarousel items={featured.products.filter((p) => p.images?.[0]).slice(0, 5).map((p) => ({ src: p.images[0], alt: p.name, title: p.name, subtitle: kz(p.price), href: `/produto/${p.slug}` }))} height={300} />
+        </Section>
+      )}
 
       <Section title="Lojas em destaque" subtitle="Visite as lojas e compre directamente" href="/lojas">
         <div className="card flex flex-col items-center p-5">

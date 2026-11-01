@@ -4,6 +4,7 @@ import { track } from "@/lib/tracking";
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
+import { SlideCommit } from "@/components/effects/slide-commit";
 import { useRouter } from "next/navigation";
 import { Loader2, Lock, Store } from "lucide-react";
 import { useCart } from "@/lib/cart/cart";
@@ -66,7 +67,7 @@ export default function CheckoutPage() {
   const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => setF({ ...f, [k]: e.target.value });
 
   return (
-    <form onSubmit={placeOrder} className="pt-5 lg:grid lg:grid-cols-[1fr_360px] lg:gap-5">
+    <form id="checkout-form" onSubmit={placeOrder} className="pt-5 lg:grid lg:grid-cols-[1fr_360px] lg:gap-5">
       <div className="space-y-4">
         <h1 className="px-1 text-2xl font-extrabold tracking-tight">Finalizar compra</h1>
         <section className="card space-y-3 p-4">
@@ -112,7 +113,8 @@ export default function CheckoutPage() {
         <div className="flex justify-between text-sm"><span className="text-ink/60">Portes ({Object.keys(groups).length} {Object.keys(groups).length === 1 ? "loja" : "lojas"})</span><span>{kz(shipping)}</span></div>
         <div className="flex justify-between border-t border-brand-100 pt-2 text-lg font-extrabold"><span>Total</span><span className="text-brand-800">{kz(subtotal + shipping)}</span></div>
         {err && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{err}</p>}
-        <button disabled={busy} className="btn-primary h-12 w-full">{busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lock className="h-4 w-4" />}Confirmar encomenda</button>
+        <div className="lg:hidden"><SlideCommit label="Deslize para encomendar" doneLabel="Encomenda criada" errorLabel="Verifique os dados" disabled={busy} onConfirm={() => { const fm = document.getElementById("checkout-form") as HTMLFormElement | null; if (!fm?.reportValidity()) return false; fm.requestSubmit(); }} /></div>
+        <button disabled={busy} className="btn-primary hidden h-12 w-full lg:inline-flex">{busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lock className="h-4 w-4" />}Confirmar encomenda</button>
       </aside>
     </form>
   );

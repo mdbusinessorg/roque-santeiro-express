@@ -11,6 +11,8 @@ import { PROVINCES, STORE_STATUS, slugify } from "@/lib/utils";
 import { AnimatedGradient } from "@/components/effects/animated-gradient";
 import { SlideUpText } from "@/components/effects/slide-up-text";
 import { HighlightedText } from "@/components/effects/highlighted-text";
+import { DriftWall, type DriftItem } from "@/components/effects/drift-wall";
+import { CurvedLoop } from "@/components/effects/curved-loop";
 
 const perks = [
   { i: Store, t: "Loja pública própria", d: "Página com o seu logo, banner e produtos que qualquer pessoa pode visitar." },
@@ -29,6 +31,11 @@ export default function SellPage() {
   const [terms, setTerms] = useState(false);
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
+  const [wall, setWall] = useState<DriftItem[]>([]);
+  useEffect(() => {
+    supabaseBrowser().from("products").select("slug,name,images").eq("status", "active").limit(16).then(({ data }) =>
+      setWall((data ?? []).filter((p: { images: string[] }) => p.images?.[0]).map((p: { slug: string; name: string; images: string[] }) => ({ image: p.images[0], title: p.name, href: `/produto/${p.slug}` }))));
+  }, []);
 
   useEffect(() => {
     if (!user) { setExisting(null); return; }
@@ -56,14 +63,19 @@ export default function SellPage() {
 
   return (
     <div className="pt-3">
-      <section className="relative overflow-hidden rounded-[2rem] px-5 py-10 text-white sm:px-10">
+      <section className="relative overflow-hidden rounded-[2rem] px-5 py-12 text-white sm:px-10 sm:py-16">
         <AnimatedGradient />
+        <DriftWall items={wall} className="left-[45%] opacity-60 sm:left-[52%] sm:opacity-90" tileHeight={112} />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#0b0b0c] via-[#0b0b0c]/70 to-transparent" />
         <div className="relative max-w-xl">
           <h1 className="text-[30px] font-extrabold leading-tight tracking-tight sm:text-5xl"><SlideUpText>Venda para toda Angola</SlideUpText></h1>
           <p className="mt-3 text-white/85">Abra a sua loja no <HighlightedText inView barClassName="bg-white/25 [background-image:none]">Roque Santeiro Express</HighlightedText> e chegue a milhares de clientes.</p>
         </div>
       </section>
-      <div className="mt-4 grid grid-cols-2 gap-2.5 lg:grid-cols-4" id="comissoes">
+      <div className="-mx-3 mt-2 text-ink/85">
+        <CurvedLoop marqueeText="Venda para toda Angola ✦ Loja pública própria ✦ Comissão só quando vende ✦" shape="wave" speed={1.2} curveAmount={120} fontSize={44} fontWeight={800} edgeFade={0.15} interactive className="" separatorColor="" />
+      </div>
+      <div className="mt-2 grid grid-cols-2 gap-2.5 lg:grid-cols-4" id="comissoes">
         {perks.map(({ i: I, t, d }) => <div key={t} className="card p-4"><I className="h-6 w-6 text-brand-600" /><p className="mt-2 text-sm font-bold">{t}</p><p className="mt-1 text-xs text-ink/60">{d}</p></div>)}
       </div>
 

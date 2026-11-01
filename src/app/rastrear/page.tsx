@@ -5,6 +5,7 @@ import { Loader2, Search, Store } from "lucide-react";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { PAY_STATUS, SUB_STATUS } from "@/lib/utils";
 import { Timeline, type SubEvent } from "@/components/account/sub-order-card";
+import { Radar } from "@/components/effects/radar";
 
 type Res = { number: number; created_at: string; payment_status: string; subs: { id: string; store: string; status: string; carrier: string | null; tracking_code: string | null; estimated_delivery: string | null; events: SubEvent[] | null }[] };
 
@@ -20,8 +21,13 @@ export default function TrackPage() {
   }
   return (
     <div className="mx-auto max-w-xl pt-5">
-      <h1 className="px-1 text-2xl font-extrabold tracking-tight">Seguir encomenda</h1>
-      <p className="px-1 text-sm text-ink/60">Introduza o número da encomenda e o telefone usado na compra.</p>
+      <div className="flex items-center gap-4 px-1">
+        <div className="min-w-0 flex-1">
+          <h1 className="text-2xl font-extrabold tracking-tight">Seguir encomenda</h1>
+          <p className="text-sm text-ink/60">Introduza o número da encomenda e o telefone usado na compra.</p>
+        </div>
+        <div className={`w-20 shrink-0 transition-opacity sm:w-24 ${busy ? "opacity-100" : "opacity-60"}`}><Radar speed={busy ? 2.4 : 0.8} /></div>
+      </div>
       <form onSubmit={go} className="card mt-3 grid gap-2 p-4 sm:grid-cols-[1fr_1fr_auto]">
         <input required inputMode="numeric" value={num} onChange={(e) => setNum(e.target.value)} placeholder="N.º da encomenda (ex.: 1024)" className="input" />
         <input required inputMode="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Telefone" className="input" />

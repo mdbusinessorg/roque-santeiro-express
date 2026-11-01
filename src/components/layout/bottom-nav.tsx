@@ -30,7 +30,7 @@ export function BottomNav() {
                 </span>
                 {label}
                 {href === "/carrinho" && count > 0 && (
-                  <span className="brand-gradient absolute right-3 top-0 min-w-[18px] rounded-full px-1 text-center text-[10px] font-bold leading-[18px] text-white">{count}</span>
+                  <span className="promo-gradient absolute right-3 top-0 min-w-[18px] rounded-full px-1 text-center text-[10px] font-bold leading-[18px] text-white">{count}</span>
                 )}
               </Link>
             </li>

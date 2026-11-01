@@ -30,7 +30,7 @@ export default function CartPage() {
                 <div key={i.product_id} className="flex gap-3 border-t border-brand-100 py-3">
                   <Link href={`/produto/${i.slug}`} className="shrink-0">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={i.image} alt={i.name} className="h-20 w-20 rounded-2xl bg-brand-50 object-contain p-1.5" />
+                    <img src={i.image} alt={i.name} className="h-20 w-20 rounded-2xl bg-mist object-contain p-1.5" />
                   </Link>
                   <div className="min-w-0 flex-1">
                     <p className="line-clamp-2 text-sm">{i.name}</p>

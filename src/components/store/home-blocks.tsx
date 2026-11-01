@@ -18,31 +18,77 @@ const trust = [
   { icon: StoreIcon, t: "Centenas de lojas angolanas" },
 ];
 
-export function Hero({ featured }: { featured: Product[] }) {
+const STAGE: { img: string; cls: string; shadow: string }[] = [
+  { img: "/p/tv.webp", cls: "left-[16%] top-[2%] w-[60%] z-10", shadow: "w-[70%]" },
+  { img: "/p/laptop.webp", cls: "left-[0%] bottom-[8%] w-[44%] z-20", shadow: "w-[80%]" },
+  { img: "/p/smartphone.webp", cls: "right-[3%] bottom-[6%] w-[25%] z-30", shadow: "w-[60%]" },
+  { img: "/p/earbuds.webp", cls: "left-[47%] bottom-[-2%] w-[17%] z-40", shadow: "w-[70%]" },
+  { img: "/p/sneakers.webp", cls: "right-[0%] top-[6%] hidden w-[27%] sm:block z-0", shadow: "w-[75%]" },
+];
+const HERO_POINTS = [
+  { icon: Truck, t: "Entrega nas 18 províncias" },
+  { icon: ShieldCheck, t: "Compra protegida" },
+  { icon: BadgeCheck, t: "Lojas verificadas" },
+];
+
+export function Hero({ featured, all = [] }: { featured: Product[]; all?: Product[] }) {
+  const pool = [...featured, ...all];
+  const byImg = (src: string) => pool.find((p) => p.images?.[0] === src);
+  const tags = [byImg("/p/tv.webp"), byImg("/p/smartphone.webp")];
   return (
-    <section className="relative overflow-hidden rounded-[2rem] px-5 pb-7 pt-8 text-white sm:px-10 sm:py-14">
-      <AnimatedGradient />
-      <div className="relative max-w-xl">
-        <span className="glass-dark inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold"><Zap className="h-3.5 w-3.5 text-sky-200" /><SpecialText>OFERTAS DA SEMANA</SpecialText></span>
-        <h1 className="mt-4 text-[30px] font-extrabold leading-[1.08] tracking-tight sm:text-5xl">
-          <BlurReveal>O grande mercado</BlurReveal>{" "}
-          <HighlightedText delay={0.6} barClassName="bg-white/25 [background-image:none]">digital</HighlightedText>{" "}
-          <BlurReveal delay={0.3}>de Angola</BlurReveal>
-        </h1>
-        <p className="mt-3 max-w-md text-[15px] text-white/85">Compre de várias lojas num só carrinho. Pague com Multicaixa Express ou transferência e receba em casa.</p>
-        <div className="mt-6 flex flex-wrap gap-2">
-          <FlowButton href="/pesquisa?ofertas=1" light>Ver ofertas</FlowButton>
-          <Link href="/vender" className="glass-dark rounded-full px-5 py-3 text-sm font-semibold">Abrir a minha loja</Link>
+    <section className="relative mt-3 overflow-hidden rounded-[1.75rem] border border-line bg-white shadow-[0_24px_60px_-40px_rgba(25,25,25,0.45)]">
+            <div className="pointer-events-none absolute right-[8%] top-[46%] hidden h-[380px] w-[380px] -translate-y-1/2 rounded-full border border-brand-600/15 bg-[radial-gradient(circle,rgba(230,0,35,0.05),transparent_65%)] sm:block" aria-hidden />
+      <div className="relative grid items-center gap-2 sm:grid-cols-[1fr_1.12fr]">
+        <div className="px-5 pt-7 sm:py-14 sm:pl-12 sm:pr-4">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-600"><Zap className="h-3.5 w-3.5 fill-brand-600" /><SpecialText>OFERTAS DA SEMANA</SpecialText></span>
+          <h1 className="mt-4 text-[31px] font-extrabold leading-[1.06] tracking-[-0.02em] text-ink sm:text-[54px]">
+            <BlurReveal>O grande mercado</BlurReveal>{" "}
+            <HighlightedText delay={0.6}>digital</HighlightedText>{" "}
+            <BlurReveal delay={0.3}>de Angola</BlurReveal>
+          </h1>
+          <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink/65 sm:text-base">Milhares de produtos de lojas angolanas num só carrinho. Pague com Multicaixa Express ou transferência e receba em casa.</p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            <FlowButton href="/pesquisa?ofertas=1">Ver ofertas</FlowButton>
+            <Link href="/vender" className="btn border border-line bg-white text-ink hover:border-brand-300 hover:text-brand-600">Abrir a minha loja</Link>
+          </div>
+          <ul className="mt-6 hidden flex-wrap gap-x-5 gap-y-2 text-[13px] font-medium text-ink/70 sm:flex">
+            {HERO_POINTS.map(({ icon: I, t }) => <li key={t} className="flex items-center gap-1.5"><I className="h-4 w-4 text-brand-600" />{t}</li>)}
+          </ul>
+        </div>
+        <div className="relative mx-auto h-[250px] w-full max-w-[460px] sm:h-[430px] sm:max-w-none">
+          {STAGE.map((s) => {
+            const p = byImg(s.img);
+            const inner = (
+              <>
+                <span className={`absolute bottom-[4%] left-1/2 h-[9%] -translate-x-1/2 rounded-[50%] bg-black/20 blur-md ${s.shadow}`} aria-hidden />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={s.img} alt={p?.name ?? ""} className="relative aspect-square w-full object-contain mix-blend-multiply transition duration-500 group-hover:-translate-y-1.5 group-hover:scale-[1.03]" />
+              </>
+            );
+            return p
+              ? <Link key={s.img} href={`/produto/${p.slug}`} className={`group absolute ${s.cls}`}>{inner}</Link>
+              : <div key={s.img} className={`group absolute ${s.cls}`}>{inner}</div>;
+          })}
+          {tags[0] && (
+            <Link href={`/produto/${tags[0].slug}`} className="glass absolute left-[6%] top-[8%] z-50 rounded-2xl px-3 py-2 transition hover:-translate-y-0.5 sm:left-[4%] sm:top-[14%]">
+              <p className="max-w-[130px] truncate text-[11px] text-ink/60">{tags[0].name}</p>
+              <p className="text-sm font-extrabold text-brand-600">{kz(tags[0].price)}</p>
+            </Link>
+          )}
+          {tags[1] && (
+            <Link href={`/produto/${tags[1].slug}`} className="glass absolute bottom-[34%] right-[2%] z-50 hidden rounded-2xl px-3 py-2 transition hover:-translate-y-0.5 sm:block">
+              <p className="max-w-[130px] truncate text-[11px] text-ink/60">{tags[1].name}</p>
+              <p className="text-sm font-extrabold text-brand-600">{kz(tags[1].price)}</p>
+            </Link>
+          )}
         </div>
       </div>
-      <div className="relative mt-7 grid grid-cols-3 gap-2 sm:absolute sm:right-8 sm:top-1/2 sm:mt-0 sm:w-[40%] sm:-translate-y-1/2">
-        {featured.slice(0, 3).map((p) => (
-          <Link key={p.id} href={`/produto/${p.slug}`} className="glass rounded-2xl p-2 text-ink">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={p.images[0]} alt={p.name} className="aspect-square w-full rounded-xl bg-white object-contain p-1" />
-            <p className="mt-1 truncate text-[11px] font-semibold text-brand-800">{kz(p.price)}</p>
-          </Link>
-        ))}
+      <div className="relative overflow-hidden text-white">
+        <AnimatedGradient />
+        <div className="relative flex items-center justify-between gap-3 px-5 py-3 sm:px-12">
+          <p className="text-[13px] font-semibold sm:text-sm">Até <b className="text-base sm:text-lg">-40%</b> em electrónica<span className="hidden sm:inline">, casa e moda</span></p>
+          <Link href="/pesquisa?ofertas=1" className="shrink-0 rounded-full bg-white px-3.5 py-1.5 text-xs font-bold text-brand-600 transition active:scale-95">Comprar já</Link>
+        </div>
       </div>
     </section>
   );
@@ -50,8 +96,8 @@ export function Hero({ featured }: { featured: Product[] }) {
 
 export function TrustMarquee() {
   return (
-    <Marquee duration={32} className="glass mt-3 rounded-2xl py-2.5" pauseOnHover>
-      {trust.map(({ icon: I, t }) => <span key={t} className="flex items-center gap-2 px-5 text-[13px] font-medium text-brand-900"><I className="h-4 w-4 text-brand-600" />{t}</span>)}
+    <Marquee duration={32} className="card mt-3 rounded-2xl py-2.5" pauseOnHover>
+      {trust.map(({ icon: I, t }) => <span key={t} className="flex items-center gap-2 px-5 text-[13px] font-medium text-ink/80"><I className="h-4 w-4 text-brand-600" />{t}</span>)}
     </Marquee>
   );
 }
@@ -60,12 +106,12 @@ export function CategoryStrip({ cats }: { cats: Category[] }) {
   return (
     <div className="no-scrollbar -mx-3 mt-5 flex gap-3 overflow-x-auto px-3 sm:mx-0 sm:grid sm:grid-cols-9 sm:px-0">
       {cats.map((c) => (
-        <Link key={c.id} href={`/categoria/${c.slug}`} className="flex w-[74px] shrink-0 flex-col items-center gap-1.5 sm:w-auto">
-          <span className="card grid h-[66px] w-[66px] place-items-center overflow-hidden rounded-[1.4rem] p-2">
+        <Link key={c.id} href={`/categoria/${c.slug}`} className="group flex w-[74px] shrink-0 flex-col items-center gap-1.5 sm:w-auto">
+          <span className="grid h-[66px] w-[66px] place-items-center overflow-hidden rounded-[1.4rem] border border-line bg-white p-2 shadow-sm transition group-hover:border-brand-300 group-hover:shadow-md">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={c.image_url ?? ""} alt="" className="h-full w-full object-contain" />
           </span>
-          <span className="line-clamp-2 text-center text-[11.5px] font-medium leading-tight text-ink/80">{c.name}</span>
+          <span className="line-clamp-2 text-center text-[11.5px] font-medium leading-tight text-ink/80 group-hover:text-brand-600">{c.name}</span>
         </Link>
       ))}
     </div>
@@ -91,7 +137,7 @@ export function QuadCards({ products }: { products: Product[] }) {
               {items.map((p) => (
                 <Link key={p.id} href={`/produto/${p.slug}`} className="block">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.images[0]} alt={p.name} className="aspect-square w-full rounded-xl bg-brand-50 object-contain p-2" />
+                  <img src={p.images[0]} alt={p.name} className="aspect-square w-full rounded-xl bg-mist object-contain p-2" />
                   <p className="mt-1 line-clamp-1 text-[11.5px] text-ink/70">{p.name}</p>
                 </Link>
               ))}

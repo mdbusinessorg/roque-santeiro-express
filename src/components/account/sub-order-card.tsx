@@ -22,7 +22,7 @@ export function SubOrderCard({ s, onConfirm }: { s: SubOrder; onConfirm?: (id: s
       {s.order_items.map((i) => (
         <div key={i.id} className="mt-3 flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={i.image} alt="" className="h-14 w-14 rounded-xl bg-brand-50 object-contain p-1" />
+          <img src={i.image} alt="" className="h-14 w-14 rounded-xl bg-mist object-contain p-1" />
           <p className="line-clamp-2 flex-1 text-sm">{i.name} <span className="text-ink/50">× {i.quantity}</span></p>
           <p className="text-sm font-semibold">{kz(i.line_total)}</p>
         </div>

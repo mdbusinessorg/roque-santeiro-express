@@ -13,7 +13,7 @@ export default async function CategoriesPage() {
         {cats.map((c) => (
           <Link key={c.id} href={`/categoria/${c.slug}`} className="card flex flex-col items-center gap-2 p-3 text-center active:scale-[0.97]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.image_url ?? ""} alt="" className="aspect-square w-full rounded-2xl bg-brand-50 object-contain p-2" />
+            <img src={c.image_url ?? ""} alt="" className="aspect-square w-full rounded-2xl bg-mist object-contain p-2" />
             <span className="text-[12.5px] font-semibold leading-tight">{c.name}</span>
           </Link>
         ))}

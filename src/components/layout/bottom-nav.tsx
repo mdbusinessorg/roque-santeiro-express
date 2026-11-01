@@ -25,7 +25,7 @@ export function BottomNav() {
           return (
             <li key={href}>
               <Link href={href} className={cn("relative flex flex-col items-center gap-0.5 rounded-2xl py-1.5 text-[10.5px] font-medium transition", active ? "text-brand-600" : "text-ink/55")}>
-                <span className={cn("grid h-8 w-12 place-items-center rounded-full transition", active && "bg-brand-100/80")}>
+                <span className={cn("grid h-8 w-12 place-items-center rounded-full transition", active && "bg-brand-50")}>
                   <Icon className="h-[21px] w-[21px]" strokeWidth={active ? 2.4 : 1.9} />
                 </span>
                 {label}

@@ -30,7 +30,7 @@ export function RecentlyViewed() {
         {items.map((v) => (
           <Link key={v.slug} href={`/produto/${v.slug}`} className="card w-32 shrink-0 p-2">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={v.image} alt={v.name} className="aspect-square w-full rounded-xl bg-brand-50 object-contain p-1" />
+            <img src={v.image} alt={v.name} className="aspect-square w-full rounded-xl bg-mist object-contain p-1" />
             <p className="mt-1 line-clamp-1 text-[11.5px]">{v.name}</p>
             <p className="text-[13px] font-bold text-brand-800">{kz(v.price)}</p>
           </Link>

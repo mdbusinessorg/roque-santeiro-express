@@ -45,7 +45,7 @@ export default function SellerProducts() {
             {items.map((p) => (
               <div key={p.id} className="card flex items-center gap-3 p-3">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.images[0] || "/p/smartphone.webp"} alt="" className="h-14 w-14 shrink-0 rounded-xl bg-brand-50 object-contain p-1" />
+                <img src={p.images[0] || "/p/smartphone.webp"} alt="" className="h-14 w-14 shrink-0 rounded-xl bg-mist object-contain p-1" />
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-1 text-sm font-semibold">{p.name}</p>
                   <p className="text-xs text-ink/55">{kz(p.price)} · Stock {p.stock} · {p.sold_count} vendidos</p>

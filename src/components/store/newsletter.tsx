@@ -30,7 +30,7 @@ export function Newsletter() {
           <button disabled={state === "busy"} className="h-12 rounded-full bg-white px-5 text-sm font-bold text-brand-700">Subscrever</button>
         </form>
       )}
-      {state === "err" && <p className="mt-2 text-sm text-sky-100">Não foi possível subscrever. Tente novamente.</p>}
+      {state === "err" && <p className="mt-2 text-sm text-white/85">Não foi possível subscrever. Tente novamente.</p>}
     </section>
   );
 }

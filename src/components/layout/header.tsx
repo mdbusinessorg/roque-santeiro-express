@@ -39,11 +39,11 @@ function SearchBox() {
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         placeholder="Pesquisar no Roque Santeiro"
-        className="h-11 w-full rounded-full border border-white/70 bg-white/90 pl-11 pr-24 text-[15px] text-ink shadow-inner outline-none placeholder:text-ink/40 focus:ring-4 focus:ring-sky-300/50"
+        className="h-11 w-full rounded-full border border-white/70 bg-white/90 pl-11 pr-24 text-[15px] text-ink shadow-inner outline-none placeholder:text-ink/40 focus:ring-4 focus:ring-white/40"
         enterKeyHint="search"
         aria-label="Pesquisar"
       />
-      <button className="brand-gradient absolute right-1 top-1 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
+      <button className="absolute right-1 top-1 bg-ink transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
       {open && items.length > 0 && (
         <ul className="glass absolute inset-x-0 top-12 z-50 overflow-hidden rounded-2xl py-1 text-ink">
           {items.map((s) => (
@@ -70,7 +70,7 @@ export function Header() {
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-3 pb-3 pt-[calc(env(safe-area-inset-top)+0.6rem)] sm:px-5">
           <Link href="/" className="shrink-0 leading-none" aria-label="Roque Santeiro Express">
             <span className="block text-[17px] font-extrabold tracking-tight sm:text-xl">Roque Santeiro</span>
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.3em] text-sky-200">Express</span>
+            <span className="block text-[11px] font-semibold uppercase tracking-[0.3em] text-white/75">Express</span>
           </Link>
           <div className="hidden flex-1 md:flex"><Suspense><SearchBox /></Suspense></div>
           <nav className="ml-auto flex items-center gap-1 text-sm">
@@ -82,17 +82,17 @@ export function Header() {
             <Link href="/conta/favoritos" className="hidden rounded-full p-2 hover:bg-white/10 md:block" aria-label="Favoritos"><Heart className="h-5 w-5" /></Link>
             <Link href="/carrinho" className="relative hidden rounded-full p-2 hover:bg-white/10 md:block" aria-label="Carrinho">
               <ShoppingCart className="h-5 w-5" />
-              {count > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-sky-300 px-1 text-center text-[10px] font-bold leading-[18px] text-brand-900">{count}</span>}
+              {count > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-white px-1 text-center text-[10px] font-bold leading-[18px] text-brand-600">{count}</span>}
             </Link>
           </nav>
         </div>
         <div className="mx-auto max-w-7xl px-3 pb-3 md:hidden"><Suspense><SearchBox /></Suspense></div>
       </div>
       <div className="glass border-x-0 border-t-0">
-        <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-3 py-2 text-[13px] font-medium text-brand-900 sm:px-5">
-          <span className="flex shrink-0 items-center gap-1 pr-2 text-brand-700"><MapPin className="h-4 w-4" />Entregar em Luanda</span>
+        <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-3 py-2 text-[13px] font-medium text-ink sm:px-5">
+          <span className="flex shrink-0 items-center gap-1 pr-2 text-brand-600"><MapPin className="h-4 w-4" />Entregar em Luanda</span>
           {[["Ofertas", "/pesquisa?ofertas=1"], ["Mais vendidos", "/pesquisa?ordem=vendidos"], ["Novidades", "/pesquisa?ordem=novos"], ["Electrónica", "/categoria/electronica"], ["Telemóveis", "/categoria/telemoveis"], ["Moda", "/categoria/moda"], ["Casa", "/categoria/casa-cozinha"], ["Beleza", "/categoria/beleza"], ["Lojas", "/lojas"], ["Vender", "/vender"]].map(([l, h]) => (
-            <Link key={h} href={h} className="shrink-0 rounded-full px-3 py-1.5 hover:bg-brand-100/70">{l}</Link>
+            <Link key={h} href={h} className="shrink-0 rounded-full px-3 py-1.5 hover:bg-brand-50 hover:text-brand-600">{l}</Link>
           ))}
         </div>
       </div>

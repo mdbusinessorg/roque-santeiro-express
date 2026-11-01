@@ -11,6 +11,7 @@ import { RecentlyViewed } from "@/components/store/recently-viewed";
 import { Newsletter } from "@/components/store/newsletter";
 import { StoreAvatar } from "@/components/store/store-avatar";
 import { FlexCarousel } from "@/components/effects/flex-carousel";
+import { SnapShowcase } from "@/components/effects/snap-showcase";
 import { kz } from "@/lib/utils";
 
 export const revalidate = 60;
@@ -40,7 +41,8 @@ export default async function Home() {
 
       {featured.products.length >= 3 && (
         <Section title="Escolhas da semana" subtitle="Toque para ver em destaque" href="/pesquisa">
-          <FlexCarousel items={featured.products.filter((p) => p.images?.[0]).slice(0, 5).map((p) => ({ src: p.images[0], alt: p.name, title: p.name, subtitle: kz(p.price), href: `/produto/${p.slug}` }))} height={300} />
+          <div className="md:hidden"><SnapShowcase items={featured.products.filter((p) => p.images?.[0]).slice(0, 5).map((p) => ({ src: p.images[0], alt: p.name, title: p.name, subtitle: kz(p.price), href: `/produto/${p.slug}` }))} /></div>
+          <div className="hidden md:block"><FlexCarousel items={featured.products.filter((p) => p.images?.[0]).slice(0, 5).map((p) => ({ src: p.images[0], alt: p.name, title: p.name, subtitle: kz(p.price), href: `/produto/${p.slug}` }))} height={300} /></div>
         </Section>
       )}
 

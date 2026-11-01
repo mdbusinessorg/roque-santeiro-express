@@ -37,7 +37,7 @@ export function Hero({ featured, all = [] }: { featured: Product[]; all?: Produc
   const tags = [byImg("/p/tv.webp"), byImg("/p/smartphone.webp")];
   return (
     <section className="relative mt-3 overflow-hidden rounded-[1.75rem] border border-line bg-white shadow-[0_24px_60px_-40px_rgba(25,25,25,0.45)]">
-            <div className="pointer-events-none absolute right-[8%] top-[46%] hidden h-[380px] w-[380px] -translate-y-1/2 rounded-full border border-brand-600/15 bg-[radial-gradient(circle,rgba(230,0,35,0.05),transparent_65%)] sm:block" aria-hidden />
+            <div className="pointer-events-none absolute right-[8%] top-[46%] hidden h-[380px] w-[380px] -translate-y-1/2 rounded-full border border-brand-600/15 bg-[radial-gradient(circle,rgba(18,169,139,0.07),transparent_65%)] sm:block" aria-hidden />
       <div className="relative grid items-center gap-2 sm:grid-cols-[1fr_1.12fr]">
         <div className="px-5 pt-7 sm:py-14 sm:pl-12 sm:pr-4">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-600"><Zap className="h-3.5 w-3.5 fill-brand-600" /><SpecialText>OFERTAS DA SEMANA</SpecialText></span>

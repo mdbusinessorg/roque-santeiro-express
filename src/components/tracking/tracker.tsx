@@ -27,8 +27,8 @@ export function Tracker() {
           <p className="mt-1 text-[13px] text-ink/70">Usamos cookies essenciais para o carrinho e a sessão. Com a sua autorização, usamos também medição (estatísticas e recomendações) e marketing (Meta Pixel) para melhorar a loja e as campanhas.</p>
           {more && (
             <div className="mt-3 space-y-2 text-[13px]">
-              <label className="flex items-center justify-between gap-3"><span>Medição e recomendações</span><input type="checkbox" checked={an} onChange={(e) => setAn(e.target.checked)} className="h-4 w-4 accent-[#e60023]" /></label>
-              <label className="flex items-center justify-between gap-3"><span>Marketing (Meta Pixel)</span><input type="checkbox" checked={mk} onChange={(e) => setMk(e.target.checked)} className="h-4 w-4 accent-[#e60023]" /></label>
+              <label className="flex items-center justify-between gap-3"><span>Medição e recomendações</span><input type="checkbox" checked={an} onChange={(e) => setAn(e.target.checked)} className="h-4 w-4 accent-[#17365c]" /></label>
+              <label className="flex items-center justify-between gap-3"><span>Marketing (Meta Pixel)</span><input type="checkbox" checked={mk} onChange={(e) => setMk(e.target.checked)} className="h-4 w-4 accent-[#17365c]" /></label>
             </div>
           )}
           <div className="mt-3 flex flex-wrap gap-2">

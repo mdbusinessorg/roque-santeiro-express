@@ -21,7 +21,7 @@ export function Celebration({ number, total, items, eta }: { number: number; tot
         <motion.span className="absolute inset-0 rounded-full bg-white/20" initial={{ scale: 0 }} animate={{ scale: [0, 1.25, 1] }} transition={{ duration: 0.6 }} />
         <svg viewBox="0 0 52 52" className="relative h-14 w-14">
           <motion.circle cx="26" cy="26" r="24" fill="#fff" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 12, stiffness: 200, delay: 0.1 }} />
-          <motion.path d="M15 27 l7 7 l15 -16" fill="none" stroke="#e60023" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.45, delay: 0.45 }} />
+          <motion.path d="M15 27 l7 7 l15 -16" fill="none" stroke="#12a98b" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.45, delay: 0.45 }} />
         </svg>
       </div>
       <p className="mt-3 text-2xl font-extrabold"><BlurReveal delay={0.5}>Pagamento confirmado!</BlurReveal></p>

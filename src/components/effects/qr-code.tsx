@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 
 const inFinder = (r: number, c: number, s: number) => (r < 7 && c < 7) || (r < 7 && c >= s - 7) || (r >= s - 7 && c < 7);
 
-export function QRCode({ value, size = 200, fgColor = "#191919", bgColor = "#ffffff", className }: {
+export function QRCode({ value, size = 200, fgColor = "#17365c", bgColor = "#ffffff", className }: {
   value: string; size?: number; fgColor?: string; bgColor?: string; className?: string;
 }) {
   const qr = React.useMemo(() => { try { return QRCodeLib.create(value, { errorCorrectionLevel: "M" }); } catch { return null; } }, [value]);

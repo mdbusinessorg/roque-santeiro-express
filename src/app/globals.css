@@ -1,27 +1,35 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #fff4f5;
-  --color-brand-100: #ffe3e6;
-  --color-brand-200: #ffc4cb;
-  --color-brand-300: #ff8f9c;
-  --color-brand-400: #ff5a6c;
-  --color-brand-500: #ff3045;
-  --color-brand-600: #e60023;
-  --color-brand-700: #cc001f;
-  --color-brand-800: #b8001b;
-  --color-brand-900: #191919;
-  --color-ink: #191919;
-  --color-sky: #ff3045;
-  --color-line: #e8e8e8;
-  --color-mist: #f5f5f5;
+  --color-brand-50: #eef3f9;
+  --color-brand-100: #dbe5f1;
+  --color-brand-200: #b5c8e0;
+  --color-brand-300: #85a3c8;
+  --color-brand-400: #4f78a8;
+  --color-brand-500: #2a5487;
+  --color-brand-600: #17365c;
+  --color-brand-700: #132d4d;
+  --color-brand-800: #0f243e;
+  --color-brand-900: #263445;
+  --color-ink: #263445;
+  --color-sky: #12a98b;
+  --color-accent-50: #e7f7f3;
+  --color-accent-100: #c6ece3;
+  --color-accent-500: #12a98b;
+  --color-accent-600: #0e8f75;
+  --color-accent-700: #0b735e;
+  --color-amber: #f5a623;
+  --color-promo: #e60023;
+  --color-promo-50: #fff1f3;
+  --color-line: #e3e8ef;
+  --color-mist: #f4f6f9;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 :root {
-  --background: #f5f5f5;
-  --foreground: #191919;
+  --background: #f4f6f9;
+  --foreground: #263445;
 }
 
 html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
@@ -40,25 +48,25 @@ body {
   backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 8px 32px -12px rgba(25, 25, 25, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px -12px rgba(38, 52, 69, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
 }
 @utility glass-dark {
-  background: rgba(25, 25, 25, 0.45);
+  background: rgba(23, 54, 92, 0.5);
   backdrop-filter: blur(22px) saturate(180%);
   -webkit-backdrop-filter: blur(22px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.14);
 }
 @utility card {
   background: #ffffff;
-  border: 1px solid #e8e8e8;
+  border: 1px solid #e3e8ef;
   border-radius: 1.1rem;
-  box-shadow: 0 1px 2px rgba(25, 25, 25, 0.04), 0 12px 28px -20px rgba(25, 25, 25, 0.28);
+  box-shadow: 0 1px 2px rgba(38, 52, 69, 0.04), 0 12px 28px -20px rgba(38, 52, 69, 0.28);
 }
 @utility brand-gradient {
-  background: linear-gradient(135deg, #b8001b 0%, #e60023 55%, #ff3045 100%);
+  background: linear-gradient(135deg, #0f243e 0%, #17365c 55%, #2a5487 100%);
 }
 @utility text-gradient {
-  background: linear-gradient(90deg, #e60023, #ff3045);
+  background: linear-gradient(90deg, #17365c, #12a98b);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -76,7 +84,7 @@ body {
 @utility label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-brand-900/60; }
 
 @keyframes shimmer { 100% { transform: translateX(100%); } }
-.skeleton { position: relative; overflow: hidden; border-radius: 0.75rem; background: #ececec; }
+.skeleton { position: relative; overflow: hidden; border-radius: 0.75rem; background: #e9edf3; }
 .skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent); animation: shimmer 1.4s infinite; }
 
 @media (prefers-reduced-motion: reduce) {

@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 
-export function Signature({ text, className, color = "#191919", fontSize = 28 }: { text: string; className?: string; color?: string; fontSize?: number }) {
+export function Signature({ text, className, color = "#263445", fontSize = 28 }: { text: string; className?: string; color?: string; fontSize?: number }) {
   return (
     <svg className={className} viewBox={`0 0 ${text.length * fontSize * 0.55 + 20} ${fontSize * 1.6}`} height={fontSize * 1.6}>
       <motion.text

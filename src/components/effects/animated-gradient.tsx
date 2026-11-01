@@ -6,7 +6,7 @@ export function AnimatedGradient({ className, style }: { className?: string; sty
   return (
     <div className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)} style={style} aria-hidden>
       <div className="absolute inset-0 brand-gradient" />
-      <div className="absolute -left-1/4 -top-1/3 h-[140%] w-[80%] rounded-full bg-[#ff3045]/55 blur-3xl" style={{ animation: "rse-blob1 14s ease-in-out infinite alternate" }} />
+      <div className="absolute -left-1/4 -top-1/3 h-[140%] w-[80%] rounded-full bg-[#12a98b]/45 blur-3xl" style={{ animation: "rse-blob1 14s ease-in-out infinite alternate" }} />
       <div className="absolute -right-1/4 top-0 h-[120%] w-[70%] rounded-full bg-[#8f0016]/50 blur-3xl" style={{ animation: "rse-blob2 18s ease-in-out infinite alternate" }} />
       <div className="absolute bottom-[-40%] left-1/4 h-[90%] w-[60%] rounded-full bg-[#ff6b7a]/35 blur-3xl" style={{ animation: "rse-blob3 16s ease-in-out infinite alternate" }} />
       <div className="absolute inset-0 opacity-[0.12] [background-image:radial-gradient(white_1px,transparent_1px)] [background-size:18px_18px]" />

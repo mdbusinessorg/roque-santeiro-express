@@ -13,8 +13,9 @@ export type SubOrder = {
   order_items: { id: string; name: string; image: string; unit_price: number; quantity: number; line_total: number; product_id?: string }[];
   sub_order_events?: SubEvent[];
 };
-export const FLOW = ["new", "payment_processing", "payment_confirmed", "preparing", "packed", "handed_over", "in_transit", "at_hub", "out_for_delivery", "delivered"];
+export const FLOW = ["new", "payment_processing", "payment_confirmed", "preparing", "packed", "left_store", "handed_over", "in_transit", "at_hub", "out_for_delivery", "delivered"];
 const ALIAS: Record<string, string> = { confirmed: "preparing", ready: "packed", shipped: "handed_over" };
+const MILESTONES = ["payment_confirmed", "left_store", "in_transit", "delivered"];
 const fmt = (d: string) => new Date(d).toLocaleString("pt-AO", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
 
 export function Timeline({ status, events, createdAt }: { status: string; events: SubEvent[]; createdAt?: string }) {
@@ -25,7 +26,7 @@ export function Timeline({ status, events, createdAt }: { status: string; events
   const cur = ALIAS[status] ?? status;
   const bad = ["exception", "cancelled", "returned", "payment_failed"].includes(cur);
   const lastIdx = Math.max(FLOW.indexOf(cur), ...FLOW.map((s, i) => (reached.has(s) ? i : -1)));
-  const steps = FLOW.filter((s, i) => reached.has(s) || i <= lastIdx + 1 || s === "delivered").filter((s, i, a) => !(s.startsWith("payment") && !reached.has(s) && i < a.indexOf(cur)));
+  const steps = FLOW.filter((s, i) => reached.has(s) || i <= lastIdx + 1 || MILESTONES.includes(s)).filter((s, i, a) => !(s.startsWith("payment") && s !== "payment_confirmed" && !reached.has(s) && i < a.indexOf(cur)));
   return (
     <ol className="relative mt-4 space-y-0">
       {steps.map((s, i) => {
@@ -46,6 +47,18 @@ export function Timeline({ status, events, createdAt }: { status: string; events
       })}
       {bad && (
         <li className="mt-2 flex items-center gap-2 rounded-2xl bg-brand-50 p-3 text-sm font-semibold text-brand-700"><AlertTriangle className="h-4 w-4" />{SUB_STATUS[cur]}{reached.get(cur)?.note ? ` — ${reached.get(cur)?.note}` : ""}</li>
+      )}
+      {evs.length > 0 && (
+        <li className="mt-3 list-none">
+          <details className="rounded-2xl bg-mist p-3 text-xs">
+            <summary className="cursor-pointer font-semibold text-ink/70">Histórico completo ({evs.length})</summary>
+            <ul className="mt-2 space-y-1.5">
+              {[...evs].reverse().map((e, i) => (
+                <li key={e.id ?? i} className="flex justify-between gap-3"><span className="font-medium">{SUB_STATUS[e.status] ?? e.status}{e.note ? <span className="font-normal text-ink/55"> · {e.note}</span> : null}</span><span className="shrink-0 text-ink/45">{fmt(e.created_at)}</span></li>
+              ))}
+            </ul>
+          </details>
+        </li>
       )}
     </ol>
   );

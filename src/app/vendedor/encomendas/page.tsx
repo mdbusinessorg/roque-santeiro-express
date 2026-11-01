@@ -14,7 +14,7 @@ type Row = {
   orders: { number: number; payment_status: string; contact_name: string; contact_phone: string; address: Record<string, string> };
   order_items: { id: string; name: string; quantity: number; line_total: number }[];
 };
-const NEXT = ["confirmed", "preparing", "packed", "handed_over", "in_transit", "at_hub", "out_for_delivery", "delivered", "exception", "cancelled", "returned"];
+const NEXT = ["confirmed", "preparing", "packed", "left_store", "handed_over", "in_transit", "at_hub", "out_for_delivery", "delivered", "exception", "cancelled", "returned"];
 
 export default function SellerOrders() {
   const { store } = useMyStore("/vendedor/encomendas");

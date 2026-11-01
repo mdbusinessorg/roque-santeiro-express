@@ -33,7 +33,7 @@ export const PROVINCES = [
 
 export const SUB_STATUS: Record<string, string> = {
   new: "Encomenda recebida", confirmed: "Confirmada pela loja", preparing: "Em preparação", packed: "Embalada", ready: "Pronta para entrega",
-  handed_over: "Entregue ao transportador", shipped: "Expedida", in_transit: "Em trânsito", at_hub: "No centro de distribuição",
+  left_store: "Saiu do armazém/loja", handed_over: "Entregue ao transportador", shipped: "Expedida", in_transit: "Em trânsito", at_hub: "No centro de distribuição",
   out_for_delivery: "Em distribuição", delivered: "Entregue", exception: "Tentativa de entrega falhada", cancelled: "Cancelada", returned: "Devolvida",
   payment_processing: "Pagamento em verificação", payment_confirmed: "Pagamento confirmado", payment_failed: "Pagamento não confirmado", refunded: "Reembolsada",
 };

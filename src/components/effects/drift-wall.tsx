@@ -28,9 +28,9 @@ export function DriftWall({ items, columns = 4, tileHeight = 132, gap = 14, tilt
         {cols.map((list, c) => {
           const dur = (list.length * (tileHeight + gap)) / (speed * (1 + ((c * 37) % 45) / 100));
           return (
-            <div key={c} className="flex w-[22%] max-w-[200px] shrink-0 flex-col" style={{ gap, animation: reduce ? undefined : `drift-${c % 2 ? "down" : "up"} ${dur}s linear infinite` }}>
+            <div key={c} className="flex w-[26%] min-w-[84px] max-w-[200px] shrink-0 flex-col" style={{ gap, animation: reduce ? undefined : `drift-${c % 2 ? "down" : "up"} ${dur}s linear infinite` }}>
               {[...list, ...list].map((it, i) => (
-                <Link key={i} href={it.href} tabIndex={-1} className="pointer-events-auto block overflow-hidden rounded-2xl bg-white/90 shadow-xl" style={{ height: tileHeight }}>
+                <Link key={i} href={it.href} tabIndex={-1} className="pointer-events-auto block shrink-0 overflow-hidden rounded-2xl bg-white/90 shadow-xl" style={{ height: tileHeight }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={it.image} alt="" decoding="async" className="h-full w-full object-contain p-3" />
                 </Link>

@@ -58,7 +58,7 @@ export default function AdminPayments() {
         </div>
       )}
       <div className="no-scrollbar -mx-3 mb-3 flex gap-2 overflow-x-auto px-3">
-        {FILTERS.map((f) => <button key={f} onClick={() => setFilter(f)} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${filter === f ? "bg-white text-zinc-900" : "bg-surface text-brand-900"}`}>{PAY_STATUS[f]}</button>)}
+        {FILTERS.map((f) => <button key={f} onClick={() => setFilter(f)} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${filter === f ? "bg-brand-700 text-white" : "bg-white/80 text-brand-900"}`}>{PAY_STATUS[f]}</button>)}
       </div>
       {msg && <p className="mb-3 rounded-xl bg-brand-50 p-3 text-sm">{msg}</p>}
       {!rows ? <div className="skeleton h-40" /> : !rows.length ? <p className="card p-8 text-center text-sm text-ink/60">Sem encomendas neste estado.</p> : (

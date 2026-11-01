@@ -23,7 +23,7 @@ export function HighlightedText({ children, className, from = "bottom", delay = 
       viewport={{ once }}
     >
       <motion.span
-        className={cn("absolute inset-0 -left-[0.15em] -right-[0.18em] z-0 promo-gradient", barClassName)}
+        className={cn("absolute inset-0 -left-[0.15em] -right-[0.18em] z-0 brand-gradient", barClassName)}
         variants={fromVariants[from]}
         transition={{ type: "spring", damping: 30, stiffness: 300, delay }}
       />

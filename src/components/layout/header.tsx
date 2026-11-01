@@ -33,18 +33,18 @@ function SearchBox() {
       className="relative flex-1"
       onSubmit={(e) => { e.preventDefault(); setOpen(false); router.push(`/pesquisa?q=${encodeURIComponent(q.trim())}`); }}
     >
-      <Search className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-white/55" />
+      <Search className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-brand-600" />
       <input
         value={q}
         onChange={(e) => { setQ(e.target.value); setOpen(true); }}
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         placeholder="Pesquisar no Roque Santeiro"
-        className="h-11 w-full rounded-full border border-white/10 bg-white/[0.07] pl-11 pr-24 text-[15px] text-white shadow-inner outline-none placeholder:text-white/40 focus:border-white/25 focus:ring-4 focus:ring-promo/20"
+        className="h-11 w-full rounded-full border border-white/70 bg-white/90 pl-11 pr-24 text-[15px] text-ink shadow-inner outline-none placeholder:text-ink/40 focus:ring-4 focus:ring-white/40"
         enterKeyHint="search"
         aria-label="Pesquisar"
       />
-      <button className="absolute right-1 top-1 promo-gradient transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
+      <button className="absolute right-1 top-1 bg-ink transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
       {open && items.length > 0 && (
         <ul className="glass absolute inset-x-0 top-12 z-50 overflow-hidden rounded-2xl py-1 text-ink">
           {items.map((s) => (
@@ -67,7 +67,7 @@ export function Header() {
   const { user, profile } = useAuth();
   return (
     <header className="sticky top-0 z-40">
-      <div className="brand-gradient border-b border-white/[0.06] text-white">
+      <div className="brand-gradient text-white">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-3 pb-3 pt-[calc(env(safe-area-inset-top)+0.6rem)] sm:px-5">
           <Link href="/" className="shrink-0 leading-none" aria-label="Roque Santeiro Express">
             <span className="block text-[17px] font-extrabold tracking-tight sm:text-xl">Roque Santeiro</span>
@@ -84,7 +84,7 @@ export function Header() {
             <NotificationBell className="relative grid h-9 w-9 place-items-center rounded-full hover:bg-white/10" />
             <Link href="/carrinho" className="relative hidden rounded-full p-2 hover:bg-white/10 md:block" aria-label="Carrinho">
               <ShoppingCart className="h-5 w-5" />
-              {count > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-promo px-1 text-center text-[10px] font-bold leading-[18px] text-white">{count}</span>}
+              {count > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-white px-1 text-center text-[10px] font-bold leading-[18px] text-brand-600">{count}</span>}
             </Link>
           </nav>
         </div>

@@ -53,7 +53,7 @@ export function ProductActions({ item }: { item: Omit<CartItem, "quantity"> }) {
         </button>
       </div>
       <div className="fixed inset-x-0 bottom-[84px] z-30 flex gap-2 px-3 md:static md:px-0">
-        <button disabled={out} onClick={() => addCart()} className="btn-ghost h-12 flex-1">
+        <button disabled={out} onClick={() => addCart()} className="btn-ghost h-12 flex-1 border-brand-200 bg-white/90">
           <AnimatePresence mode="wait" initial={false}>
             <motion.span key={String(added)} initial={{ y: 10, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: -10, opacity: 0 }} transition={{ duration: 0.18 }} className="flex items-center gap-2">
               {added ? <Check className="h-5 w-5 text-emerald-600" /> : <ShoppingCart className="h-5 w-5" />}{added ? "Adicionado" : "Adicionar"}

@@ -32,7 +32,7 @@ export function Celebration({ number, total, items, eta }: { number: number; tot
       </motion.div>
       {eta && <p className="mt-3 text-sm text-white/85">Previsão de entrega: <b>{new Date(eta).toLocaleDateString("pt-AO")}</b></p>}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1 }}>
-        <Link href="#acompanhar" className="btn mt-4 bg-white px-5 py-2.5 font-bold text-zinc-900"><MapPin className="h-4 w-4" />Acompanhar encomenda</Link>
+        <Link href="#acompanhar" className="btn mt-4 bg-white px-5 py-2.5 font-bold text-brand-600"><MapPin className="h-4 w-4" />Acompanhar encomenda</Link>
       </motion.div>
     </motion.div>
   );

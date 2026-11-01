@@ -25,7 +25,7 @@ export default function AdminReviews() {
   }
   return (
     <AdminShell>
-      <div className="mb-3 flex gap-2">{[["reported", "Denunciadas"], ["all", "Todas"], ["hidden", "Ocultas"]].map(([k, l]) => <button key={k} onClick={() => setF(k)} className={`rounded-full px-3 py-1.5 text-xs font-semibold ${f === k ? "bg-white text-zinc-900" : "bg-mist"}`}>{l}</button>)}</div>
+      <div className="mb-3 flex gap-2">{[["reported", "Denunciadas"], ["all", "Todas"], ["hidden", "Ocultas"]].map(([k, l]) => <button key={k} onClick={() => setF(k)} className={`rounded-full px-3 py-1.5 text-xs font-semibold ${f === k ? "bg-ink text-white" : "bg-mist"}`}>{l}</button>)}</div>
       {msg && <p className="mb-3 rounded-xl bg-brand-50 p-3 text-sm">{msg}</p>}
       {!rows ? <div className="skeleton h-40" /> : !rows.length ? <p className="card p-8 text-center text-sm text-ink/60">Nada para moderar.</p> : (
         <div className="space-y-3">{rows.map((r) => (

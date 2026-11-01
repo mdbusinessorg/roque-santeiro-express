@@ -52,12 +52,12 @@ export function SlideCommit({
     else animate(x, 0, { type: "spring", stiffness: 420, damping: 16 });
   }
 
-  const color = phase === "done" ? "bg-emerald-500" : phase === "error" ? "bg-red-500" : "promo-gradient";
+  const color = phase === "done" ? "bg-emerald-500" : phase === "error" ? "bg-red-500" : "brand-gradient";
 
   return (
     <div
       ref={track}
-      className={`relative h-14 w-full select-none overflow-hidden rounded-full bg-raised ring-1 ring-white/10 ${disabled ? "opacity-50" : ""} ${className}`}
+      className={`relative h-14 w-full select-none overflow-hidden rounded-full bg-ink/90 ${disabled ? "opacity-50" : ""} ${className}`}
       role="button"
       tabIndex={0}
       aria-label={label}
@@ -81,7 +81,7 @@ export function SlideCommit({
         onDragEnd={onDragEnd}
         style={{ x }}
         whileTap={{ scale: 0.94 }}
-        className="absolute left-1 top-1 grid h-12 w-12 cursor-grab touch-none place-items-center rounded-full bg-white text-zinc-900 shadow-lg active:cursor-grabbing"
+        className="absolute left-1 top-1 grid h-12 w-12 cursor-grab touch-none place-items-center rounded-full bg-white text-brand-700 shadow-lg active:cursor-grabbing"
       >
         {phase === "busy" ? <Loader2 className="h-5 w-5 animate-spin" /> : phase === "done" ? <Check className="h-5 w-5 text-emerald-600" /> : phase === "error" ? <X className="h-5 w-5 text-red-600" /> : <ChevronsRight className="h-5 w-5" />}
       </motion.div>

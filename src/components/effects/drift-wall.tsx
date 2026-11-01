@@ -32,7 +32,7 @@ export function DriftWall({ items, columns = 4, tileHeight = 132, gap = 14, tilt
               {[...list, ...list].map((it, i) => (
                 <Link key={i} href={it.href} tabIndex={-1} className="pointer-events-auto block overflow-hidden rounded-2xl bg-white/90 shadow-xl" style={{ height: tileHeight }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={it.image} alt="" loading="lazy" className="h-full w-full object-contain p-3" />
+                  <img src={it.image} alt="" decoding="async" className="h-full w-full object-contain p-3" />
                 </Link>
               ))}
             </div>

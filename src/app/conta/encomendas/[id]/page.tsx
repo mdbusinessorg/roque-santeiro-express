@@ -12,6 +12,7 @@ import { QRCode } from "@/components/effects/qr-code";
 import { BlurReveal } from "@/components/effects/blur-reveal";
 import { SubOrderCard, type SubOrder } from "@/components/account/sub-order-card";
 import { Celebration } from "@/components/account/celebration";
+import { PaymentProcessing } from "@/components/account/payment-processing";
 import { ReviewForm } from "@/components/reviews/review-form";
 import { RecoRail } from "@/components/recs/reco-rail";
 import { sendServerPurchase, track } from "@/lib/tracking";
@@ -92,7 +93,7 @@ export default function OrderDetail({ params }: { params: Promise<{ id: string }
       {o.payment_status === "paid" && (isNew || o.sub_orders.every((x) => ["new", "confirmed"].includes(x.status))) && (
         <Celebration number={o.number} total={o.total} items={o.sub_orders.reduce((a, x) => a + x.order_items.reduce((b, i) => b + i.quantity, 0), 0)} eta={o.sub_orders.map((x) => x.estimated_delivery).filter(Boolean).sort().pop()} />
       )}
-      {o.payment_status !== "paid" && isNew && (
+      {o.payment_status !== "paid" && o.payment_status !== "awaiting_confirmation" && isNew && (
         <div className="card border-amber-200 bg-amber-50 p-5">
           <Clock className="h-7 w-7 text-amber-600" />
           <p className="mt-2 text-xl font-extrabold"><BlurReveal>Encomenda registada — pagamento pendente</BlurReveal></p>
@@ -119,7 +120,7 @@ export default function OrderDetail({ params }: { params: Promise<{ id: string }
           <div className="flex flex-col items-center gap-1"><QRCode value={`RSE${o.number}|${o.total}|${pay.iban ?? ""}`} size={140} /><p className="text-[11px] text-ink/50">Ref. RSE{o.number}</p></div>
         </div>
       )}
-      {o.payment_status === "awaiting_confirmation" && <p className="card p-4 text-sm">Recebemos o comprovativo (ref. {o.payment_reference}). O pagamento está a ser verificado.</p>}
+      {o.payment_status === "awaiting_confirmation" && <PaymentProcessing number={o.number} total={o.total} reference={o.payment_reference} />}
       {msg && <p className="rounded-2xl bg-brand-50 p-3 text-sm text-brand-900">{msg}</p>}
       <div id="acompanhar" className="scroll-mt-24 space-y-4">{o.sub_orders.map((s) => <SubOrderCard key={s.id} s={s} onConfirm={confirm} createdAt={o.created_at} />)}</div>
       {o.sub_orders.some((x) => x.status === "delivered") && (

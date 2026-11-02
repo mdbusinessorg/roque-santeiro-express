@@ -69,9 +69,12 @@ export function Header() {
     <header className="sticky top-0 z-40">
       <div className="brand-gradient text-white">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-3 pb-3 pt-[calc(env(safe-area-inset-top)+0.6rem)] sm:px-5">
-          <Link href="/" className="shrink-0 leading-none" aria-label="Roque Santeiro Express">
-            <span className="block text-[17px] font-extrabold tracking-tight sm:text-xl">Roque Santeiro</span>
-            <span className="block text-[11px] font-semibold uppercase tracking-[0.3em] text-[#ff7a7e]">Express</span>
+          <Link href="/" className="flex shrink-0 items-center gap-2 leading-none" aria-label="Roque Santeiro Express">
+            <img src="/logo.png" alt="" width={40} height={40} className="h-9 w-9 rounded-xl ring-1 ring-gold/40 sm:h-10 sm:w-10" />
+            <span>
+              <span className="block text-[17px] font-extrabold tracking-tight sm:text-xl">Roque Santeiro</span>
+              <span className="gold-text block text-[11px] font-semibold uppercase tracking-[0.3em]">Express</span>
+            </span>
           </Link>
           <div className="hidden flex-1 md:flex"><Suspense><SearchBox /></Suspense></div>
           <nav className="ml-auto flex items-center gap-1 text-sm">

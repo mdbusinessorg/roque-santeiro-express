@@ -19,6 +19,9 @@
   --color-accent-600: #d13b40;
   --color-accent-700: #b42f34;
   --color-amber: #f5a623;
+  --color-gold: #f2b21b;
+  --color-gold-300: #ffd56a;
+  --color-gold-700: #b9780a;
   --color-promo: #e5484d;
   --color-promo-50: #fff1f1;
   --color-line: #e7e7ea;
@@ -92,4 +95,14 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+@utility gold-text {
+  background: linear-gradient(180deg, #ffe08a 0%, #f2b21b 55%, #b9780a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@utility gold-ring {
+  box-shadow: 0 0 0 1px rgb(242 178 27 / 0.45), 0 8px 24px -12px rgb(242 178 27 / 0.55);
 }

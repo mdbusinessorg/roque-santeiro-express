@@ -74,6 +74,7 @@ export default function SellerHome() {
                 <p className="text-3xl font-extrabold">{bal ? kz(bal.available) : "…"}</p>
                 <p className="mt-2 text-xs text-white/80">Pendente: {bal ? kz(bal.pending) : "…"} · Levantado: {bal ? kz(bal.withdrawn) : "…"}</p>
                 <p className="mt-1 text-[11px] text-white/65">O saldo só fica disponível depois do pagamento confirmado e da entrega concluída.</p>
+                <Link href="/vendedor/carteira" className="mt-3 inline-flex rounded-full bg-white/15 px-3 py-1.5 text-xs font-semibold hover:bg-white/25">Carteira e liquidações →</Link>
               </div>
               <form onSubmit={requestPayout} className="card space-y-2 p-4">
                 <p className="font-bold">Pedir levantamento</p>

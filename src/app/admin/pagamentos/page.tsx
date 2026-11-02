@@ -2,6 +2,7 @@
 
 import { sendServerPurchase } from "@/lib/tracking";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { FileText } from "lucide-react";
 import { supabaseBrowser } from "@/lib/supabase/client";
@@ -26,7 +27,7 @@ export default function AdminPayments() {
     const sb = supabaseBrowser();
     const [o, p] = await Promise.all([
       sb.from("orders").select("*, sub_orders(id,status,subtotal,commission_amount,stores(name))").eq("payment_status", filter).order("created_at", { ascending: false }).limit(100),
-      sb.from("payouts").select("*, stores(name)").eq("status", "requested").order("created_at"),
+      sb.from("payouts").select("*, stores(name)").in("status", ["pending", "in_review", "approved", "processing"]).order("created_at"),
     ]);
     setRows((o.data as Row[]) ?? []); setPayouts((p.data as Payout[]) ?? []);
   }, [filter]);
@@ -38,10 +39,7 @@ export default function AdminPayments() {
     if (!error && status === "paid") void sendServerPurchase(o.id);
     setMsg(error ? rpcError(error) : `#${o.number}: ${PAY_STATUS[status]}`); load();
   }
-  async function setPayout(p: Payout, status: string) {
-    const { error } = await supabaseBrowser().from("payouts").update({ status, processed_at: new Date().toISOString() }).eq("id", p.id);
-    setMsg(error ? rpcError(error) : "Levantamento actualizado."); load();
-  }
+
 
   return (
     <AdminShell>
@@ -51,8 +49,7 @@ export default function AdminPayments() {
           {payouts.map((p) => (
             <div key={p.id} className="flex flex-wrap items-center gap-2 border-t border-brand-100 py-2">
               <span className="flex-1">{p.stores.name} · {kz(p.amount)} · {p.iban}</span>
-              <button onClick={() => setPayout(p, "paid")} className="rounded-full bg-emerald-600 px-3 py-1 text-xs font-semibold text-white">Marcar pago</button>
-              <button onClick={() => setPayout(p, "rejected")} className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">Rejeitar</button>
+              <Link href="/admin/financas" className="rounded-full bg-ink px-3 py-1 text-xs font-semibold text-white">Tratar na Central financeira</Link>
             </div>
           ))}
         </div>

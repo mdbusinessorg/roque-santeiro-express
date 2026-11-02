@@ -57,9 +57,9 @@ export default async function StorePage({ params, searchParams }: { params: Prom
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-2 gap-px bg-ink/5 sm:grid-cols-4">
+        <div className="flex flex-wrap gap-px bg-ink/5">
           {stats.map(([I, v, l]) => (
-            <div key={l} className="flex items-center gap-2.5 bg-white px-4 py-3">
+            <div key={l} className="flex flex-1 basis-[calc(50%-1px)] items-center gap-2.5 bg-white px-4 py-3 sm:basis-0">
               <span className="grid h-9 w-9 place-items-center rounded-full bg-ink/[0.04]"><I className="h-4 w-4 text-gold-700" /></span>
               <span><b className="block text-base leading-tight">{v}</b><span className="text-[11px] text-ink/55">{l}</span></span>
             </div>

@@ -2,7 +2,7 @@
 
 import { sendServerPurchase } from "@/lib/tracking";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useCallback, useEffect, useState } from "react";
 import { FileText } from "lucide-react";
 import { supabaseBrowser } from "@/lib/supabase/client";

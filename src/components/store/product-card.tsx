@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { BadgeCheck, Star } from "lucide-react";
 import type { Product } from "@/lib/types";
 import { cn, discountPct, kz } from "@/lib/utils";

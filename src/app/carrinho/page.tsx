@@ -2,7 +2,7 @@
 
 import { RecoRail } from "@/components/recs/reco-rail";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { Minus, Plus, ShoppingBag, Store, Trash2 } from "lucide-react";
 import { useCart } from "@/lib/cart/cart";
 import { kz } from "@/lib/utils";

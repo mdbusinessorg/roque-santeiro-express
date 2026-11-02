@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { motion } from "motion/react";
 import { AlertTriangle, Check, Package, Store, Truck } from "lucide-react";
 import { DELIVERY, SUB_STATUS, kz } from "@/lib/utils";

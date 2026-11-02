@@ -6,6 +6,8 @@ import { Header } from "@/components/layout/header";
 import { BottomNav } from "@/components/layout/bottom-nav";
 import { Footer } from "@/components/layout/footer";
 import { Tracker } from "@/components/tracking/tracker";
+import { NativeBridge } from "@/components/native/native-bridge";
+import { RefCapture } from "@/components/partners/ref-capture";
 
 export const metadata: Metadata = {
   title: { default: "Roque Santeiro Express — o grande mercado digital de Angola", template: "%s · Roque Santeiro Express" },
@@ -26,6 +28,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Footer />
             <BottomNav />
             <Tracker />
+            <NativeBridge />
+            <RefCapture />
           </CartProvider>
         </AuthProvider>
       </body>

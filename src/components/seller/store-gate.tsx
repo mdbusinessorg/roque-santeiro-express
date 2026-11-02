@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import type { Store } from "@/lib/types";
 import { STORE_STATUS } from "@/lib/utils";
 

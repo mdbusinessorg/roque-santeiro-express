@@ -3,8 +3,9 @@
 import { track } from "@/lib/tracking";
 
 import { useEffect, useMemo, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { SlideCommit } from "@/components/effects/slide-commit";
+import { attributeOrder } from "@/components/partners/ref-capture";
 import { useRouter } from "next/navigation";
 import { Loader2, Lock, Store } from "lucide-react";
 import { useCart } from "@/lib/cart/cart";
@@ -58,6 +59,7 @@ export default function CheckoutPage() {
     });
     setBusy(false);
     if (error) { setErr(rpcError(error)); return; }
+    await attributeOrder(data.id).catch(() => {});
     clear();
     router.replace(`/conta/encomendas/${data.id}?nova=1`);
   }

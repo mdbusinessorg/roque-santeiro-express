@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useEffect, useRef, useState } from "react";
 import type { FlexItem } from "./flex-carousel";
 

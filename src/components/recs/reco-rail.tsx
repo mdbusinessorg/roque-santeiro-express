@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { motion } from "motion/react";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { anonId, interact } from "@/lib/tracking";

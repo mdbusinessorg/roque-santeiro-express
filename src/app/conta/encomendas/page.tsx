@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Package } from "lucide-react";

@@ -1,7 +1,9 @@
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BadgeCheck, Mail, MapPin, MessageCircle, Phone, Star, Truck } from "lucide-react";
+import { BadgeCheck, CalendarDays, Mail, MapPin, MessageCircle, Package, Phone, ShoppingBag, Star, Truck } from "lucide-react";
+import { ShareButton } from "@/components/store/share-button";
+import { ProductCard } from "@/components/store/product-card";
 import { getCategories, getProducts, getStore } from "@/lib/data/queries";
 import { DELIVERY, SITE_URL } from "@/lib/utils";
 import { ProductGrid } from "@/components/store/product-card";
@@ -29,41 +31,63 @@ export default async function StorePage({ params, searchParams }: { params: Prom
   ]);
   const storeCats = cats.filter((c) => all.products.some((p) => p.category_id === c.id));
   const url = `${SITE_URL}/loja/${store.slug}`;
+  const sold = all.products.reduce((a, p) => a + (p.sold_count ?? 0), 0);
+  const rc = all.products.reduce((a, p) => a + (p.rating_count ?? 0), 0);
+  const avg = rc ? all.products.reduce((a, p) => a + Number(p.rating) * (p.rating_count ?? 0), 0) / rc : 0;
+  const highlights = [...all.products].sort((a, b) => (b.sold_count - a.sold_count) || (+new Date(b.created_at) - +new Date(a.created_at))).slice(0, 4);
+  const stats: [typeof Package, string, string][] = [[Package, String(all.total), "produtos"], ...(sold > 0 ? [[ShoppingBag, String(sold), "vendidos"] as [typeof Package, string, string]] : []), ...(rc > 0 ? [[Star, avg.toFixed(1), `${rc} avaliações`] as [typeof Package, string, string]] : []), [CalendarDays, String(new Date(store.created_at).getFullYear()), "no Roque Santeiro"]];
 
   return (
     <div className="pt-3">
-      <section className="relative overflow-hidden rounded-[2rem]">
-        <div className="relative h-36 sm:h-52">
+      <section className="card relative overflow-hidden p-0">
+        <div className="relative h-44 sm:h-64">
           {store.banner_url ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={store.banner_url} alt="" className="h-full w-full object-cover" />
+            <img src={store.banner_url} alt="" fetchPriority="high" className="h-full w-full object-cover" />
           ) : <AnimatedGradient />}
-        </div>
-        <div className="glass relative -mt-10 mx-3 mb-3 flex flex-col gap-3 rounded-[1.6rem] p-4 sm:mx-5 sm:flex-row sm:items-center">
-          <StoreAvatar store={store} size={72} />
-          <div className="min-w-0 flex-1">
-            <h1 className="flex items-center gap-1.5 text-xl font-extrabold tracking-tight sm:text-2xl">
-              <BlurReveal>{store.name}</BlurReveal>{store.is_official && <BadgeCheck className="h-5 w-5 shrink-0 text-brand-600" />}
-            </h1>
-            <p className="mt-0.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] text-ink/60">
-              <span className="flex items-center gap-1"><Star className="h-4 w-4 fill-amber-400 text-amber-400" />{Number(store.rating).toFixed(1)}</span>
-              <span className="flex items-center gap-1"><MapPin className="h-4 w-4" />{[store.city, store.province].filter(Boolean).join(", ")}</span>
-              <span>{all.total} produtos</span>
-              {store.is_official && <span className="rounded-full bg-brand-100 px-2 py-0.5 text-xs font-semibold text-brand-700">Loja oficial</span>}
-            </p>
-            {store.description && <p className="mt-2 text-sm text-ink/75">{store.description}</p>}
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/20 to-transparent" />
+          <div className="absolute inset-x-4 bottom-4 flex items-end gap-3 text-white sm:inset-x-6">
+            <span className="rounded-[30%] bg-white p-1 shadow-2xl ring-2 ring-gold/50"><StoreAvatar store={store} size={84} /></span>
+            <div className="min-w-0 pb-1">
+              {store.is_official ? <span className="gold-text text-[11px] font-bold uppercase tracking-[0.25em]">Loja oficial</span> : <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">Loja verificada</span>}
+              <h1 className="flex items-center gap-1.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
+                <BlurReveal>{store.name}</BlurReveal><BadgeCheck className="h-5 w-5 shrink-0 text-gold" />
+              </h1>
+              <p className="flex items-center gap-1 text-[13px] text-white/75"><MapPin className="h-4 w-4" />{[store.city, store.province].filter(Boolean).join(", ")}</p>
+            </div>
           </div>
-          <div className="flex gap-2">
+        </div>
+        <div className="grid grid-cols-2 gap-px bg-ink/5 sm:grid-cols-4">
+          {stats.map(([I, v, l]) => (
+            <div key={l} className="flex items-center gap-2.5 bg-white px-4 py-3">
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-ink/[0.04]"><I className="h-4 w-4 text-gold-700" /></span>
+              <span><b className="block text-base leading-tight">{v}</b><span className="text-[11px] text-ink/55">{l}</span></span>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:px-6">
+          {store.description && <p className="flex-1 text-sm text-ink/75">{store.description}</p>}
+          <div className="flex flex-wrap gap-2">
             {store.whatsapp && <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="btn-primary"><MessageCircle className="h-4 w-4" />WhatsApp</a>}
             {store.phone && <a href={`tel:${store.phone.replace(/\s/g, "")}`} className="btn-ghost"><Phone className="h-4 w-4" />Ligar</a>}
+            <ShareButton title={store.name} url={url} />
           </div>
         </div>
       </section>
 
-      <div className="no-scrollbar mt-4 flex gap-2 overflow-x-auto pb-1">
-        <Link href={`/loja/${store.slug}`} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${!sp.cat ? "brand-gradient text-white" : "glass text-brand-900"}`}>Todos</Link>
+      {highlights.length > 0 && !sp.cat && (
+        <section className="mt-5">
+          <h2 className="mb-2 px-1 text-lg font-extrabold">{sold > 0 ? "Mais vendidos da loja" : "Novidades da loja"}</h2>
+          <div className="no-scrollbar -mx-3 flex snap-x gap-3 overflow-x-auto px-3 pb-1">
+            {highlights.map((p) => <div key={p.id} className="w-[44%] shrink-0 snap-start sm:w-56"><ProductCard p={p} /></div>)}
+          </div>
+        </section>
+      )}
+
+      <div className="no-scrollbar sticky top-[calc(env(safe-area-inset-top)+64px)] z-30 -mx-3 mt-5 flex gap-2 overflow-x-auto bg-white/80 px-3 py-2 backdrop-blur-xl md:top-[118px]">
+        <Link href={`/loja/${store.slug}`} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${!sp.cat ? "bg-ink text-white" : "bg-ink/[0.05] text-ink/70"}`}>Todos</Link>
         {storeCats.map((c) => (
-          <Link key={c.id} href={`/loja/${store.slug}?cat=${c.id}`} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${sp.cat === c.id ? "brand-gradient text-white" : "glass text-brand-900"}`}>{c.name}</Link>
+          <Link key={c.id} href={`/loja/${store.slug}?cat=${c.id}`} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${sp.cat === c.id ? "bg-ink text-white" : "bg-ink/[0.05] text-ink/70"}`}>{c.name}</Link>
         ))}
       </div>
 

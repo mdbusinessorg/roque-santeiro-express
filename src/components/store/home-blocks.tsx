@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { ArrowRight, BadgeCheck, CreditCard, Headphones, ShieldCheck, Store as StoreIcon, Truck } from "lucide-react";
 import type { Category, Product } from "@/lib/types";
 import { kz } from "@/lib/utils";

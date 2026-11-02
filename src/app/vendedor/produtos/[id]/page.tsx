@@ -2,8 +2,9 @@
 
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ImagePlus, Loader2, X } from "lucide-react";
+import { ImagePlus, Loader2, X, Camera } from "lucide-react";
 import { supabaseBrowser, uploadMedia } from "@/lib/supabase/client";
+import { isNative, takePhoto } from "@/lib/native";
 import { rpcError } from "@/lib/rpc-error";
 import { slugify } from "@/lib/utils";
 import type { Category } from "@/lib/types";
@@ -38,6 +39,12 @@ export default function ProductForm({ params }: { params: Promise<{ id: string }
     setUp(true); setErr(null);
     try { const urls = await Promise.all(Array.from(files).slice(0, 8).map((file) => uploadMedia(file, "produtos"))); setImages((x) => [...x, ...urls].slice(0, 8)); }
     catch (e) { setErr(rpcError(e as { message?: string })); }
+    setUp(false);
+  }
+
+  async function addPhoto() {
+    try { const f = await takePhoto(); if (!f) return; setUp(true); const url = await uploadMedia(f, "produtos"); setImages((x) => [...x, url].slice(0, 8)); }
+    catch (e) { const m = (e as { message?: string }).message ?? ""; if (!/cancel/i.test(m)) setErr(rpcError(e as { message?: string })); }
     setUp(false);
   }
 
@@ -78,6 +85,9 @@ export default function ProductForm({ params }: { params: Promise<{ id: string }
                 {up ? <Loader2 className="h-5 w-5 animate-spin" /> : <ImagePlus className="h-5 w-5" />}
                 <input type="file" accept="image/*" multiple className="hidden" onChange={(e) => addImages(e.target.files)} />
               </label>
+              {isNative() && images.length < 8 && (
+                <button type="button" onClick={addPhoto} aria-label="Tirar fotografia" className="grid h-20 w-20 place-items-center rounded-xl border-2 border-dashed border-brand-200 text-brand-600"><Camera className="h-5 w-5" /></button>
+              )}
             </div>
           </div>
           <div><label className="label">Nome</label><input required value={f.name} onChange={set("name")} className="input" /></div>

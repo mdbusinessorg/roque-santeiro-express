@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { BadgeCheck, MapPin, MessageCircle, RotateCcw, ShieldCheck, Star, Truck } from "lucide-react";

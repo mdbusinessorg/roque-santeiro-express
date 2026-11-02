@@ -10,6 +10,7 @@ import { useCart, type CartItem } from "@/lib/cart/cart";
 import { useAuth } from "@/lib/auth";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
+import { tapFeedback } from "@/lib/native";
 
 export function ProductActions({ item }: { item: Omit<CartItem, "quantity"> }) {
   const { add } = useCart();
@@ -21,6 +22,7 @@ export function ProductActions({ item }: { item: Omit<CartItem, "quantity"> }) {
   const out = item.stock <= 0;
 
   async function toggleFav() {
+    tapFeedback();
     if (!user) return router.push(`/entrar?next=/produto/${item.slug}`);
     const sb = supabaseBrowser();
     if (fav) await sb.from("wishlists").delete().eq("user_id", user.id).eq("product_id", item.product_id);
@@ -29,6 +31,7 @@ export function ProductActions({ item }: { item: Omit<CartItem, "quantity"> }) {
     setFav(!fav);
   }
   function addCart(go?: boolean) {
+    tapFeedback();
     add(item, qty);
     track("AddToCart", { content_ids: [item.product_id], content_type: "product", value: Number(item.price) * qty, currency: "AOA", num_items: qty });
     interact({ kind: "cart", product_id: item.product_id });

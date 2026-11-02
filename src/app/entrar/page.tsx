@@ -3,7 +3,7 @@
 import { track } from "@/lib/tracking";
 
 import { Suspense, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { supabaseBrowser } from "@/lib/supabase/client";

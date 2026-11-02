@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { FileText } from "lucide-react";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { rpcError } from "@/lib/rpc-error";

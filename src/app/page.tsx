@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { RecoRail } from "@/components/recs/reco-rail";
 import { Zap } from "lucide-react";
 import { getCategories, getProducts, getStores } from "@/lib/data/queries";

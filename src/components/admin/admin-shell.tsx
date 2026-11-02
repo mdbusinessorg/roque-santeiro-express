@@ -1,12 +1,12 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth, isStaff } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 
-const tabs = [["/admin", "Vendedores"], ["/admin/pagamentos", "Pagamentos e encomendas"], ["/admin/financas", "Central financeira"], ["/admin/avaliacoes", "Avaliações"], ["/admin/tracking", "Tracking"], ["/admin/config", "Configuração"]];
+const tabs = [["/admin", "Vendedores"], ["/admin/pagamentos", "Pagamentos e encomendas"], ["/admin/financas", "Central financeira"], ["/admin/partners", "Roque Partners"], ["/admin/avaliacoes", "Avaliações"], ["/admin/tracking", "Tracking"], ["/admin/config", "Configuração"]];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const { user, profile, loading } = useAuth();

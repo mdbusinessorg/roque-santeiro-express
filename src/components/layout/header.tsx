@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { Heart, MapPin, Search, ShoppingCart, User, Store } from "lucide-react";
+import { Heart, MapPin, Mic, Search, ShoppingCart, User, Store } from "lucide-react";
 import { useCart } from "@/lib/cart/cart";
 import { useAuth, isStaff } from "@/lib/auth";
 import { supabaseBrowser } from "@/lib/supabase/client";
@@ -18,6 +18,16 @@ function SearchBox() {
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState<Suggest[]>([]);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [canVoice, setCanVoice] = useState(false);
+  useEffect(() => { setCanVoice(typeof window !== "undefined" && ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)); }, []);
+  function voice() {
+    const W = window as unknown as Record<string, new () => { lang: string; onresult: (e: { results: { 0: { 0: { transcript: string } } } }) => void; start: () => void }>;
+    const R = W.SpeechRecognition || W.webkitSpeechRecognition;
+    if (!R) return;
+    const r = new R(); r.lang = "pt-PT";
+    r.onresult = (e) => { const t = e.results[0][0].transcript; setQ(t); router.push(`/pesquisa?q=${encodeURIComponent(t)}`); };
+    r.start();
+  }
 
   useEffect(() => {
     if (timer.current) clearTimeout(timer.current);
@@ -44,6 +54,7 @@ function SearchBox() {
         enterKeyHint="search"
         aria-label="Pesquisar"
       />
+      {canVoice && <button type="button" onClick={voice} aria-label="Pesquisar por voz" className="absolute right-[5.5rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 active:bg-ink/5"><Mic className="h-[18px] w-[18px]" /></button>}
       <button className="absolute right-1 top-1 bg-ink transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
       {open && items.length > 0 && (
         <ul className="glass absolute inset-x-0 top-12 z-50 overflow-hidden rounded-2xl py-1 text-ink">

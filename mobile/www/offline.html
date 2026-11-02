@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="pt-AO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sem ligação · ROQUE SANTEIRO</title>
+<style>
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#fff;color:#111113;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;padding:24px env(safe-area-inset-right) 24px env(safe-area-inset-left)}
+  .card{width:100%;max-width:360px;text-align:center;padding:32px 24px;border-radius:28px;background:rgba(255,255,255,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(255,255,255,.8) inset,0 20px 50px -20px rgba(17,17,19,.25);border:1px solid rgba(17,17,19,.06)}
+  img{width:88px;height:88px;border-radius:24px;box-shadow:0 0 0 1px rgba(242,178,27,.45),0 12px 30px -12px rgba(242,178,27,.6);animation:f 3s ease-in-out infinite}
+  h1{font-size:20px;margin:20px 0 6px;font-weight:800;letter-spacing:-.02em}
+  p{margin:0 0 22px;font-size:14px;line-height:1.5;color:rgba(17,17,19,.6)}
+  button{width:100%;height:50px;border:0;border-radius:999px;background:#111113;color:#fff;font-size:15px;font-weight:700;transition:transform .15s}
+  button:active{transform:scale(.97)}
+  .gold{background:linear-gradient(180deg,#ffe08a,#f2b21b 55%,#b9780a);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:.3em;font-size:11px;font-weight:700}
+  @keyframes f{50%{transform:translateY(-6px)}}
+  @media (prefers-reduced-motion:reduce){img{animation:none}}
+</style>
+</head>
+<body>
+  <div class="card" role="alert">
+    <img src="logo.png" alt="Roque Santeiro Express">
+    <h1>Sem ligação à internet</h1>
+    <div class="gold">ROQUE SANTEIRO EXPRESS</div>
+    <p style="margin-top:14px">Verifique os dados móveis ou o Wi-Fi. O seu carrinho e a sessão ficam guardados.</p>
+    <button onclick="location.href='https://roque-santeiro-express.netlify.app/'">Tentar novamente</button>
+  </div>
+  <script>window.addEventListener('online',function(){location.href='https://roque-santeiro-express.netlify.app/'})</script>
+</body>
+</html>

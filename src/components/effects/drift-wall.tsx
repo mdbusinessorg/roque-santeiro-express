@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useEffect, useState } from "react";
 
 export type DriftItem = { image: string; title: string; href: string };

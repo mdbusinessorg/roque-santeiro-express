@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useRouter } from "next/navigation";
 import { BadgePercent, Loader2, Package, Store, Upload, Wallet } from "lucide-react";
 import { useAuth } from "@/lib/auth";

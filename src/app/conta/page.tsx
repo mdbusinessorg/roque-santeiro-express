@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
@@ -56,6 +56,7 @@ export default function AccountPage() {
   ];
   const more = [
     { href: "/vendedor", icon: LayoutDashboard, l: "Painel do vendedor" },
+    { href: "/parceiro", icon: LayoutDashboard, l: "Roque Partners" },
     { href: "/vender", icon: Store, l: "Abrir uma loja" },
     { href: "/lojas", icon: Eye, l: "Visitar lojas" },
     ...(isStaff(profile?.role) ? [{ href: "/admin", icon: Shield, l: "Administração" }] : []),

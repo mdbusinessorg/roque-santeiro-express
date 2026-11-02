@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { getProducts } from "@/lib/data/queries";
 import { ProductGrid } from "@/components/store/product-card";
 import { cn } from "@/lib/utils";

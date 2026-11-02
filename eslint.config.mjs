@@ -11,6 +11,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  { rules: { "@next/next/no-html-link-for-pages": "off" } },
   {
     ignores: [
       "node_modules/**",
@@ -18,6 +19,8 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "android/**",
+      "mobile/**",
     ],
   },
 ];

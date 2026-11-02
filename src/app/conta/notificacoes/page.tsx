@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
 import { Bell, CheckCheck, CreditCard, Package, Star, Truck } from "lucide-react";

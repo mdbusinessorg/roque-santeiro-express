@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { motion, useReducedMotion } from "motion/react";
 import { MapPin } from "lucide-react";
 import { BlurReveal } from "@/components/effects/blur-reveal";

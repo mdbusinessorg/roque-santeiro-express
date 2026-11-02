@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { kz } from "@/lib/utils";
 
 export type Viewed = { slug: string; name: string; image: string; price: number };

@@ -1,7 +1,7 @@
 "use client";
 
 import { use, useCallback, useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { useSearchParams } from "next/navigation";
 import { Clock, Loader2, Star, Upload } from "lucide-react";
 import { useAuth } from "@/lib/auth";

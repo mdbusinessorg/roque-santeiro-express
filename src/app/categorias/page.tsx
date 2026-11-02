@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/ui/native-link";
 import { getCategories } from "@/lib/data/queries";
 
 export const revalidate = 300;

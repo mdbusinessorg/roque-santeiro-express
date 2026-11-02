@@ -45,3 +45,15 @@ export async function getStore(slug: string): Promise<Store | null> {
   const { data } = await supabasePublic().from("stores").select("*").eq("slug", slug).eq("status", "approved").maybeSingle();
   return data as Store | null;
 }
+
+export type StoreShowcase = Record<string, { count: number; sold: number; images: string[] }>;
+export async function getStoreShowcase(): Promise<StoreShowcase> {
+  const { data } = await supabasePublic().from("products").select("store_id,images,sold_count").eq("status", "active").order("sold_count", { ascending: false }).limit(1000);
+  const out: StoreShowcase = {};
+  for (const p of (data as { store_id: string; images: string[]; sold_count: number }[]) ?? []) {
+    const s = (out[p.store_id] ??= { count: 0, sold: 0, images: [] });
+    s.count++; s.sold += p.sold_count ?? 0;
+    if (s.images.length < 3 && p.images?.[0]) s.images.push(p.images[0]);
+  }
+  return out;
+}

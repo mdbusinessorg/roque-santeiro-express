@@ -11,7 +11,7 @@ import { StoreGate } from "@/components/seller/store-gate";
 
 export default function StoreProfile() {
   const { store, reload } = useMyStore("/vendedor/loja");
-  const [f, setF] = useState({ name: "", description: "", phone: "", whatsapp: "", email: "", province: "Luanda", city: "", address: "" });
+  const [f, setF] = useState({ name: "", description: "", phone: "", whatsapp: "", email: "", province: "Luanda", city: "", address: "", website: "" });
   const [methods, setMethods] = useState<string[]>([]);
   const [logo, setLogo] = useState<File | null>(null);
   const [banner, setBanner] = useState<File | null>(null);
@@ -19,7 +19,7 @@ export default function StoreProfile() {
   const [msg, setMsg] = useState<string | null>(null);
   useEffect(() => {
     if (!store) return;
-    setF({ name: store.name, description: store.description ?? "", phone: store.phone ?? "", whatsapp: store.whatsapp ?? "", email: store.email ?? "", province: store.province ?? "Luanda", city: store.city ?? "", address: store.address ?? "" });
+    setF({ name: store.name, description: store.description ?? "", phone: store.phone ?? "", whatsapp: store.whatsapp ?? "", email: store.email ?? "", province: store.province ?? "Luanda", city: store.city ?? "", address: store.address ?? "", website: (store as { website?: string | null }).website ?? "" });
     setMethods(store.delivery_methods);
   }, [store]);
 
@@ -28,7 +28,7 @@ export default function StoreProfile() {
     setBusy(true); setMsg(null);
     try {
       const [logo_url, banner_url] = await Promise.all([logo ? uploadMedia(logo, "lojas") : store.logo_url, banner ? uploadMedia(banner, "lojas") : store.banner_url]);
-      const { error } = await supabaseBrowser().from("stores").update({ ...f, logo_url, banner_url, delivery_methods: methods.length ? methods : ["seller"] }).eq("id", store.id);
+      const { error } = await supabaseBrowser().from("stores").update({ ...f, website: f.website.trim() || null, logo_url, banner_url, delivery_methods: methods.length ? methods : ["seller"] }).eq("id", store.id);
       if (error) throw error;
       setMsg("Perfil guardado."); reload();
     } catch (err) { setMsg(rpcError(err as { message?: string })); }
@@ -52,6 +52,7 @@ export default function StoreProfile() {
             <div><label className="label">Endereço</label><input value={f.address} onChange={set("address")} className="input" /></div>
           </div>
           <div><label className="label">Descrição</label><textarea value={f.description} onChange={set("description")} className="input min-h-24" /></div>
+          <div><label className="label">Site oficial (opcional)</label><input type="url" inputMode="url" placeholder="https://www.minhaloja.ao" value={f.website} onChange={set("website")} className="input" /></div>
           <div>
             <label className="label">Métodos de entrega</label>
             {Object.entries(DELIVERY).map(([k, l]) => (

@@ -1,7 +1,7 @@
 import Link from "@/components/ui/native-link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BadgeCheck, CalendarDays, Mail, MapPin, MessageCircle, Package, Phone, ShoppingBag, Star, Truck } from "lucide-react";
+import { BadgeCheck, CalendarDays, Globe, Mail, MapPin, MessageCircle, Package, Phone, ShoppingBag, Star, Truck } from "lucide-react";
 import { ShareButton } from "@/components/store/share-button";
 import { ProductCard } from "@/components/store/product-card";
 import { getCategories, getProducts, getStore } from "@/lib/data/queries";
@@ -40,21 +40,21 @@ export default async function StorePage({ params, searchParams }: { params: Prom
   return (
     <div className="pt-3">
       <section className="card relative overflow-hidden p-0">
-        <div className="relative h-44 sm:h-64">
+        <div className="relative h-36 sm:h-56">
           {store.banner_url ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={store.banner_url} alt="" fetchPriority="high" className="h-full w-full object-cover" />
           ) : <AnimatedGradient />}
-          <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/20 to-transparent" />
-          <div className="absolute inset-x-4 bottom-4 flex items-end gap-3 text-white sm:inset-x-6">
-            <span className="rounded-[30%] bg-white p-1 shadow-2xl ring-2 ring-gold/50"><StoreAvatar store={store} size={84} /></span>
-            <div className="min-w-0 pb-1">
-              {store.is_official ? <span className="gold-text text-[11px] font-bold uppercase tracking-[0.25em]">Loja oficial</span> : <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/70">Loja verificada</span>}
-              <h1 className="flex items-center gap-1.5 text-2xl font-extrabold tracking-tight sm:text-3xl">
-                <BlurReveal>{store.name}</BlurReveal><BadgeCheck className="h-5 w-5 shrink-0 text-gold" />
-              </h1>
-              <p className="flex items-center gap-1 text-[13px] text-white/75"><MapPin className="h-4 w-4" />{[store.city, store.province].filter(Boolean).join(", ")}</p>
-            </div>
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/30 to-transparent" />
+        </div>
+        <div className="relative flex flex-col gap-2 px-4 pb-3 sm:flex-row sm:items-end sm:gap-4 sm:px-6">
+          <span className="-mt-12 w-fit rounded-[30%] bg-white p-1 shadow-2xl ring-2 ring-gold/50 sm:-mt-14"><StoreAvatar store={store} size={88} /></span>
+          <div className="min-w-0 sm:pb-1">
+            {store.is_official ? <span className="gold-text text-[11px] font-bold uppercase tracking-[0.25em]">Loja oficial</span> : <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/45">Loja verificada</span>}
+            <h1 className="flex items-center gap-1.5 text-2xl font-extrabold leading-tight tracking-tight text-ink sm:text-3xl">
+              <BlurReveal>{store.name}</BlurReveal><BadgeCheck className="h-5 w-5 shrink-0 text-gold-700" />
+            </h1>
+            <p className="flex items-center gap-1 text-[13px] text-ink/55"><MapPin className="h-4 w-4" />{[store.city, store.province].filter(Boolean).join(", ")}</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-px bg-ink/5">
@@ -70,6 +70,7 @@ export default async function StorePage({ params, searchParams }: { params: Prom
           <div className="flex flex-wrap gap-2">
             {store.whatsapp && <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="btn-primary"><MessageCircle className="h-4 w-4" />WhatsApp</a>}
             {store.phone && <a href={`tel:${store.phone.replace(/\s/g, "")}`} className="btn-ghost"><Phone className="h-4 w-4" />Ligar</a>}
+            {(store as { website?: string | null }).website && <a href={(store as { website?: string | null }).website!} target="_blank" rel="noopener noreferrer" className="btn-ghost"><Globe className="h-4 w-4" />Site oficial</a>}
             <ShareButton title={store.name} url={url} />
           </div>
         </div>

@@ -1,8 +1,8 @@
 export type Store = {
   id: string; owner_id: string; slug: string; name: string; responsible_name: string; description: string;
-  logo_url: string | null; banner_url: string | null; province: string; commune: string | null; address: string | null;
+  logo_url: string | null; banner_url: string | null; province: string; commune: string | null; address: string | null; city?: string | null;
   phone: string | null; whatsapp: string | null; email: string | null; delivery_methods: string[]; rating: number; created_at: string;
-  website?: string | null;
+  website?: string | null; status?: string; is_official?: boolean; commission_rate?: number | null;
 };
 export type Category = { id: string; slug: string; name: string; parent_id: string | null; image_url: string | null; sort: number };
 export type Product = {

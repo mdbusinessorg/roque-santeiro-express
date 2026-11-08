@@ -6,6 +6,7 @@ import { Button, C, Card, Screen, SectionTitle } from '../../components/ui';
 import { useAuth } from '../../lib/auth';
 import { useCart } from '../../lib/cart';
 import { kz } from '../../lib/format';
+import { isStaff } from '../../lib/seller';
 
 export default function Account() {
   const { user, profile, loading, signOut } = useAuth();
@@ -14,12 +15,15 @@ export default function Account() {
   if (!user) {
     return <Screen><View style={styles.center}><Ionicons name="person-circle-outline" size={64} color="#cbd5e1" /><Text style={styles.title}>Entre na sua conta</Text><Text style={styles.sub}>Aceda às suas encomendas, favoritos e carteira.</Text><Button title="Entrar / Registar" onPress={() => router.push('/auth')} style={{ marginTop: 18, alignSelf: 'stretch' }} /></View></Screen>;
   }
-  const links = [
+  const links: { icon: keyof typeof Ionicons.glyphMap; label: string; sub: string; href: string }[] = [
+    { icon: 'storefront-outline', label: 'Painel da loja', sub: 'Dashboard, produtos, encomendas e carteira', href: '/seller' },
+    { icon: 'add-circle-outline' as const, label: 'Tornar-se vendedor', sub: 'Abrir a sua loja no Roque Santeiro', href: '/vender' },
     { icon: 'receipt-outline' as const, label: 'As minhas encomendas', sub: 'Estado, pagamentos e confirmações', href: '/orders' },
     { icon: 'heart-outline' as const, label: 'Favoritos', sub: 'Produtos guardados', href: '/favorites' },
     { icon: 'location-outline' as const, label: 'Endereços', sub: 'Moradas de entrega', href: '/addresses' },
     { icon: 'notifications-outline' as const, label: 'Notificações', sub: 'Actualizações da conta', href: '/notifications' },
   ];
+  if (isStaff(profile?.role)) links.push({ icon: 'shield-checkmark-outline' as const, label: 'Administração', sub: 'Lojas, pagamentos, finanças e partners', href: '/admin' });
   return (
     <Screen>
       <View style={styles.header}><Text style={styles.title}>Conta</Text><Pressable onPress={signOut}><Text style={styles.signout}>Sair</Text></Pressable></View>

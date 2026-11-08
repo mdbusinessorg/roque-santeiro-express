@@ -1,7 +1,7 @@
 import Link from "@/components/ui/native-link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BadgeCheck, CalendarDays, Globe, Mail, MapPin, MessageCircle, Package, Phone, ShoppingBag, Star, Truck } from "lucide-react";
+import { BadgeCheck, CalendarDays, Mail, MapPin, MessageCircle, Package, Phone, ShoppingBag, Star, Truck } from "lucide-react";
 import { ShareButton } from "@/components/store/share-button";
 import { ProductCard } from "@/components/store/product-card";
 import { getCategories, getProducts, getStore } from "@/lib/data/queries";
@@ -70,7 +70,6 @@ export default async function StorePage({ params, searchParams }: { params: Prom
           <div className="flex flex-wrap gap-2">
             {store.whatsapp && <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="btn-primary"><MessageCircle className="h-4 w-4" />WhatsApp</a>}
             {store.phone && <a href={`tel:${store.phone.replace(/\s/g, "")}`} className="btn-ghost"><Phone className="h-4 w-4" />Ligar</a>}
-            {(store as { website?: string | null }).website && <a href={(store as { website?: string | null }).website!} target="_blank" rel="noopener noreferrer" className="btn-ghost"><Globe className="h-4 w-4" />Site oficial</a>}
             <ShareButton title={store.name} url={url} />
           </div>
         </div>

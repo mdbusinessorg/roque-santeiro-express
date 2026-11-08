@@ -12,13 +12,23 @@ import { StoreGate } from "@/components/seller/store-gate";
 
 const LABEL: Record<string, string> = { active: "Activo", inactive: "Inactivo", draft: "Rascunho", pending_review: "Em revisão", rejected: "Rejeitado" };
 
+type Stats = Record<string, { views: number; clicks: number; carts: number; wishlists: number }>;
+
 export default function SellerProducts() {
   const { store } = useMyStore("/vendedor/produtos");
   const [items, setItems] = useState<Product[] | null>(null);
+  const [stats, setStats] = useState<Stats>({});
   const load = useCallback(async () => {
     if (!store) return;
-    const { data } = await supabaseBrowser().from("products").select("*").eq("store_id", store.id).order("created_at", { ascending: false });
+    const sb = supabaseBrowser();
+    const [{ data }, { data: st }] = await Promise.all([
+      sb.from("products").select("*").eq("store_id", store.id).order("created_at", { ascending: false }),
+      sb.rpc("store_product_stats", { p_store: store.id }),
+    ]);
     setItems((data as Product[]) ?? []);
+    const map: Stats = {};
+    ((st as { product_id: string; views: number; clicks: number; carts: number; wishlists: number }[]) ?? []).forEach((s) => (map[s.product_id] = s));
+    setStats(map);
   }, [store]);
   useEffect(() => { load(); }, [load]);
 
@@ -49,6 +59,7 @@ export default function SellerProducts() {
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-1 text-sm font-semibold">{p.name}</p>
                   <p className="text-xs text-ink/55">{kz(p.price)} · Stock {p.stock} · {p.sold_count} vendidos</p>
+                  <p className="text-[11px] text-ink/45">{stats[p.id]?.views ?? 0} vistas · {stats[p.id]?.clicks ?? 0} cliques · {stats[p.id]?.wishlists ?? 0} favoritos</p>
                 </div>
                 <button onClick={() => toggle(p)} className={`rounded-full px-3 py-1 text-xs font-semibold ${p.status === "active" ? "bg-emerald-100 text-emerald-700" : "bg-brand-100 text-brand-800"}`}>{LABEL[p.status] ?? p.status}</button>
                 <Link href={`/vendedor/produtos/${p.id}`} aria-label="Editar" className="grid h-9 w-9 place-items-center rounded-full hover:bg-brand-50"><Pencil className="h-4 w-4 text-brand-700" /></Link>

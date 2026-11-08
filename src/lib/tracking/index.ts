@@ -4,7 +4,7 @@ import { supabaseBrowser } from "@/lib/supabase/client";
 
 export type MetaEvent = "PageView" | "ViewContent" | "Search" | "AddToCart" | "InitiateCheckout" | "AddPaymentInfo" | "Purchase" | "CompleteRegistration" | "Lead" | "AddToWishlist";
 export type Consent = { analytics: boolean; marketing: boolean; version: string; at: string };
-type Interaction = { kind: "view" | "cart" | "wishlist" | "search" | "rec_impression" | "rec_click"; product_id?: string; category_id?: string | null; query?: string; context?: string };
+type Interaction = { kind: "view" | "click" | "cart" | "wishlist" | "search" | "rec_impression" | "rec_click"; product_id?: string; category_id?: string | null; query?: string; context?: string };
 type Fbq = ((...args: unknown[]) => void) & { callMethod?: (...a: unknown[]) => void; queue?: unknown[]; loaded?: boolean; version?: string; push?: unknown };
 
 export const CONSENT_VERSION = "2026-11";

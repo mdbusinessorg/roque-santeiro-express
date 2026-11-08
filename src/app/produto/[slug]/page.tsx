@@ -1,8 +1,8 @@
 import Link from "@/components/ui/native-link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BadgeCheck, MapPin, MessageCircle, RotateCcw, ShieldCheck, Star, Truck } from "lucide-react";
-import { getProduct, getStore } from "@/lib/data/queries";
+import { BadgeCheck, Eye, MapPin, MessageCircle, MousePointerClick, RotateCcw, ShieldCheck, Star, Truck } from "lucide-react";
+import { getProduct, getProductEngagement, getStore } from "@/lib/data/queries";
 import { DELIVERY, discountPct, kz } from "@/lib/utils";
 import { Gallery } from "@/components/store/gallery";
 import { ProductActions } from "@/components/store/product-actions";
@@ -27,6 +27,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   if (!store) notFound();
   const off = discountPct(Number(p.price), p.compare_at_price ? Number(p.compare_at_price) : null);
   const specs = Object.entries(p.specs ?? {});
+  const engagement = await getProductEngagement(p.id);
 
   return (
     <div className="pt-3">
@@ -54,6 +55,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               {off > 0 && <><span className="pb-1 text-sm text-ink/45 line-through">{kz(p.compare_at_price)}</span><span className="brand-gradient mb-1.5 rounded-full px-2 py-0.5 text-xs font-bold text-white">-{off}%</span></>}
             </div>
             {p.sku && <p className="mt-1 text-xs text-ink/45">SKU: {p.sku}</p>}
+            <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12px] text-ink/50">
+              <span className="inline-flex items-center gap-1"><Eye className="h-3.5 w-3.5" />{engagement.views} visualizações</span>
+              <span className="inline-flex items-center gap-1"><MousePointerClick className="h-3.5 w-3.5" />{engagement.clicks} cliques</span>
+            </p>
             <div className="mt-4">
               <ProductActions item={{ product_id: p.id, slug: p.slug, name: p.name, image: p.images[0], price: Number(p.price), compare_at_price: p.compare_at_price, store_id: store.id, store_name: store.name, store_slug: store.slug, stock: p.stock }} />
             </div>

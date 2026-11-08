@@ -13,6 +13,7 @@ import { StoreAvatar } from "@/components/store/store-avatar";
 import { FlexCarousel } from "@/components/effects/flex-carousel";
 import { SnapShowcase } from "@/components/effects/snap-showcase";
 import { kz } from "@/lib/utils";
+import type { Product } from "@/lib/types";
 
 export const revalidate = 60;
 
@@ -20,29 +21,48 @@ export default async function Home() {
   const [cats, stores, all, deals, fresh, featured] = await Promise.all([
     getCategories(),
     getStores(),
-    getProducts({ limit: 60 }),
-    getProducts({ deals: true, limit: 10 }),
-    getProducts({ sort: "novos", limit: 5 }),
-    getProducts({ featured: true, limit: 10 }),
+    getProducts({ limit: 80 }),
+    getProducts({ deals: true, limit: 12 }),
+    getProducts({ sort: "novos", limit: 8 }),
+    getProducts({ featured: true, limit: 14 }),
   ]);
+  const partnerSlugs = new Set(["gilberto-aqui-tem", "muralha-de-mortalhas"]);
+  const partnerStores = stores.filter((s) => partnerSlugs.has(s.slug));
+  const partnerLists = await Promise.all(partnerStores.map((s) => getProducts({ store: s.id, limit: 12 })));
+  const first = (arr: Product[]) => [...arr].sort((a, b) => Number(partnerSlugs.has(b.stores?.slug ?? "")) - Number(partnerSlugs.has(a.stores?.slug ?? "")));
+  const allProducts = first(all.products);
+  const dealProducts = first(deals.products);
+  const freshProducts = first(fresh.products);
+  const featuredProducts = first(featured.products);
 
   return (
     <div className="pt-3">
-      <Hero featured={featured.products} all={all.products} deals={deals.products} fresh={fresh.products} cats={cats} />
+      <Hero featured={featuredProducts} all={allProducts} deals={dealProducts} fresh={freshProducts} cats={cats} />
       <TrustMarquee />
       <CategoryStrip cats={cats} />
-      <QuadCards products={all.products} />
+      {partnerStores.map((s, i) => {
+        const list = partnerLists[i]?.products ?? [];
+        if (!list.length) return null;
+        return (
+          <Section key={s.id} title={s.name} subtitle="Produtos reais da loja parceira" href={`/loja/${s.slug}`}>
+            <div className="no-scrollbar -mx-3 flex snap-x gap-2.5 overflow-x-auto px-3 pb-1">
+              {list.map((p) => <ProductCard key={p.id} p={p} compact className="w-[42%] shrink-0 snap-start sm:w-48" />)}
+            </div>
+          </Section>
+        );
+      })}
+      <QuadCards products={allProducts} />
 
       <Section title={<span className="flex items-center gap-2"><Zap className="h-5 w-5 fill-brand-600 text-brand-600" />Ofertas relâmpago</span>} subtitle="Descontos reais por tempo limitado" href="/pesquisa?ofertas=1">
         <div className="no-scrollbar -mx-3 flex snap-x gap-2.5 overflow-x-auto px-3 pb-1">
-          {deals.products.map((p) => <ProductCard key={p.id} p={p} compact className="w-[42%] shrink-0 snap-start sm:w-48" />)}
+          {dealProducts.map((p) => <ProductCard key={p.id} p={p} compact className="w-[42%] shrink-0 snap-start sm:w-48" />)}
         </div>
       </Section>
 
-      {featured.products.length >= 3 && (
+      {featuredProducts.length >= 3 && (
         <Section title="Escolhas da semana" subtitle="Toque para ver em destaque" href="/pesquisa">
-          <div className="md:hidden"><SnapShowcase items={featured.products.filter((p) => p.images?.[0]).slice(0, 5).map((p) => ({ src: p.images[0], alt: p.name, title: p.name, subtitle: kz(p.price), href: `/produto/${p.slug}` }))} /></div>
-          <div className="hidden md:block"><FlexCarousel items={featured.products.filter((p) => p.images?.[0]).slice(0, 5).map((p) => ({ src: p.images[0], alt: p.name, title: p.name, subtitle: kz(p.price), href: `/produto/${p.slug}` }))} height={300} /></div>
+          <div className="md:hidden"><SnapShowcase items={featuredProducts.filter((p) => p.images?.[0]).slice(0, 5).map((p) => ({ src: p.images[0], alt: p.name, title: p.name, subtitle: kz(p.price), href: `/produto/${p.slug}` }))} /></div>
+          <div className="hidden md:block"><FlexCarousel items={featuredProducts.filter((p) => p.images?.[0]).slice(0, 5).map((p) => ({ src: p.images[0], alt: p.name, title: p.name, subtitle: kz(p.price), href: `/produto/${p.slug}` }))} height={300} /></div>
         </Section>
       )}
 
@@ -59,9 +79,9 @@ export default async function Home() {
         </div>
       </Section>
 
-      <Section title="Produtos em destaque" href="/pesquisa"><ProductGrid products={featured.products} /></Section>
-      {all.products.some((x) => x.sold_count > 0) && <Section title="Mais vendidos" href="/pesquisa?ordem=vendidos"><ProductGrid products={[...all.products].filter((x) => x.sold_count > 0).sort((a, b) => b.sold_count - a.sold_count).slice(0, 10)} /></Section>}
-      <Section title="Novidades" href="/pesquisa?ordem=novos"><ProductGrid products={fresh.products} /></Section>
+      <Section title="Produtos em destaque" href="/pesquisa"><ProductGrid products={featuredProducts} /></Section>
+      {allProducts.some((x) => x.sold_count > 0) && <Section title="Mais vendidos" href="/pesquisa?ordem=vendidos"><ProductGrid products={[...allProducts].filter((x) => x.sold_count > 0).sort((a, b) => b.sold_count - a.sold_count).slice(0, 10)} /></Section>}
+      <Section title="Novidades" href="/pesquisa?ordem=novos"><ProductGrid products={freshProducts} /></Section>
       <RecentlyViewed />
       <RecoRail kind="for_you" title="Recomendados para si" subtitle="Com base no que vê e compra" />
       <RecoRail kind="popular_week" title="Populares esta semana" subtitle="Mais procurados nos últimos 7 dias" />

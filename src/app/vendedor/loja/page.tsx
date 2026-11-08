@@ -61,7 +61,7 @@ export default function StoreProfile() {
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
             <label className="btn-ghost cursor-pointer"><Upload className="h-4 w-4" />{logo ? logo.name : "Alterar logo"}<input type="file" accept="image/*" className="hidden" onChange={(e) => setLogo(e.target.files?.[0] ?? null)} /></label>
-            <label className="btn-ghost cursor-pointer"><Upload className="h-4 w-4" />{banner ? banner.name : "Alterar banner"}<input type="file" accept="image/*" className="hidden" onChange={(e) => setBanner(e.target.files?.[0] ?? null)} /></label>
+            <label className="btn-ghost cursor-pointer"><Upload className="h-4 w-4" />{banner ? banner.name : "Foto de capa"}<input type="file" accept="image/*" className="hidden" onChange={(e) => setBanner(e.target.files?.[0] ?? null)} /></label>
           </div>
           {msg && <p className="rounded-xl bg-brand-50 p-3 text-sm">{msg}</p>}
           <button disabled={busy} className="btn-primary h-12 w-full">{busy && <Loader2 className="h-4 w-4 animate-spin" />}Guardar</button>

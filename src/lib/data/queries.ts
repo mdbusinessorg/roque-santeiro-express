@@ -41,6 +41,12 @@ export async function getProduct(slug: string): Promise<Product | null> {
   return data as Product | null;
 }
 
+export type ProductEngagement = { views: number; clicks: number; carts: number; wishlists: number };
+export async function getProductEngagement(productId: string): Promise<ProductEngagement> {
+  const { data } = await supabasePublic().rpc("product_engagement", { p_product: productId });
+  return (data as ProductEngagement) ?? { views: 0, clicks: 0, carts: 0, wishlists: 0 };
+}
+
 export async function getStore(slug: string): Promise<Store | null> {
   const { data } = await supabasePublic().from("stores").select("*").eq("slug", slug).eq("status", "approved").maybeSingle();
   return data as Store | null;

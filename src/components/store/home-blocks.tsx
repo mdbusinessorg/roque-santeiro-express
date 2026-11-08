@@ -1,5 +1,5 @@
 import Link from "@/components/ui/native-link";
-import { ArrowRight, BadgeCheck, CreditCard, Headphones, ShieldCheck, Store as StoreIcon, Truck } from "lucide-react";
+import { ArrowRight, BadgeCheck, CreditCard, Headphones, LayoutGrid, ShieldCheck, Store as StoreIcon, Truck } from "lucide-react";
 import type { Category, Product } from "@/lib/types";
 import { kz } from "@/lib/utils";
 import { HeroSlider, type HeroSlide } from "@/components/store/hero-slider";
@@ -57,8 +57,12 @@ export function Hero({ featured, all = [], deals = [], fresh = [], cats = [] }: 
           <nav className="flex flex-1 flex-col overflow-hidden">
             {cats.slice(0, 8).map((c) => (
               <Link key={c.id} href={`/categoria/${c.slug}`} className="group flex items-center gap-2.5 rounded-xl px-1.5 py-[7px] text-[13.5px] text-ink/75 transition hover:bg-mist hover:text-promo">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.image_url ?? ""} alt="" className="h-6 w-6 shrink-0 object-contain" />
+                {c.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={c.image_url} alt="" className="h-6 w-6 shrink-0 object-contain" />
+                ) : (
+                  <LayoutGrid className="h-6 w-6 shrink-0 text-ink/30" />
+                )}
                 <span className="truncate">{c.name}</span>
               </Link>
             ))}
@@ -102,8 +106,12 @@ export function CategoryStrip({ cats }: { cats: Category[] }) {
       {cats.map((c) => (
         <Link key={c.id} href={`/categoria/${c.slug}`} className="group flex w-[74px] shrink-0 flex-col items-center gap-1.5 sm:w-auto">
           <span className="grid h-[66px] w-[66px] place-items-center overflow-hidden rounded-[1.4rem] border border-line bg-white p-2 shadow-sm transition group-hover:border-brand-300 group-hover:shadow-md">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.image_url ?? ""} alt="" className="h-full w-full object-contain" />
+            {c.image_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={c.image_url} alt="" className="h-full w-full object-contain" />
+            ) : (
+              <LayoutGrid className="h-7 w-7 text-ink/30" />
+            )}
           </span>
           <span className="line-clamp-2 text-center text-[11.5px] font-medium leading-tight text-ink/80 group-hover:text-brand-600">{c.name}</span>
         </Link>

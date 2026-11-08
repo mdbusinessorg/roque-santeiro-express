@@ -1,4 +1,5 @@
 import Link from "@/components/ui/native-link";
+import { LayoutGrid } from "lucide-react";
 import { getCategories } from "@/lib/data/queries";
 
 export const revalidate = 300;
@@ -12,8 +13,12 @@ export default async function CategoriesPage() {
       <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
         {cats.map((c) => (
           <Link key={c.id} href={`/categoria/${c.slug}`} className="card flex flex-col items-center gap-2 p-3 text-center active:scale-[0.97]">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={c.image_url ?? ""} alt="" className="aspect-square w-full rounded-2xl bg-mist object-contain p-2" />
+            {c.image_url ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={c.image_url} alt="" className="aspect-square w-full rounded-2xl bg-mist object-contain p-2" />
+            ) : (
+              <span className="grid aspect-square w-full place-items-center rounded-2xl bg-mist"><LayoutGrid className="h-10 w-10 text-ink/25" /></span>
+            )}
             <span className="text-[12.5px] font-semibold leading-tight">{c.name}</span>
           </Link>
         ))}

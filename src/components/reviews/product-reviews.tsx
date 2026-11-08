@@ -53,8 +53,8 @@ export function ProductReviews({ productId, rating, count, storeName }: { produc
   return (
     <section id="avaliacoes" className="mt-6 scroll-mt-24" aria-label="Avaliações">
       <h2 className="mb-3 text-lg font-extrabold tracking-tight">Avaliações</h2>
-      <div className="grid gap-4 md:grid-cols-[260px_1fr]">
-        <div className="card p-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-[260px_minmax(0,1fr)]">
+        <div className="card min-w-0 p-4">
           <p className="text-4xl font-extrabold">{count ? Number(rating).toFixed(1) : "—"}<span className="text-base font-semibold text-ink/40"> / 5</span></p>
           <p className="mt-1 flex gap-0.5">{[1, 2, 3, 4, 5].map((n) => <Star key={n} className={`h-4 w-4 ${n <= Math.round(rating) ? "fill-amber-400 text-amber-400" : "text-line"}`} />)}</p>
           <p className="mt-1 text-xs text-ink/55">{count} {count === 1 ? "avaliação" : "avaliações"} de compras verificadas</p>
@@ -68,7 +68,7 @@ export function ProductReviews({ productId, rating, count, storeName }: { produc
             ))}
           </div>
         </div>
-        <div className="card p-4 text-sm">
+        <div className="card min-w-0 p-4 text-sm">
           <div className="no-scrollbar flex gap-2 overflow-x-auto pb-1">
             {[["recentes", "Mais relevantes"], ["melhores", "Melhor classificação"], ["piores", "Pior classificação"], ["fotos", "Com fotos"]].map(([k, l]) => (
               <button key={k} onClick={() => setSort(k)} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${sort === k ? "bg-ink text-white" : "bg-mist text-ink/70"}`}>{l}</button>

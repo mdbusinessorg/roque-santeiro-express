@@ -31,7 +31,7 @@ export function LogosCarousel({ children, stagger = 0.14, count, className, dura
         const next = gi === nextIndex && animate && n > 1;
         const vis = cur || next;
         return (
-          <div key={gi} className={cn("flex w-full justify-center gap-6", className)} style={{ gridArea: "1 / 1", pointerEvents: cur ? "auto" : "none" }}>
+          <div key={gi} className={cn("flex w-full flex-wrap justify-center gap-6", className)} style={{ gridArea: "1 / 1", pointerEvents: cur ? "auto" : "none" }}>
             {group.map((logo, li) => {
               const style: React.CSSProperties = { animationDelay: `${li * stagger}s`, animationDuration: `${duration}ms`, animationFillMode: "both" };
               if (!animate || n < 2 || !vis) return <div key={li} className={cur ? "opacity-100" : "opacity-0"} style={style}>{logo}</div>;

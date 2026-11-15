@@ -12,7 +12,7 @@ import { supabaseBrowser } from "@/lib/supabase/client";
 import { interact, track } from "@/lib/tracking";
 import { tapFeedback } from "@/lib/native";
 
-function toCartItem(p: Product) {
+export function toCartItem(p: Product) {
   return { product_id: p.id, slug: p.slug, name: p.name, image: p.images?.[0] ?? "", price: Number(p.price), compare_at_price: p.compare_at_price ? Number(p.compare_at_price) : null, store_id: p.store_id, store_name: p.stores?.name ?? "", store_slug: p.stores?.slug ?? "", stock: p.stock };
 }
 

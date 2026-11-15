@@ -1,3 +1,4 @@
+import { Assistant } from "@/components/assistant/assistant";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart/cart";
@@ -27,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <main className="mx-auto w-full max-w-7xl px-3 pb-28 sm:px-5 md:pb-12">{children}</main>
             <Footer />
             <BottomNav />
+            <Assistant />
             <Tracker />
             <NativeBridge />
             <RefCapture />

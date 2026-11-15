@@ -8,6 +8,7 @@ import { getCategories, getProducts, getStore } from "@/lib/data/queries";
 import { DELIVERY, SITE_URL } from "@/lib/utils";
 import { ProductGrid } from "@/components/store/product-card";
 import { StoreAvatar } from "@/components/store/store-avatar";
+import { FollowButton } from "@/components/store/follow-button";
 import { AnimatedGradient } from "@/components/effects/animated-gradient";
 import { BlurReveal } from "@/components/effects/blur-reveal";
 import { QRCode } from "@/components/effects/qr-code";
@@ -50,9 +51,9 @@ export default async function StorePage({ params, searchParams }: { params: Prom
         <div className="relative flex flex-col gap-2 px-4 pb-3 sm:flex-row sm:items-end sm:gap-4 sm:px-6">
           <span className="-mt-12 w-fit rounded-[30%] bg-white p-1 shadow-2xl ring-2 ring-gold/50 sm:-mt-14"><StoreAvatar store={store} size={88} /></span>
           <div className="min-w-0 sm:pb-1">
-            {store.is_official ? <span className="gold-text text-[11px] font-bold uppercase tracking-[0.25em]">Loja oficial</span> : <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/45">Loja verificada</span>}
+            {store.is_demo ? <span className="w-fit rounded-full bg-ink px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white">Demonstração</span> : store.is_official ? <span className="gold-text text-[11px] font-bold uppercase tracking-[0.25em]">Loja oficial</span> : <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/45">Loja verificada</span>}
             <h1 className="flex items-center gap-1.5 text-2xl font-extrabold leading-tight tracking-tight text-ink sm:text-3xl">
-              <BlurReveal>{store.name}</BlurReveal><BadgeCheck className="h-5 w-5 shrink-0 text-gold-700" />
+              <BlurReveal>{store.name}</BlurReveal>{!store.is_demo && <BadgeCheck className="h-5 w-5 shrink-0 text-gold-700" />}
             </h1>
             <p className="flex items-center gap-1 text-[13px] text-ink/55"><MapPin className="h-4 w-4" />{[store.city, store.province].filter(Boolean).join(", ")}</p>
           </div>
@@ -68,6 +69,7 @@ export default async function StorePage({ params, searchParams }: { params: Prom
         <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:px-6">
           {store.description && <p className="flex-1 text-sm text-ink/75">{store.description}</p>}
           <div className="flex flex-wrap gap-2">
+            <FollowButton storeId={store.id} storeSlug={store.slug} />
             {store.whatsapp && <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="btn-primary"><MessageCircle className="h-4 w-4" />WhatsApp</a>}
             {store.phone && <a href={`tel:${store.phone.replace(/\s/g, "")}`} className="btn-ghost"><Phone className="h-4 w-4" />Ligar</a>}
             <ShareButton title={store.name} url={url} />

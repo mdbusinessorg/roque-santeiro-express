@@ -11,7 +11,10 @@ export async function getStores(): Promise<Store[]> {
   return (data as Store[]) ?? [];
 }
 
-type Opts = { q?: string; category?: string; store?: string; sort?: string; deals?: boolean; featured?: boolean; min?: number; max?: number; page?: number; limit?: number };
+/** Tipos de loja de serviço: ficam fora dos feeds gerais (a Comida tem destaque próprio na página inicial). */
+export const SERVICE_TYPES = ["comida", "supermercado", "farmacia", "servicos"];
+
+type Opts = { q?: string; category?: string; store?: string; sort?: string; deals?: boolean; featured?: boolean; min?: number; max?: number; page?: number; limit?: number; audience?: string; storeType?: string; noServices?: boolean };
 
 export async function getProducts(o: Opts = {}): Promise<{ products: Product[]; total: number }> {
   const limit = o.limit ?? 20;
@@ -22,6 +25,9 @@ export async function getProducts(o: Opts = {}): Promise<{ products: Product[]; 
   if (o.store) q = q.eq("store_id", o.store);
   if (o.deals) q = q.not("compare_at_price", "is", null);
   if (o.featured) q = q.eq("featured", true);
+  if (o.audience) q = q.eq("audience", o.audience);
+  if (o.storeType) q = q.eq("stores.store_type", o.storeType);
+  if (o.noServices) q = q.not("stores.store_type", "in", `(${SERVICE_TYPES.join(",")})`);
   if (o.min) q = q.gte("price", o.min);
   if (o.max) q = q.lte("price", o.max);
   switch (o.sort) {

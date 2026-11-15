@@ -1,3 +1,4 @@
+import { BisnoTalks } from "@/components/talks/bisno-talks";
 import Link from "@/components/ui/native-link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -93,6 +94,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </div>
 
       <RecoRail kind="bought_together" productId={p.id} title="Compre juntamente" subtitle="Clientes também compraram ou combinam com este produto" />
+      <BisnoTalks productId={p.id} productName={p.name} productSlug={p.slug} />
       <ProductReviews productId={p.id} rating={Number(p.rating)} count={p.rating_count} storeName={store.name} />
       <RecoRail kind="similar" productId={p.id} title="Produtos semelhantes" />
       <RecoRail kind="for_you" productId={p.id} exclude={[p.id]} title="Também pode gostar" subtitle="Com base no que tem visto" />

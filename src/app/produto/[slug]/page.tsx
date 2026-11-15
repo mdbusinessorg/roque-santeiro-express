@@ -2,7 +2,7 @@ import { BisnoTalks } from "@/components/talks/bisno-talks";
 import Link from "@/components/ui/native-link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BadgeCheck, Eye, MapPin, MessageCircle, MousePointerClick, RotateCcw, ShieldCheck, Star, Truck } from "lucide-react";
+import { BadgeCheck, Eye, MapPin, MessageCircle, MousePointerClick, RotateCcw, ShieldCheck, Star, Truck, Mic } from "lucide-react";
 import { getProduct, getProductEngagement, getStore } from "@/lib/data/queries";
 import { DELIVERY, discountPct, kz } from "@/lib/utils";
 import { Gallery } from "@/components/store/gallery";
@@ -63,6 +63,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="mt-4">
               <ProductActions item={{ product_id: p.id, slug: p.slug, name: p.name, image: p.images[0], price: Number(p.price), compare_at_price: p.compare_at_price, store_id: store.id, store_name: store.name, store_slug: store.slug, stock: p.stock }} />
             </div>
+            <a href="#bisno-talks" className="mt-3 flex items-center gap-3 rounded-2xl bg-ink px-4 py-3 text-white transition active:scale-[0.98]">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold text-ink"><Mic className="h-4 w-4" /></span>
+              <span className="min-w-0 flex-1"><b className="block text-[14px] leading-tight">BISNO <span className="text-gold">TALKS</span></b><span className="block text-[12px] text-white/60">Fale ao vivo sobre este produto</span></span>
+              <span className="rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider">Ao vivo</span>
+            </a>
           </div>
           {p.description && <div className="card p-4"><h2 className="font-bold">Descrição</h2><p className="mt-2 whitespace-pre-line text-[14.5px] leading-relaxed text-ink/75">{p.description}</p></div>}
           {specs.length > 0 && (

@@ -125,7 +125,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
   const now = liveOf(topic);
 
   return (
-    <section className="mt-8 overflow-hidden rounded-[28px] bg-ink text-white">
+    <section id="bisno-talks" className="mt-8 scroll-mt-24 overflow-hidden rounded-[28px] bg-ink text-white">
       <div className="p-5">
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1.5 rounded-full bg-red-600 px-2.5 py-1 text-[10.5px] font-extrabold uppercase tracking-wider"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />Ao vivo</span>

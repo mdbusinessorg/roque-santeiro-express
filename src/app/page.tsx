@@ -9,6 +9,7 @@ import { ArcSpotlight } from "@/components/store/arc-spotlight";
 import { FoodSpotlight } from "@/components/store/food-spotlight";
 import { RevealGrid } from "@/components/store/reveal-grid";
 import { UniverseEntry } from "@/components/universe/entry";
+import { TalksEntry } from "@/components/talks/talks-hub";
 import { mixByStore } from "@/lib/data/mix";
 import { RecentlyViewed } from "@/components/store/recently-viewed";
 import { Newsletter } from "@/components/store/newsletter";
@@ -45,6 +46,7 @@ export default async function Home() {
       <CategoryStrip cats={cats} />
       <FoodSpotlight dishes={mixByStore(food.products)} className="mt-6" />
       <UniverseEntry />
+      <TalksEntry className="mt-2.5" />
       <Section title="Em destaque" subtitle="Deslize para ver mais" href="/pesquisa">
         <ArcSpotlight products={mixed.filter((p) => p.stock > 0)} />
       </Section>

@@ -3,7 +3,7 @@
 import Link from "@/components/ui/native-link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useRef, useState } from "react";
-import { Heart, MapPin, Mic, Search, ShoppingCart, User, Store } from "lucide-react";
+import { Camera, Heart, Loader2, MapPin, Mic, Search, ShoppingCart, User, Store } from "lucide-react";
 import { useCart } from "@/lib/cart/cart";
 import { useAuth, isStaff } from "@/lib/auth";
 import { supabaseBrowser } from "@/lib/supabase/client";
@@ -19,7 +19,51 @@ function SearchBox() {
   const [items, setItems] = useState<Suggest[]>([]);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [canVoice, setCanVoice] = useState(false);
+  const [busyPhoto, setBusyPhoto] = useState(false);
+  const fileRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => { setCanVoice(typeof window !== "undefined" && ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)); }, []);
+
+  function shrink(file: File): Promise<Blob> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      const url = URL.createObjectURL(file);
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        const max = 1024;
+        const scale = Math.min(1, max / Math.max(img.width, img.height));
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.max(1, Math.round(img.width * scale));
+        canvas.height = Math.max(1, Math.round(img.height * scale));
+        const ctx = canvas.getContext("2d");
+        if (!ctx) return reject(new Error("canvas"));
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("blob"))), "image/jpeg", 0.85);
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("imagem")); };
+      img.src = url;
+    });
+  }
+
+  async function photo(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) return;
+    setBusyPhoto(true);
+    try {
+      const blob = await shrink(file);
+      const fd = new FormData();
+      fd.append("image", blob, "foto.jpg");
+      const r = await fetch("/api/busca-visual", { method: "POST", body: fd });
+      const j = (await r.json()) as { q?: string; error?: string };
+      if (!r.ok || !j.q) throw new Error(j.error || "Não consegui analisar a foto.");
+      setOpen(false);
+      router.push(`/pesquisa?q=${encodeURIComponent(j.q)}`);
+    } catch (err) {
+      window.alert(err instanceof Error ? err.message : "Não consegui analisar a foto. Tenta outra imagem.");
+    } finally {
+      setBusyPhoto(false);
+    }
+  }
   function voice() {
     const W = window as unknown as Record<string, new () => { lang: string; onresult: (e: { results: { 0: { 0: { transcript: string } } } }) => void; onend?: () => void; onerror?: () => void; start: () => void }>;
     const R = W.SpeechRecognition || W.webkitSpeechRecognition;
@@ -53,11 +97,15 @@ function SearchBox() {
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         placeholder="Pesquisar no Roque Santeiro"
-        className="h-11 w-full rounded-full border border-slate-200 bg-slate-900/[0.04] pl-11 pr-24 text-[15px] text-ink shadow-inner outline-none backdrop-blur placeholder:text-slate-400 focus:ring-4 focus:ring-neutral-900/10"
+        className="h-11 w-full rounded-full border border-slate-200 bg-slate-900/[0.04] pl-11 pr-36 text-[15px] text-ink shadow-inner outline-none backdrop-blur placeholder:text-slate-400 focus:ring-4 focus:ring-neutral-900/10"
         enterKeyHint="search"
         aria-label="Pesquisar"
       />
       {canVoice && <button type="button" onClick={voice} aria-label="Pesquisar por voz" className="absolute right-[5.5rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 active:bg-neutral-900/5"><Mic className="h-[18px] w-[18px]" /></button>}
+      <input ref={fileRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={photo} aria-hidden tabIndex={-1} />
+      <button type="button" onClick={() => fileRef.current?.click()} disabled={busyPhoto} aria-label="Pesquisar por foto" className="absolute right-[8.25rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 transition active:bg-neutral-900/5 disabled:opacity-40">
+        {busyPhoto ? <Loader2 className="h-[18px] w-[18px] animate-spin" /> : <Camera className="h-[18px] w-[18px]" />}
+      </button>
       <button className="absolute right-1 top-1 bg-neutral-950 transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
       {open && items.length > 0 && (
         <ul className="glass absolute inset-x-0 top-12 z-50 overflow-hidden rounded-2xl py-1 text-ink">

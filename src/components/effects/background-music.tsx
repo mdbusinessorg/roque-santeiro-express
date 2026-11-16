@@ -11,6 +11,7 @@ import { Volume2, VolumeX } from "lucide-react";
 export function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const mutedRef = useRef(false);
+  const suppressRef = useRef(0);
   const [playing, setPlaying] = useState(true);
 
   useEffect(() => {
@@ -25,13 +26,14 @@ export function BackgroundMusic() {
     a.addEventListener("pause", sync);
     a.addEventListener("ended", sync);
 
-    const play = () => { if (!document.hidden && !mutedRef.current) void a.play().catch(() => {}); };
-    const pause = () => a.pause();
-    const onVis = () => (document.hidden ? pause() : play());
+    const play = () => { if (!document.hidden && !mutedRef.current && suppressRef.current === 0) void a.play().catch(() => {}); };
+    const pause = () => { suppressRef.current += 1; a.pause(); };
+    const resume = () => { suppressRef.current = Math.max(0, suppressRef.current - 1); play(); };
+    const onVis = () => (document.hidden ? a.pause() : play());
     const kick = () => play();
 
     window.addEventListener("site-audio-pause", pause);
-    window.addEventListener("site-audio-resume", play);
+    window.addEventListener("site-audio-resume", resume);
     document.addEventListener("visibilitychange", onVis);
     window.addEventListener("pointerdown", kick);
     window.addEventListener("keydown", kick);
@@ -40,7 +42,7 @@ export function BackgroundMusic() {
 
     return () => {
       window.removeEventListener("site-audio-pause", pause);
-      window.removeEventListener("site-audio-resume", play);
+      window.removeEventListener("site-audio-resume", resume);
       document.removeEventListener("visibilitychange", onVis);
       window.removeEventListener("pointerdown", kick);
       window.removeEventListener("keydown", kick);
@@ -55,7 +57,7 @@ export function BackgroundMusic() {
     if (!a) return;
     mutedRef.current = !mutedRef.current;
     if (mutedRef.current) a.pause();
-    else if (!document.hidden) void a.play().catch(() => {});
+    else if (!document.hidden && suppressRef.current === 0) void a.play().catch(() => {});
   }
 
   return (

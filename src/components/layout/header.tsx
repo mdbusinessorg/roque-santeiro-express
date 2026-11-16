@@ -20,6 +20,7 @@ function SearchBox() {
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [canVoice, setCanVoice] = useState(false);
   const [busyPhoto, setBusyPhoto] = useState(false);
+  const [listening, setListening] = useState(false);
   const fileRef = useRef<HTMLInputElement | null>(null);
   useEffect(() => { setCanVoice(typeof window !== "undefined" && ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)); }, []);
 
@@ -65,14 +66,17 @@ function SearchBox() {
     }
   }
   function voice() {
-    const W = window as unknown as Record<string, new () => { lang: string; onresult: (e: { results: { 0: { 0: { transcript: string } } } }) => void; onend?: () => void; onerror?: () => void; start: () => void }>;
+    const W = window as unknown as Record<string, new () => { lang: string; onresult: (e: { results: { 0: { 0: { transcript: string } } } }) => void; onstart?: () => void; onend?: () => void; onerror?: () => void; start: () => void }>;
     const R = W.SpeechRecognition || W.webkitSpeechRecognition;
     if (!R) return;
     const r = new R(); r.lang = "pt-PT";
     window.dispatchEvent(new Event("site-audio-pause"));
+    setListening(true);
+    r.onstart = () => setListening(true);
     r.onresult = (e) => { const t = e.results[0][0].transcript; setQ(t); router.push(`/pesquisa?q=${encodeURIComponent(t)}`); };
-    r.onend = () => window.dispatchEvent(new Event("site-audio-resume"));
-    r.onerror = () => window.dispatchEvent(new Event("site-audio-resume"));
+    const done = () => { setListening(false); window.dispatchEvent(new Event("site-audio-resume")); };
+    r.onend = done;
+    r.onerror = done;
     r.start();
   }
 
@@ -90,22 +94,27 @@ function SearchBox() {
       className="relative flex-1"
       onSubmit={(e) => { e.preventDefault(); setOpen(false); router.push(`/pesquisa?q=${encodeURIComponent(q.trim())}`); }}
     >
-      <Search className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500" />
+      <button type="button" onClick={() => fileRef.current?.click()} disabled={busyPhoto} aria-label="Pesquisar por foto" className="absolute left-1.5 top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 transition active:bg-neutral-900/5 disabled:opacity-40">
+        {busyPhoto ? <Loader2 className="h-[18px] w-[18px] animate-spin" /> : <Camera className="h-[18px] w-[18px]" />}
+      </button>
+      <Search className="pointer-events-none absolute left-[2.75rem] top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500" />
       <input
         value={q}
         onChange={(e) => { setQ(e.target.value); setOpen(true); }}
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         placeholder="Pesquisar no Roque Santeiro"
-        className="h-11 w-full rounded-full border border-slate-200 bg-slate-900/[0.04] pl-11 pr-36 text-[15px] text-ink shadow-inner outline-none backdrop-blur placeholder:text-slate-400 focus:ring-4 focus:ring-neutral-900/10"
+        className="h-11 w-full rounded-full border border-slate-200 bg-slate-900/[0.04] pl-[5.25rem] pr-28 text-[15px] text-ink shadow-inner outline-none backdrop-blur placeholder:text-slate-400 focus:ring-4 focus:ring-neutral-900/10"
         enterKeyHint="search"
         aria-label="Pesquisar"
       />
-      {canVoice && <button type="button" onClick={voice} aria-label="Pesquisar por voz" className="absolute right-[5.5rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 active:bg-neutral-900/5"><Mic className="h-[18px] w-[18px]" /></button>}
-      <input ref={fileRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={photo} aria-hidden tabIndex={-1} />
-      <button type="button" onClick={() => fileRef.current?.click()} disabled={busyPhoto} aria-label="Pesquisar por foto" className="absolute right-[8.25rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 transition active:bg-neutral-900/5 disabled:opacity-40">
-        {busyPhoto ? <Loader2 className="h-[18px] w-[18px] animate-spin" /> : <Camera className="h-[18px] w-[18px]" />}
-      </button>
+      {canVoice && (
+        <button type="button" onClick={voice} aria-label="Pesquisar por voz" aria-pressed={listening} className="absolute right-[5.5rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 transition active:bg-neutral-900/5">
+          {listening && <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-red-500/25" />}
+          {listening && <span aria-hidden className="absolute inset-0 animate-ping rounded-full bg-red-500/15 [animation-delay:0.45s]" />}
+          <Mic className={listening ? "relative h-[18px] w-[18px] text-red-600" : "relative h-[18px] w-[18px]"} />
+        </button>
+      )}
       <button className="absolute right-1 top-1 bg-neutral-950 transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
       {open && items.length > 0 && (
         <ul className="glass absolute inset-x-0 top-12 z-50 overflow-hidden rounded-2xl py-1 text-ink">

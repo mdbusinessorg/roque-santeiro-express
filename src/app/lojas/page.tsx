@@ -1,4 +1,6 @@
 import Link from "@/components/ui/native-link";
+import { Suspense } from "react";
+import { StoreSearch } from "@/components/store/store-search";
 import { ArrowRight, BadgeCheck, Cigarette, MapPin, Pill, Shirt, ShoppingBasket, Smartphone, Sofa, Sparkles, Store as StoreIcon, Star, UtensilsCrossed, Wrench } from "lucide-react";
 import { getStores, getStoreShowcase } from "@/lib/data/queries";
 import { STORE_TYPES, type Store } from "@/lib/types";
@@ -50,12 +52,22 @@ function StoreCard({ s, sh }: { s: Store; sh?: { sold: number; count: number } }
   );
 }
 
-export default async function StoresPage({ searchParams }: { searchParams: Promise<{ tipo?: string }> }) {
+const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
+
+export default async function StoresPage({ searchParams }: { searchParams: Promise<{ tipo?: string; q?: string }> }) {
   const [stores, show, sp] = await Promise.all([getStores(), getStoreShowcase(), searchParams]);
+  const q = (sp.q ?? "").trim();
+  const words = fold(q).split(/\s+/).filter(Boolean);
+  const list0 = words.length
+    ? stores.filter((s) => {
+        const hay = fold(`${s.name} ${s.description ?? ""} ${s.city ?? ""} ${s.province ?? ""} ${STORE_TYPES[s.store_type ?? "geral"] ?? ""}`);
+        return words.every((w) => hay.includes(w));
+      })
+    : stores;
   const rank = (a: Store, b: Store) => Number(b.is_official) - Number(a.is_official) || (show[b.id]?.sold ?? 0) - (show[a.id]?.sold ?? 0) || (show[b.id]?.count ?? 0) - (show[a.id]?.count ?? 0);
-  const byType = (t: string) => stores.filter((s) => (s.store_type ?? "geral") === t).sort(rank);
+  const byType = (t: string) => list0.filter((s) => (s.store_type ?? "geral") === t).sort(rank);
   const active = ORDER.includes(sp.tipo ?? "") ? sp.tipo! : null;
-  const types = active ? [active] : ORDER;
+  const types = q ? ORDER.filter((t) => byType(t).length) : active ? [active] : ORDER;
 
   return (
     <div className="pt-5">
@@ -63,16 +75,26 @@ export default async function StoresPage({ searchParams }: { searchParams: Promi
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-beige/15 blur-3xl" />
         <p className="gold-text text-[11px] font-bold uppercase tracking-[0.3em]">Mercado de lojas</p>
         <h1 className="mt-1 text-3xl font-extrabold tracking-tight text-ink sm:text-4xl"><SlideUpText>Lojas no Roque Santeiro</SlideUpText></h1>
-        <p className="mt-2 max-w-lg text-sm text-ink/65">{stores.length} lojas em {ORDER.filter((t) => byType(t).length).length} tipos. Visite, compare e fale directamente com o vendedor.</p>
+        <p className="mt-2 max-w-lg text-sm text-ink/65">{list0.length} {list0.length === 1 ? "loja" : "lojas"}{q ? ` para “${q}”` : ` em ${ORDER.filter((t) => byType(t).length).length} tipos`}. Visite, compare e fale directamente com o vendedor.</p>
       </section>
 
+      <Suspense fallback={null}><StoreSearch /></Suspense>
+
       <nav className="no-scrollbar -mx-3 mt-3 flex gap-2 overflow-x-auto px-3 py-1" aria-label="Tipos de loja">
-        <Link href="/lojas" className={cn("shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold", !active ? "bg-neutral-900 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink/70")}>Todas</Link>
+        <Link href={q ? `/lojas?q=${encodeURIComponent(q)}` : "/lojas"} className={cn("shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold", !active ? "bg-neutral-900 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink/70")}>Todas</Link>
         {ORDER.map((t) => {
           const I = ICON[t];
-          return <Link key={t} href={`/lojas?tipo=${t}`} className={cn("flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-semibold", active === t ? "bg-neutral-900 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink/70")}><I className="h-3.5 w-3.5" />{STORE_TYPES[t]}</Link>;
+          return <Link key={t} href={`/lojas?tipo=${t}${q ? `&q=${encodeURIComponent(q)}` : ""}`} className={cn("flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-semibold", active === t ? "bg-neutral-900 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink/70")}><I className="h-3.5 w-3.5" />{STORE_TYPES[t]}</Link>;
         })}
       </nav>
+
+      {q && types.length === 0 && (
+        <div className="card mt-6 p-6 text-center">
+          <p className="text-[15px] font-bold text-ink">Nenhuma loja encontrada para “{q}”.</p>
+          <p className="mt-1 text-[13px] text-ink/60">Experimenta outro nome, tipo de loja ou cidade.</p>
+          <Link href="/lojas" className="btn-ghost mt-4 inline-flex !px-5 !py-2.5 text-[13px]">Ver todas as lojas</Link>
+        </div>
+      )}
 
       {types.map((t) => {
         const list = byType(t);

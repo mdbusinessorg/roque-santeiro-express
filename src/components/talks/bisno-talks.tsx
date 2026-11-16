@@ -132,7 +132,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
           <span className="flex items-center gap-1.5 rounded-full bg-red-600 px-2.5 py-1 text-[10.5px] font-extrabold uppercase tracking-wider"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />Ao vivo</span>
           <span className="text-[11px] text-white/50">só voz · sem texto · a sala não é gravada</span>
         </div>
-        <h2 className="mt-3 text-[26px] font-black leading-none tracking-tight">BISNO <span className="text-gold">TALKS</span></h2>
+        <h2 className="mt-3 text-[26px] font-black leading-none tracking-tight">BISNO <span className="text-white">TALKS</span></h2>
         <p className="mt-1.5 text-[13px] leading-snug text-white/60">Fale ao vivo com outras pessoas sobre {productName}. Escolha o tema e entre.</p>
 
         <div className="no-scrollbar -mx-5 mt-4 flex gap-2 overflow-x-auto px-5">
@@ -183,7 +183,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
               <li key={n.id} className="flex items-center gap-3 rounded-2xl bg-white/[0.07] p-2">
                 <button type="button" aria-label={playing === n.id ? "Pausar" : `Ouvir mensagem de ${n.name}`} onClick={() => toggle(n)} className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold text-white">{playing === n.id ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current" />}</button>
                 <div className="min-w-0 flex-1">
-                  <p className="flex items-center gap-1 truncate text-[13px] font-bold">{n.name}{n.verified && <BadgeCheck className="h-3.5 w-3.5 shrink-0 text-gold" aria-label="Comprador verificado" />}</p>
+                  <p className="flex items-center gap-1 truncate text-[13px] font-bold">{n.name}{n.verified && <BadgeCheck className="h-3.5 w-3.5 shrink-0 text-white" aria-label="Comprador verificado" />}</p>
                   <p className="truncate text-[11.5px] text-white/50">{TALK_TOPICS[n.topic] ?? n.topic} · {mmss(n.duration_s)}</p>
                 </div>
                 {user?.id === n.user_id
@@ -201,7 +201,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
             <header className="px-5 pt-[max(18px,env(safe-area-inset-top))]">
               <div className="flex items-center gap-2">
                 <span className="flex items-center gap-1.5 rounded-full bg-red-600 px-2.5 py-1 text-[10.5px] font-extrabold uppercase tracking-wider"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />Ao vivo</span>
-                <span className="text-[12px] font-bold tracking-wide text-white/70">BISNO <span className="text-gold">TALKS</span></span>
+                <span className="text-[12px] font-bold tracking-wide text-white/70">BISNO <span className="text-white">TALKS</span></span>
               </div>
               <h3 className="mt-3 text-[24px] font-black leading-tight tracking-tight">{TALK_TOPICS[topic]}</h3>
               <p className="line-clamp-1 text-[13px] text-white/55">{productName}</p>
@@ -215,7 +215,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
                       {p.name.slice(0, 1)}
                       {p.muted && <span className="absolute -bottom-1 -right-1 grid h-7 w-7 place-items-center rounded-full bg-[#0b0b0d] ring-2 ring-white/15"><MicOff className="h-3.5 w-3.5 text-red-400" /></span>}
                     </span>
-                    <span className="mt-2 flex max-w-full items-center gap-1 text-[13px] font-bold"><span className="truncate">{p.me ? "Você" : p.name}</span>{p.verified && <BadgeCheck className="h-3.5 w-3.5 shrink-0 text-gold" aria-label="Comprador verificado" />}</span>
+                    <span className="mt-2 flex max-w-full items-center gap-1 text-[13px] font-bold"><span className="truncate">{p.me ? "Você" : p.name}</span>{p.verified && <BadgeCheck className="h-3.5 w-3.5 shrink-0 text-white" aria-label="Comprador verificado" />}</span>
                     <span className="text-[10.5px] text-white/45">{!p.connected ? "a ligar…" : p.verified ? "Comprador verificado" : p.speaking ? "a falar" : "\u00a0"}</span>
                     {!p.me && <button type="button" onClick={() => void report({ user: p.user_id })} className="mt-1 flex items-center gap-1 text-[10.5px] text-white/40 underline-offset-2 active:underline"><Flag className="h-3 w-3" />Denunciar</button>}
                   </li>

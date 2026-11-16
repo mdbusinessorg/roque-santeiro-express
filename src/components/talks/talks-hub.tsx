@@ -36,10 +36,10 @@ export function TalksEntry({ className }: { className?: string }) {
       <span className="relative grid h-14 w-14 shrink-0 place-items-center rounded-full bg-gold text-white"><Mic className="h-6 w-6" /><span className="absolute inset-0 animate-ping rounded-full border border-gold/60" /></span>
       <span className="relative min-w-0 flex-1">
         <LiveBadge />
-        <span className="mt-1.5 block text-[22px] font-black leading-none tracking-tight">BISNO <span className="text-gold">TALKS</span></span>
+        <span className="mt-1.5 block text-[22px] font-black leading-none tracking-tight">BISNO <span className="text-white">TALKS</span></span>
         <span className="mt-1 block text-[12.5px] leading-snug text-white/60">{people > 0 ? `${people} ${people === 1 ? "pessoa" : "pessoas"} a falar agora sobre produtos` : "Fale ao vivo, só por voz, sobre qualquer produto"}</span>
       </span>
-      <ArrowRight className="relative h-5 w-5 shrink-0 text-gold" />
+      <ArrowRight className="relative h-5 w-5 shrink-0 text-white" />
     </Link>
   );
 }
@@ -50,7 +50,7 @@ export function TalksHub({ products }: { products: Product[] }) {
     <div className="pb-6 pt-4">
       <section className="overflow-hidden rounded-[28px] bg-neutral-950 p-5 text-white sm:p-8">
         <LiveBadge />
-        <h1 className="mt-3 text-[34px] font-black leading-none tracking-tight sm:text-5xl">BISNO <span className="text-gold">TALKS</span></h1>
+        <h1 className="mt-3 text-[34px] font-black leading-none tracking-tight sm:text-5xl">BISNO <span className="text-white">TALKS</span></h1>
         <p className="mt-2 max-w-md text-[13.5px] leading-snug text-white/65">Salas de voz ao vivo sobre cada produto. Só voz, sem texto, e a sala não é gravada. Escolha um produto, um tema e entre.</p>
       </section>
 
@@ -87,7 +87,7 @@ export function TalksHub({ products }: { products: Product[] }) {
               <img src={p.images[0]} alt="" loading="lazy" className="aspect-square w-full rounded-2xl bg-white object-contain" />
               <span className="mt-2 line-clamp-2 text-[13px] font-semibold leading-snug">{p.name}</span>
               <span className="mt-0.5 text-[12px] text-ink/50">{kz(p.price)}</span>
-              <span className="mt-auto flex items-center justify-center gap-1.5 rounded-full bg-neutral-950 px-3 py-2 pt-2 text-[12px] font-bold text-gold"><Mic className="h-3.5 w-3.5" />Falar ao vivo</span>
+              <span className="mt-auto flex items-center justify-center gap-1.5 rounded-full bg-neutral-950 px-3 py-2 pt-2 text-[12px] font-bold text-white"><Mic className="h-3.5 w-3.5" />Falar ao vivo</span>
             </Link>
           </li>
         ))}

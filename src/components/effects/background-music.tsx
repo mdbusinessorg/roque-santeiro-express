@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Music, MusicOff } from "lucide-react";
+import { Volume2, VolumeX } from "lucide-react";
 
 /** Música de fundo do site: autoplay com volume moderado, em loop.
  *  Pausa quando o BISNO TALKS está ao vivo, durante a pesquisa por voz
@@ -63,7 +63,7 @@ export function BackgroundMusic() {
       aria-pressed={!playing}
       className="fixed bottom-[88px] left-3 z-40 grid h-11 w-11 place-items-center rounded-full bg-neutral-950 text-white shadow-xl shadow-black/25 ring-1 ring-white/15 transition active:scale-90 md:bottom-6 md:left-6"
     >
-      {playing ? <Music className="h-5 w-5" /> : <MusicOff className="h-5 w-5 text-white/60" />}
+      {playing ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5 text-white/60" />}
     </button>
   );
 }

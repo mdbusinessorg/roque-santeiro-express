@@ -76,7 +76,7 @@ export default function SellerWallet() {
             <div key={l as string} className="card p-4"><p className="text-xs text-ink/55">{l}</p><p className="mt-1 text-lg font-extrabold">{v === undefined ? "…" : kz(Number(v))}</p><p className="text-[11px] text-ink/45">{h}</p></div>
           ))}
         </div>
-        <p className="mt-3 flex gap-2 rounded-2xl bg-blue-600/[0.04] p-3 text-xs text-ink/65"><Info className="h-4 w-4 shrink-0" />Estes valores são um registo contabilístico da Roque Santeiro, não uma conta bancária nem dinheiro electrónico. O dinheiro só chega a si quando a transferência é feita e confirmada pelo banco/prestador de pagamentos.</p>
+        <p className="mt-3 flex gap-2 rounded-2xl bg-neutral-900/[0.04] p-3 text-xs text-ink/65"><Info className="h-4 w-4 shrink-0" />Estes valores são um registo contabilístico da Roque Santeiro, não uma conta bancária nem dinheiro electrónico. O dinheiro só chega a si quando a transferência é feita e confirmada pelo banco/prestador de pagamentos.</p>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <form onSubmit={request} className="card space-y-2 p-4">
@@ -99,7 +99,7 @@ export default function SellerWallet() {
             {payouts.map((p) => {
               const [l, c] = PAYOUT_STATUS[p.status] ?? [p.status, ""];
               return (
-                <div key={p.id} className="border-t border-blue-600/5 py-2">
+                <div key={p.id} className="border-t border-neutral-900/5 py-2">
                   <div className="flex items-center justify-between gap-2"><span>{new Date(p.created_at).toLocaleDateString("pt-AO")}</span><b>{kz(p.amount)}</b><span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${c}`}>{l}</span></div>
                   {p.provider_reference && <p className="text-[11px] text-ink/50">Ref. transferência: {p.provider_reference}</p>}
                   {p.rejection_reason && <p className="text-[11px] text-red-600">Motivo: {p.rejection_reason}</p>}
@@ -113,7 +113,7 @@ export default function SellerWallet() {
           <p className="mb-2 font-bold">Histórico de movimentos</p>
           {entries.length === 0 && <p className="text-xs text-ink/50">Sem movimentos. Aparecem quando um pagamento é confirmado.</p>}
           {entries.map((e) => (
-            <div key={e.id} className="flex items-center justify-between gap-2 border-t border-blue-600/5 py-2">
+            <div key={e.id} className="flex items-center justify-between gap-2 border-t border-neutral-900/5 py-2">
               <div className="min-w-0"><p className="truncate font-medium">{ENTRY[e.entry_type] ?? e.entry_type}</p><p className="text-[11px] text-ink/50">{new Date(e.created_at).toLocaleString("pt-AO")} · {ACCOUNT[e.account] ?? e.account}{e.memo ? ` · ${e.memo}` : ""}</p></div>
               <span className={`shrink-0 font-bold ${Number(e.amount) < 0 ? "text-red-600" : "text-emerald-700"}`}>{Number(e.amount) > 0 ? "+" : ""}{kz(Number(e.amount))}</span>
             </div>

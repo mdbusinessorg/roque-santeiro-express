@@ -49,13 +49,13 @@ export default function AdminPayments() {
           {payouts.map((p) => (
             <div key={p.id} className="flex flex-wrap items-center gap-2 border-t border-brand-100 py-2">
               <span className="flex-1">{p.stores.name} · {kz(p.amount)} · {p.iban}</span>
-              <Link href="/admin/financas" className="rounded-full bg-slate-900 px-3 py-1 text-xs font-semibold text-white">Tratar na Central financeira</Link>
+              <Link href="/admin/financas" className="rounded-full bg-neutral-950 px-3 py-1 text-xs font-semibold text-white">Tratar na Central financeira</Link>
             </div>
           ))}
         </div>
       )}
       <div className="no-scrollbar -mx-3 mb-3 flex gap-2 overflow-x-auto px-3">
-        {FILTERS.map((f) => <button key={f} onClick={() => setFilter(f)} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${filter === f ? "bg-blue-600 text-white" : "bg-slate-900/10 text-ink/70"}`}>{PAY_STATUS[f]}</button>)}
+        {FILTERS.map((f) => <button key={f} onClick={() => setFilter(f)} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${filter === f ? "bg-neutral-900 text-white" : "bg-slate-900/10 text-ink/70"}`}>{PAY_STATUS[f]}</button>)}
       </div>
       {msg && <p className="mb-3 rounded-xl bg-brand-50 p-3 text-sm">{msg}</p>}
       {!rows ? <div className="skeleton h-40" /> : !rows.length ? <p className="card p-8 text-center text-sm text-ink/60">Sem encomendas neste estado.</p> : (

@@ -64,7 +64,7 @@ export default function PartnersPage() {
             <p className="text-lg font-extrabold">Candidatura</p>
             <div className="grid gap-2 sm:grid-cols-3">
               {KINDS.map(([k, l, d]) => (
-                <button type="button" key={k} onClick={() => setF({ ...f, kind: k })} className={`rounded-2xl border p-3 text-left transition active:scale-[0.98] ${f.kind === k ? "border-blue-600/20 bg-slate-900 text-white" : "border-blue-600/10"}`}>
+                <button type="button" key={k} onClick={() => setF({ ...f, kind: k })} className={`rounded-2xl border p-3 text-left transition active:scale-[0.98] ${f.kind === k ? "border-neutral-900/20 bg-neutral-950 text-white" : "border-neutral-900/10"}`}>
                   <p className="font-bold">{l}</p><p className={`text-[11px] ${f.kind === k ? "text-white/70" : "text-ink/55"}`}>{d}</p>
                 </button>
               ))}

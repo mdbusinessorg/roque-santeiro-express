@@ -23,7 +23,7 @@ export function StarPicker({ value, onChange, size = 30 }: { value: number; onCh
           <div key={n} className="relative">
             <AnimatePresence>
               {peek && (
-                <motion.span initial={{ opacity: 0, y: 6, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 4 }} className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-slate-900 px-2 py-1 text-[11px] font-semibold text-white">
+                <motion.span initial={{ opacity: 0, y: 6, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 4 }} className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-neutral-950 px-2 py-1 text-[11px] font-semibold text-white">
                   {LABELS[n - 1]}
                 </motion.span>
               )}
@@ -88,7 +88,7 @@ export function ReviewForm({ itemId, name, onDone }: { itemId: string; name: str
           <span key={i} className="relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={URL.createObjectURL(f)} alt="" className="h-16 w-16 rounded-xl object-cover" />
-            <button type="button" aria-label="Remover" onClick={() => setFiles(files.filter((_, k) => k !== i))} className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-slate-900 text-white"><X className="h-3 w-3" /></button>
+            <button type="button" aria-label="Remover" onClick={() => setFiles(files.filter((_, k) => k !== i))} className="absolute -right-1 -top-1 grid h-5 w-5 place-items-center rounded-full bg-neutral-950 text-white"><X className="h-3 w-3" /></button>
           </span>
         ))}
         {files.length < 5 && <label className="grid h-16 w-16 cursor-pointer place-items-center rounded-xl border border-dashed border-line text-ink/50"><Camera className="h-5 w-5" /><input type="file" accept="image/*" multiple className="hidden" onChange={(e) => setFiles([...files, ...Array.from(e.target.files ?? [])].slice(0, 5))} /></label>}

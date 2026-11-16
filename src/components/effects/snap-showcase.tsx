@@ -63,7 +63,7 @@ export function SnapShowcase({ items }: { items: FlexItem[] }) {
       </div>
       <div className="mt-2 flex justify-center gap-1.5">
         {items.map((_, i) => (
-          <button key={i} type="button" aria-label={`Ver ${i + 1}`} onClick={() => go(i)} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-promo" : "w-1.5 bg-blue-600/20"}`} />
+          <button key={i} type="button" aria-label={`Ver ${i + 1}`} onClick={() => go(i)} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-promo" : "w-1.5 bg-neutral-900/20"}`} />
         ))}
       </div>
     </div>

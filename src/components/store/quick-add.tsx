@@ -11,7 +11,7 @@ import type { Product } from "@/lib/types";
 export function QuickAdd({ p }: { p: Product }) {
   const { add } = useCart();
   const [done, setDone] = useState(false);
-  if (p.stock <= 0) return <span className="mt-2 block rounded-full bg-blue-600/5 py-2 text-center text-[12px] font-semibold text-ink/45">Esgotado</span>;
+  if (p.stock <= 0) return <span className="mt-2 block rounded-full bg-neutral-900/5 py-2 text-center text-[12px] font-semibold text-ink/45">Esgotado</span>;
   return (
     <button
       type="button"
@@ -22,7 +22,7 @@ export function QuickAdd({ p }: { p: Product }) {
         interact({ kind: "cart", product_id: p.id });
         setDone(true); setTimeout(() => setDone(false), 1400);
       }}
-      className={`mt-2 flex h-9 w-full items-center justify-center gap-1.5 rounded-full text-[12.5px] font-bold transition active:scale-95 ${done ? "bg-emerald-600 text-white" : "bg-slate-900 text-white hover:bg-blue-600/90"}`}
+      className={`mt-2 flex h-9 w-full items-center justify-center gap-1.5 rounded-full text-[12.5px] font-bold transition active:scale-95 ${done ? "bg-emerald-600 text-white" : "bg-neutral-950 text-white hover:bg-neutral-900/90"}`}
       aria-label={`Adicionar ${p.name} ao carrinho`}
     >
       <AnimatePresence mode="wait" initial={false}>

@@ -43,19 +43,19 @@ function SearchBox() {
       className="relative flex-1"
       onSubmit={(e) => { e.preventDefault(); setOpen(false); router.push(`/pesquisa?q=${encodeURIComponent(q.trim())}`); }}
     >
-      <Search className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-brand-600" />
+      <Search className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500" />
       <input
         value={q}
         onChange={(e) => { setQ(e.target.value); setOpen(true); }}
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         placeholder="Pesquisar no Roque Santeiro"
-        className="h-11 w-full rounded-full border border-slate-900/15 bg-slate-900/10 pl-11 pr-24 text-[15px] text-white shadow-inner outline-none backdrop-blur placeholder:text-white/45 focus:ring-4 focus:ring-beige/30"
+        className="h-11 w-full rounded-full border border-slate-200 bg-slate-900/[0.04] pl-11 pr-24 text-[15px] text-ink shadow-inner outline-none backdrop-blur placeholder:text-slate-400 focus:ring-4 focus:ring-neutral-900/10"
         enterKeyHint="search"
         aria-label="Pesquisar"
       />
-      {canVoice && <button type="button" onClick={voice} aria-label="Pesquisar por voz" className="absolute right-[5.5rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 active:bg-blue-600/5"><Mic className="h-[18px] w-[18px]" /></button>}
-      <button className="absolute right-1 top-1 bg-slate-900 transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
+      {canVoice && <button type="button" onClick={voice} aria-label="Pesquisar por voz" className="absolute right-[5.5rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 active:bg-neutral-900/5"><Mic className="h-[18px] w-[18px]" /></button>}
+      <button className="absolute right-1 top-1 bg-neutral-950 transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
       {open && items.length > 0 && (
         <ul className="glass absolute inset-x-0 top-12 z-50 overflow-hidden rounded-2xl py-1 text-ink">
           {items.map((s) => (
@@ -78,10 +78,10 @@ export function Header() {
   const { user, profile } = useAuth();
   return (
     <header className="sticky top-0 z-40">
-      <div className="brand-gradient text-white">
+      <div className="bg-white text-ink">
         <div className="mx-auto flex max-w-7xl items-center gap-3 px-3 pb-3 pt-[calc(env(safe-area-inset-top)+0.6rem)] sm:px-5">
           <Link href="/" className="flex shrink-0 items-center gap-2 leading-none" aria-label="Roque Santeiro Express">
-            <img src="/logo.png" alt="" width={40} height={40} className="h-9 w-9 rounded-xl ring-1 ring-gold/40 sm:h-10 sm:w-10" />
+            <img src="/logo.png" alt="" width={40} height={40} className="h-9 w-9 rounded-xl ring-1 ring-slate-200 sm:h-10 sm:w-10" />
             <span>
               <span className="block text-[17px] font-extrabold tracking-tight sm:text-xl">Roque Santeiro</span>
               <span className="gold-text block text-[11px] font-semibold uppercase tracking-[0.3em]">Express</span>
@@ -98,7 +98,7 @@ export function Header() {
             <NotificationBell className="relative grid h-9 w-9 place-items-center rounded-full hover:bg-slate-900/10" />
             <Link href="/carrinho" className="relative hidden rounded-full p-2 hover:bg-slate-900/10 md:block" aria-label="Carrinho">
               <ShoppingCart className="h-5 w-5" />
-              {count > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-blue-600 px-1 text-center text-[10px] font-bold leading-[18px] text-white">{count}</span>}
+              {count > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-neutral-900 px-1 text-center text-[10px] font-bold leading-[18px] text-white">{count}</span>}
             </Link>
           </nav>
         </div>

@@ -125,7 +125,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
   const now = liveOf(topic);
 
   return (
-    <section id="bisno-talks" className="mt-8 scroll-mt-24 overflow-hidden rounded-[28px] bg-slate-900 text-white">
+    <section id="bisno-talks" className="mt-8 scroll-mt-24 overflow-hidden rounded-[28px] bg-neutral-950 text-white">
       <div className="p-5">
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1.5 rounded-full bg-red-600 px-2.5 py-1 text-[10.5px] font-extrabold uppercase tracking-wider"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />Ao vivo</span>
@@ -139,7 +139,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
             const l = liveOf(t);
             return (
               <button key={t} type="button" onClick={() => setTopic(t)} aria-pressed={topic === t} className={cn("flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold transition active:scale-95", topic === t ? "bg-gold text-white" : "bg-slate-900/10 text-white/80")}>
-                {TALK_TOPICS[t]}{l && <span className={cn("rounded-full px-1.5 text-[10.5px] font-bold", topic === t ? "bg-blue-600 text-white" : "bg-red-600 text-white")}>{l.people}</span>}
+                {TALK_TOPICS[t]}{l && <span className={cn("rounded-full px-1.5 text-[10.5px] font-bold", topic === t ? "bg-neutral-900 text-white" : "bg-red-600 text-white")}>{l.people}</span>}
               </button>
             );
           })}

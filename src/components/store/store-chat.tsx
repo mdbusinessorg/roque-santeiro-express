@@ -58,8 +58,8 @@ export function StoreChat({ storeId, storeName }: { storeId: string; storeName: 
           const mine = m.sender === "customer";
           return (
             <div key={m.id} className={`flex ${mine ? "justify-end" : "justify-start"}`}>
-              <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-[13.5px] leading-snug ${mine ? "rounded-br-md bg-blue-600 text-white" : "rounded-bl-md bg-slate-100 text-ink"}`}>
-                {!mine && m.author_name && <p className="mb-0.5 text-[10.5px] font-bold uppercase tracking-wide text-blue-700">{m.author_name}</p>}
+              <div className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-[13.5px] leading-snug ${mine ? "rounded-br-md bg-neutral-900 text-white" : "rounded-bl-md bg-slate-100 text-ink"}`}>
+                {!mine && m.author_name && <p className="mb-0.5 text-[10.5px] font-bold uppercase tracking-wide text-neutral-900">{m.author_name}</p>}
                 {m.body}
               </div>
             </div>
@@ -70,7 +70,7 @@ export function StoreChat({ storeId, storeName }: { storeId: string; storeName: 
       {err && <p className="px-3 pb-1 text-[12px] text-red-600">{err}</p>}
       <form onSubmit={(e) => { e.preventDefault(); send(); }} className="flex items-center gap-2 border-t border-slate-100 p-2.5">
         <input value={text} onChange={(e) => setText(e.target.value)} maxLength={1000} placeholder="Escreve uma mensagem…" className="input !rounded-full !py-2.5 text-[14px]" />
-        <button type="submit" disabled={busy || !text.trim()} aria-label="Enviar" className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-blue-600 text-white disabled:opacity-40"><Send className="h-4 w-4" /></button>
+        <button type="submit" disabled={busy || !text.trim()} aria-label="Enviar" className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-neutral-900 text-white disabled:opacity-40"><Send className="h-4 w-4" /></button>
       </form>
     </div>
   );

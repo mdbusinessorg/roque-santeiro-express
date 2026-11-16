@@ -31,7 +31,7 @@ const DAYS = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
 function pct(cur: number, prev: number) { return prev > 0 ? Math.round(((cur - prev) / prev) * 100) : null; }
 function Badge({ v }: { v: number | null }) {
   if (v === null) return null;
-  return <span className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${v >= 0 ? "bg-blue-600 text-white" : "bg-red-100 text-red-700"}`}>{v >= 0 ? "+" : ""}{v}%</span>;
+  return <span className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${v >= 0 ? "bg-neutral-900 text-white" : "bg-red-100 text-red-700"}`}>{v >= 0 ? "+" : ""}{v}%</span>;
 }
 
 export default function SellerHome() {
@@ -87,14 +87,14 @@ export default function SellerHome() {
                   </select>
                 )}
                 <span className="inline-flex h-10 items-center gap-2 rounded-full border border-slate-900/10 bg-white px-4 text-[13px] font-medium text-ink"><CalendarDays className="h-4 w-4" />{fmt(from)} - {fmt(today)}</span>
-                <a href="/vendedor/produtos/novo" className="inline-flex h-10 items-center gap-1.5 rounded-full bg-blue-600 px-4 text-[13px] font-semibold text-white active:scale-95"><Plus className="h-4 w-4" />Adicionar produto</a>
+                <a href="/vendedor/produtos/novo" className="inline-flex h-10 items-center gap-1.5 rounded-full bg-neutral-900 px-4 text-[13px] font-semibold text-white active:scale-95"><Plus className="h-4 w-4" />Adicionar produto</a>
               </div>
             </div>
 
             <div className="grid gap-4 lg:grid-cols-[1fr_1.55fr_1fr]">
               <div className="flex flex-col gap-4">
                 <Panel title="Saldo da loja" subtitle="Total a receber" action={<CornerLink href="/vendedor/carteira" label="Carteira" />}>
-                  <div className="relative overflow-hidden rounded-[22px] bg-slate-900 p-5 text-white">
+                  <div className="relative overflow-hidden rounded-[22px] bg-neutral-950 p-5 text-white">
                     <div className="absolute -right-10 -top-12 h-36 w-36 rounded-full bg-gold/25 blur-2xl" />
                     <div className="relative flex items-center justify-between"><span className="flex items-center gap-2"><StoreAvatar store={store} size={28} /><b className="gold-text text-sm tracking-wide">{store.name}</b></span><svg viewBox="0 0 24 24" className="h-5 w-5 text-white/70" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M8.5 16.5a6 6 0 0 0 0-9M12 19a9.5 9.5 0 0 0 0-14M15.5 21.5a13 13 0 0 0 0-19" /></svg></div>
                     <p className="relative mt-4 text-xs text-white/60">Conta contabilística</p>
@@ -109,7 +109,7 @@ export default function SellerHome() {
               </div>
 
               <Panel title={<span className="flex items-center gap-2"><span className="grid h-9 w-9 place-items-center rounded-full bg-slate-900/10"><Eye className="h-4 w-4" /></span>Visitas à loja</span>}
-                action={<div className="flex items-center gap-2"><div className="flex rounded-full border border-slate-900/10 bg-black/25 p-1 text-[12px] font-medium">{(["week", "month"] as const).map((m) => <button key={m} onClick={() => setMode(m)} className={`rounded-full px-3 py-1.5 transition ${mode === m ? "bg-slate-900 text-white" : "text-ink/55"}`}>{m === "week" ? "Semanal" : "Mensal"}</button>)}</div><CornerLink href="#estatisticas" label="Estatísticas" /></div>}>
+                action={<div className="flex items-center gap-2"><div className="flex rounded-full border border-slate-900/10 bg-black/25 p-1 text-[12px] font-medium">{(["week", "month"] as const).map((m) => <button key={m} onClick={() => setMode(m)} className={`rounded-full px-3 py-1.5 transition ${mode === m ? "bg-neutral-950 text-white" : "text-ink/55"}`}>{m === "week" ? "Semanal" : "Mensal"}</button>)}</div><CornerLink href="#estatisticas" label="Estatísticas" /></div>}>
                 {a ? <BarPills data={bars} /> : <div className="skeleton h-56" />}
               </Panel>
 
@@ -139,7 +139,7 @@ export default function SellerHome() {
                       <thead className="text-[11px] text-ink/45"><tr><th className="px-2 py-2 font-medium">Produto</th><th className="px-2 font-medium">Data</th><th className="px-2 font-medium">Hora</th><th className="px-2 font-medium">Estado</th><th className="px-2 text-right font-medium">Valor</th></tr></thead>
                       <tbody>
                         {rows.map((r, i) => {
-                          const d = new Date(r.created_at); const st = ST[r.status] ?? [r.status, "bg-blue-600/40"];
+                          const d = new Date(r.created_at); const st = ST[r.status] ?? [r.status, "bg-neutral-900/40"];
                           return (
                             <tr key={r.id} className={i % 2 ? "bg-slate-50" : ""}>
                               <td className="rounded-l-2xl px-2 py-2.5"><p className="max-w-[200px] truncate font-medium">{r.order_items?.[0]?.name ?? "Encomenda"}</p><p className="text-[11px] text-ink/45">#{r.orders?.number} · {r.orders?.contact_name}</p></td>
@@ -162,7 +162,7 @@ export default function SellerHome() {
                     // eslint-disable-next-line @next/next/no-img-element
                     <img key={x.id} src={x.img} alt={x.name} title={x.name} className="h-12 w-12 rounded-full border-2 border-white bg-white object-contain p-1 shadow-sm" style={{ marginLeft: i ? -10 : 0 }} />
                   ))}
-                  <a href="/vendedor/produtos" className="-ml-2 grid h-12 w-12 place-items-center rounded-full border-2 border-white bg-slate-900 text-sm font-bold text-gold">+{a?.products.active ?? 0}</a>
+                  <a href="/vendedor/produtos" className="-ml-2 grid h-12 w-12 place-items-center rounded-full border-2 border-white bg-neutral-950 text-sm font-bold text-gold">+{a?.products.active ?? 0}</a>
                 </div>
                 {a && a.low_stock.length > 0 && <p className="mt-3 rounded-2xl bg-amber-50 px-3 py-2 text-[12px] text-amber-900">{a.low_stock.length} produto(s) com stock baixo</p>}
                 {a && a.to_ship > 0 && <a href="/vendedor/encomendas" className="mt-2 block rounded-2xl bg-sky-50 px-3 py-2 text-[12px] text-sky-900">{a.to_ship} encomenda(s) por enviar →</a>}

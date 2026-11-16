@@ -21,11 +21,11 @@ function PromoCard({ href, image, tag, title, sub, tone }: { href: string; image
   return (
     <Link href={href} className={`group relative flex min-h-[160px] flex-col overflow-hidden rounded-[1.4rem] border border-line p-3.5 transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-24px_rgba(24,24,27,0.45)] sm:p-5 lg:min-h-0 lg:flex-1 ${tone}`}>
       <span className="pointer-events-none absolute bottom-3 right-3 h-16 w-16 bg-[radial-gradient(rgba(24,24,27,0.12)_1px,transparent_1.5px)] [background-size:8px_8px]" aria-hidden />
-      {tag && <span className="mb-1.5 self-start rounded-full bg-slate-900 px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wide text-white sm:text-[10.5px]">{tag}</span>}
+      {tag && <span className="mb-1.5 self-start rounded-full bg-neutral-950 px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wide text-white sm:text-[10.5px]">{tag}</span>}
       <p className="relative z-10 line-clamp-2 max-w-[62%] text-[14px] font-extrabold leading-tight text-ink sm:text-lg">{title}</p>
       <p className="relative z-10 mt-1 line-clamp-1 max-w-[60%] text-[11.5px] text-ink/60 sm:text-sm">{sub}</p>
-      <span className="relative z-10 mt-auto inline-flex items-center gap-1 pt-3 text-[12px] font-bold text-ink underline decoration-blue-600/30 underline-offset-4 group-hover:text-promo sm:text-[13px]"><span className="sm:hidden">Ver</span><span className="hidden sm:inline">Comprar agora</span> <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" /></span>
-      {/* eslint-disable-next-line @next/next/no-img-element */ image && <img src={image} alt="" className="absolute -bottom-1 -right-2 aspect-square w-[46%] object-contain mix-blend-multiply transition duration-500 group-hover:-translate-y-1 group-hover:scale-105 sm:w-[46%]" />}
+      <span className="relative z-10 mt-auto inline-flex items-center gap-1 pt-3 text-[12px] font-bold text-ink underline decoration-neutral-900/30 underline-offset-4 group-hover:text-promo sm:text-[13px]"><span className="sm:hidden">Ver</span><span className="hidden sm:inline">Comprar agora</span> <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" /></span>
+      {/* eslint-disable-next-line @next/next/no-img-element */ image && <img src={image} alt="" className="absolute bottom-1 right-1 aspect-square w-[42%] object-contain mix-blend-multiply transition duration-500 group-hover:-translate-y-1 group-hover:scale-105 sm:bottom-2 sm:right-2 sm:w-[40%]" />}
     </Link>
   );
 }
@@ -115,7 +115,7 @@ export function CategoryStrip({ cats }: { cats: Category[] }) {
           {lead.image_url && <img src={lead.image_url} alt="" className="pointer-events-none absolute bottom-3 right-3 h-[62%] w-[52%] object-contain transition duration-500 group-hover:scale-105 group-hover:-rotate-3" />}
           <p className="relative z-10 text-[10.5px] font-semibold uppercase tracking-[0.28em] text-beige">Categoria</p>
           <p className="relative z-10 mt-1 max-w-[70%] text-[22px] font-extrabold leading-tight tracking-tight text-ink sm:text-[26px]">{lead.name}</p>
-          <span className="relative z-10 mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-blue-600/10 px-3 py-1.5 text-[12px] font-bold text-ink backdrop-blur">Explorar <ArrowRight className="h-3.5 w-3.5" /></span>
+          <span className="relative z-10 mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-neutral-900/10 px-3 py-1.5 text-[12px] font-bold text-ink backdrop-blur">Explorar <ArrowRight className="h-3.5 w-3.5" /></span>
         </Link>
         {rest.map((c, i) => (
           <Link key={c.id} href={`/categoria/${c.slug}`} className="group relative flex min-h-[92px] flex-col justify-end overflow-hidden rounded-[1.6rem] border border-slate-900/10 bg-white p-3.5 transition hover:-translate-y-0.5 hover:border-beige/30 sm:min-h-[124px]">

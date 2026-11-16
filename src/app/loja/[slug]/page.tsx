@@ -52,17 +52,17 @@ export default async function StorePage({ params, searchParams }: { params: Prom
         <div className="relative flex flex-col gap-2 px-4 pb-3 sm:flex-row sm:items-end sm:gap-4 sm:px-6">
           <span className="-mt-12 w-fit rounded-[30%] bg-white p-1 shadow-2xl ring-2 ring-gold/50 sm:-mt-14"><StoreAvatar store={store} size={88} /></span>
           <div className="min-w-0 sm:pb-1">
-            {store.is_demo ? <span className="w-fit rounded-full bg-slate-900 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white">Demonstração</span> : store.is_official ? <span className="gold-text text-[11px] font-bold uppercase tracking-[0.25em]">Loja oficial</span> : <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/45">Loja verificada</span>}
+            {store.is_demo ? <span className="w-fit rounded-full bg-neutral-950 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white">Demonstração</span> : store.is_official ? <span className="gold-text text-[11px] font-bold uppercase tracking-[0.25em]">Loja oficial</span> : <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/45">Loja verificada</span>}
             <h1 className="flex items-center gap-1.5 text-2xl font-extrabold leading-tight tracking-tight text-ink sm:text-3xl">
               <BlurReveal>{store.name}</BlurReveal>{!store.is_demo && <BadgeCheck className="h-5 w-5 shrink-0 text-gold-700" />}
             </h1>
             <p className="flex items-center gap-1 text-[13px] text-ink/55"><MapPin className="h-4 w-4" />{[store.city, store.province].filter(Boolean).join(", ")}</p>
           </div>
         </div>
-        <div className="flex flex-wrap gap-px bg-blue-600/5">
+        <div className="flex flex-wrap gap-px bg-neutral-900/5">
           {stats.map(([I, v, l]) => (
             <div key={l} className="flex flex-1 basis-[calc(50%-1px)] items-center gap-2.5 bg-slate-50 px-4 py-3 sm:basis-0">
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-blue-600/[0.04]"><I className="h-4 w-4 text-gold-700" /></span>
+              <span className="grid h-9 w-9 place-items-center rounded-full bg-neutral-900/[0.04]"><I className="h-4 w-4 text-gold-700" /></span>
               <span><b className="block text-base leading-tight">{v}</b><span className="text-[11px] text-ink/55">{l}</span></span>
             </div>
           ))}
@@ -89,9 +89,9 @@ export default async function StorePage({ params, searchParams }: { params: Prom
       )}
 
       <div className="no-scrollbar sticky top-[calc(env(safe-area-inset-top)+64px)] z-30 -mx-3 mt-5 flex gap-2 overflow-x-auto bg-[#ffffff]/85 px-3 py-2 backdrop-blur-xl md:top-[118px]">
-        <Link href={`/loja/${store.slug}`} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${!sp.cat ? "bg-slate-900 text-white" : "bg-blue-600/[0.05] text-ink/70"}`}>Todos</Link>
+        <Link href={`/loja/${store.slug}`} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${!sp.cat ? "bg-neutral-950 text-white" : "bg-neutral-900/[0.05] text-ink/70"}`}>Todos</Link>
         {storeCats.map((c) => (
-          <Link key={c.id} href={`/loja/${store.slug}?cat=${c.id}`} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${sp.cat === c.id ? "bg-slate-900 text-white" : "bg-blue-600/[0.05] text-ink/70"}`}>{c.name}</Link>
+          <Link key={c.id} href={`/loja/${store.slug}?cat=${c.id}`} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold ${sp.cat === c.id ? "bg-neutral-950 text-white" : "bg-neutral-900/[0.05] text-ink/70"}`}>{c.name}</Link>
         ))}
       </div>
 

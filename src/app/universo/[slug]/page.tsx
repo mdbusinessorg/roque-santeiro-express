@@ -49,15 +49,15 @@ export default async function UniversePage({ params, searchParams }: { params: P
           <p className={cn("text-[10.5px] font-semibold uppercase tracking-[0.5em]", u.dark ? "text-gold" : "text-gold-700")}>Universo</p>
           <h1 className="mt-1 text-[46px] font-extralight leading-none tracking-[0.02em] sm:text-7xl">{u.name}</h1>
           <p className={cn("mt-3 max-w-[62%] text-[13px] leading-snug sm:max-w-sm sm:text-sm", u.dark ? "text-white/65" : "text-ink/60")}>{u.line}</p>
-          <UniverseDoor universe={u.other} className={cn("relative mt-5 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[12.5px] font-bold", u.dark ? "bg-slate-900/10 text-white ring-1 ring-white/15" : "bg-blue-600 text-white")}>
+          <UniverseDoor universe={u.other} className={cn("relative mt-5 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[12.5px] font-bold", u.dark ? "bg-slate-900/10 text-white ring-1 ring-white/15" : "bg-neutral-900 text-white")}>
             Ir para o Universo {U[u.other].name} <ArrowRight className="h-3.5 w-3.5" />
           </UniverseDoor>
         </section>
 
         <nav className="no-scrollbar sticky top-[calc(env(safe-area-inset-top)+64px)] z-30 -mx-3 mt-3 flex gap-2 overflow-x-auto bg-[#ffffff]/85 px-3 py-2 backdrop-blur-xl md:top-[118px]" aria-label={`Categorias do Universo ${u.name}`}>
-          <Link href={base} className={cn("shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold", !active ? "bg-blue-600 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink")}>Tudo misturado</Link>
+          <Link href={base} className={cn("shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold", !active ? "bg-neutral-900 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink")}>Tudo misturado</Link>
           {uCats.map((c) => (
-            <Link key={c.id} href={`${base}?cat=${c.slug}`} className={cn("flex shrink-0 items-center gap-1.5 rounded-full py-1.5 pl-1.5 pr-4 text-[13px] font-semibold", active?.id === c.id ? "bg-blue-600 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink")}>
+            <Link key={c.id} href={`${base}?cat=${c.slug}`} className={cn("flex shrink-0 items-center gap-1.5 rounded-full py-1.5 pl-1.5 pr-4 text-[13px] font-semibold", active?.id === c.id ? "bg-neutral-900 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink")}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               {c.image_url ? <img src={c.image_url} alt="" className="h-6 w-6 rounded-full bg-white object-contain p-0.5" /> : <span className="h-6 w-1" />}{c.name}
             </Link>

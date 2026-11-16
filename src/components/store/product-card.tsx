@@ -71,7 +71,7 @@ export function ProductCard({ p, compact, className }: { p: Product; compact?: b
           </button>
         </div>
         {!out && (
-          <button type="button" onClick={addCart} aria-label={`Adicionar ${p.name} ao carrinho`} className={cn("absolute bottom-2 right-2 grid h-9 w-9 place-items-center rounded-full shadow-lg transition active:scale-90", added ? "bg-emerald-600 text-white" : "bg-blue-600 text-white hover:bg-blue-600/90")}>
+          <button type="button" onClick={addCart} aria-label={`Adicionar ${p.name} ao carrinho`} className={cn("absolute bottom-2 right-2 grid h-9 w-9 place-items-center rounded-full shadow-lg transition active:scale-90", added ? "bg-emerald-600 text-white" : "bg-neutral-900 text-white hover:bg-neutral-900/90")}>
             {added ? <Check className="h-4 w-4" /> : <ShoppingCart className="h-4 w-4" />}
           </button>
         )}
@@ -93,7 +93,7 @@ export function ProductCard({ p, compact, className }: { p: Product; compact?: b
         )}
       </Link>
       <div className={cn("px-3 pb-3 pt-2", compact && "px-2.5 pb-2.5")}>
-        <button type="button" disabled={out} onClick={buyNow} className="flex h-9 w-full items-center justify-center gap-1.5 rounded-full bg-slate-900 text-[12.5px] font-bold text-gold transition hover:bg-blue-600/90 active:scale-[0.98] disabled:bg-blue-600/30">
+        <button type="button" disabled={out} onClick={buyNow} className="flex h-9 w-full items-center justify-center gap-1.5 rounded-full bg-neutral-950 text-[12.5px] font-bold text-gold transition hover:bg-neutral-900/90 active:scale-[0.98] disabled:bg-neutral-900/30">
           {out ? "Esgotado" : "Comprar agora"}
         </button>
       </div>

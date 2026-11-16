@@ -44,7 +44,7 @@ export default function OrdersPage() {
       <h1 className="mb-3 px-1 text-2xl font-extrabold tracking-tight">As minhas encomendas</h1>
       <div className="no-scrollbar -mx-3 mb-3 flex gap-2 overflow-x-auto px-3">
         {TABS.map((t) => (
-          <button key={t.k} onClick={() => { setTab(t.k); window.history.replaceState(null, "", t.k ? `?estado=${t.k}` : window.location.pathname); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${tab === t.k ? "bg-blue-600 text-white" : "bg-slate-900/10 text-ink/70 ring-1 ring-white/10"}`}>
+          <button key={t.k} onClick={() => { setTab(t.k); window.history.replaceState(null, "", t.k ? `?estado=${t.k}` : window.location.pathname); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${tab === t.k ? "bg-neutral-900 text-white" : "bg-slate-900/10 text-ink/70 ring-1 ring-white/10"}`}>
             {t.l} <span className="opacity-60">{rows.filter((o) => match(o, t.k)).length}</span>
           </button>
         ))}

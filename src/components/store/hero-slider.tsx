@@ -73,7 +73,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       {n > 1 && (
         <div className="absolute bottom-3 right-4 z-20 flex gap-1.5 sm:bottom-5 sm:left-10 sm:right-auto lg:left-12">
           {slides.map((_, k) => (
-            <button key={k} type="button" aria-label={`Destaque ${k + 1}`} onClick={() => setI(k)} className={`h-1.5 rounded-full transition-all ${k === i ? "w-5 bg-promo" : "w-1.5 bg-blue-600/20"}`} />
+            <button key={k} type="button" aria-label={`Destaque ${k + 1}`} onClick={() => setI(k)} className={`h-1.5 rounded-full transition-all ${k === i ? "w-5 bg-promo" : "w-1.5 bg-neutral-900/20"}`} />
           ))}
         </div>
       )}

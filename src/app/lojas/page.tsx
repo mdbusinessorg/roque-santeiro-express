@@ -22,7 +22,7 @@ function StoreCard({ s, sh }: { s: Store; sh?: { sold: number; count: number } }
   const type = s.store_type ?? "geral";
   return (
     <Link href={`/loja/${s.slug}`} className="group relative flex flex-col overflow-hidden rounded-[1.8rem] border border-slate-900/10 bg-white transition hover:-translate-y-0.5 hover:border-beige/30 hover:shadow-[0_24px_44px_-24px_rgba(0,0,0,0.8)]">
-      <div className="relative h-28 shrink-0 overflow-hidden bg-gradient-to-br from-[#1d4ed8] to-[#3b82f6]">
+      <div className="relative h-28 shrink-0 overflow-hidden bg-gradient-to-br from-[#262626] to-[#000000]">
         {s.banner_url && <img src={s.banner_url} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80 transition duration-500 group-hover:scale-105" />}
         <span aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
         {s.is_demo && <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-ink backdrop-blur">Demonstração</span>}
@@ -42,7 +42,7 @@ function StoreCard({ s, sh }: { s: Store; sh?: { sold: number; count: number } }
           <FollowersCount storeId={s.id} />
           {(s.city || s.province) && <span className="inline-flex items-center gap-1 truncate"><MapPin className="h-3.5 w-3.5" />{[s.city, s.province].filter(Boolean).join(", ")}</span>}
         </div>
-        <span className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-blue-600 px-4 py-2 text-[13px] font-bold text-white transition group-hover:bg-beige">
+        <span className="mt-3 inline-flex w-fit items-center gap-1.5 rounded-full bg-neutral-900 px-4 py-2 text-[13px] font-bold text-white transition group-hover:bg-beige">
           Visitar loja <ArrowRight className="h-3.5 w-3.5" />
         </span>
       </div>
@@ -67,10 +67,10 @@ export default async function StoresPage({ searchParams }: { searchParams: Promi
       </section>
 
       <nav className="no-scrollbar -mx-3 mt-3 flex gap-2 overflow-x-auto px-3 py-1" aria-label="Tipos de loja">
-        <Link href="/lojas" className={cn("shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold", !active ? "bg-blue-600 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink/70")}>Todas</Link>
+        <Link href="/lojas" className={cn("shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold", !active ? "bg-neutral-900 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink/70")}>Todas</Link>
         {ORDER.map((t) => {
           const I = ICON[t];
-          return <Link key={t} href={`/lojas?tipo=${t}`} className={cn("flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-semibold", active === t ? "bg-blue-600 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink/70")}><I className="h-3.5 w-3.5" />{STORE_TYPES[t]}</Link>;
+          return <Link key={t} href={`/lojas?tipo=${t}`} className={cn("flex shrink-0 items-center gap-1.5 rounded-full px-4 py-2 text-[13px] font-semibold", active === t ? "bg-neutral-900 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink/70")}><I className="h-3.5 w-3.5" />{STORE_TYPES[t]}</Link>;
         })}
       </nav>
 
@@ -81,7 +81,7 @@ export default async function StoresPage({ searchParams }: { searchParams: Promi
         return (
           <section key={t} className="mt-6" id={t}>
             <div className="mb-3 flex items-center gap-3 px-1">
-              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-slate-900 text-beige"><I className="h-5 w-5" /></span>
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-2xl bg-neutral-950 text-beige"><I className="h-5 w-5" /></span>
               <div className="min-w-0"><h2 className="text-[19px] font-extrabold leading-tight tracking-tight text-ink">{STORE_TYPES[t]}</h2><p className="truncate text-[12px] text-ink/55">{LINE[t]}</p></div>
               <span className="ml-auto text-[12px] text-ink/45">{list.length} {list.length === 1 ? "loja" : "lojas"}</span>
             </div>

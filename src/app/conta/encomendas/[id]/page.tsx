@@ -118,7 +118,7 @@ export default function OrderDetail({ params }: { params: Promise<{ id: string }
                     <p className="text-[10.5px] uppercase tracking-wide text-ink/50">Referência de pagamento</p>
                     <p className="text-lg font-extrabold tracking-[0.2em] text-ink">{PAYMENT_REFERENCE}</p>
                   </div>
-                  <button type="button" onClick={() => { navigator.clipboard?.writeText(PAYMENT_REFERENCE); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="shrink-0 rounded-full bg-blue-600 px-3 py-1.5 text-[12px] font-bold text-white">{copied ? "Copiado" : "Copiar"}</button>
+                  <button type="button" onClick={() => { navigator.clipboard?.writeText(PAYMENT_REFERENCE); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="shrink-0 rounded-full bg-neutral-900 px-3 py-1.5 text-[12px] font-bold text-white">{copied ? "Copiado" : "Copiar"}</button>
                 </div>
                 <ol className="space-y-1 text-[12.5px] leading-snug text-ink/70">
                   {PAYMENT_INFO[o.payment_method].steps.map((st, i) => <li key={i} className="flex gap-2"><span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-beige/20 text-[10px] font-bold text-beige">{i + 1}</span>{st}</li>)}

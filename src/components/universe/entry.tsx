@@ -14,7 +14,7 @@ function DoorCard({ universe }: { universe: Universe }) {
       <p className={cn("text-[9.5px] font-semibold uppercase tracking-[0.42em]", dark ? "text-gold" : "text-gold-700")}>Universo</p>
       <p className="mt-0.5 text-[26px] font-extralight leading-none tracking-[0.02em] sm:text-4xl">{COPY[universe].name}</p>
       <p className={cn("mt-1 text-[11.5px]", dark ? "text-white/55" : "text-ink/60")}>{COPY[universe].line}</p>
-      <span className={cn("mt-auto inline-flex w-fit items-center rounded-full px-3 py-1.5 text-[11.5px] font-bold", dark ? "bg-blue-600 text-white" : "bg-blue-600 text-white")}>Abrir a porta</span>
+      <span className={cn("mt-auto inline-flex w-fit items-center rounded-full px-3 py-1.5 text-[11.5px] font-bold", dark ? "bg-neutral-900 text-white" : "bg-neutral-900 text-white")}>Abrir a porta</span>
       <span aria-hidden className="absolute bottom-0 right-3 h-[74%] w-[40%] max-w-[150px] sm:right-6">
         <span className={cn("absolute inset-0 rounded-t-full", dark ? "bg-white/[0.07]" : "bg-slate-900/60")} />
         <span className="absolute inset-x-[16%] bottom-0 top-[22%] overflow-hidden rounded-t-[3px] bg-[#0b0b0c] ring-2 ring-[#0b0b0c]">

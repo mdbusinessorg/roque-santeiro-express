@@ -19,7 +19,7 @@ export function DashShell({ children, storeSlug }: { children: React.ReactNode; 
       <div className="mb-4 flex items-center gap-2 rounded-full border border-slate-900/10 bg-white/80 p-1.5 shadow-lg shadow-black/30 backdrop-blur-xl">
         <nav className="no-scrollbar flex flex-1 gap-1 overflow-x-auto rounded-full bg-black/25 p-1">
           {TOP.map(([h, l]) => (
-            <a key={h} href={h} className={cn("shrink-0 rounded-full px-3.5 py-2 text-[13px] font-medium transition", path === h ? "bg-blue-600 font-semibold text-white shadow-sm" : "text-ink/60 hover:text-ink")}>{l}</a>
+            <a key={h} href={h} className={cn("shrink-0 rounded-full px-3.5 py-2 text-[13px] font-medium transition", path === h ? "bg-neutral-900 font-semibold text-white shadow-sm" : "text-ink/60 hover:text-ink")}>{l}</a>
           ))}
         </nav>
         {storeSlug && <a href={`/loja/${storeSlug}`} aria-label="Ver loja" className="hidden h-10 w-10 shrink-0 place-items-center rounded-full bg-slate-900/10 text-ink/80 transition hover:bg-slate-900/15 sm:grid"><ExternalLink className="h-4 w-4" /></a>}
@@ -30,7 +30,7 @@ export function DashShell({ children, storeSlug }: { children: React.ReactNode; 
             <div key={gi} className="flex flex-col items-center gap-2 rounded-full border border-slate-900/10 bg-white/80 p-1.5 shadow-lg shadow-black/30 backdrop-blur-xl">
               {group.map(([h, I, l]) => {
                 const on = path === h;
-                return <a key={h} href={h} title={l} aria-label={l} className={cn("grid h-11 w-11 place-items-center rounded-full transition", on ? "bg-blue-600 text-white" : "text-ink/55 hover:bg-slate-900/10 hover:text-ink")}><I className="h-[18px] w-[18px]" /></a>;
+                return <a key={h} href={h} title={l} aria-label={l} className={cn("grid h-11 w-11 place-items-center rounded-full transition", on ? "bg-neutral-900 text-white" : "text-ink/55 hover:bg-slate-900/10 hover:text-ink")}><I className="h-[18px] w-[18px]" /></a>;
               })}
             </div>
           ))}
@@ -61,7 +61,7 @@ export function Panel({ title, subtitle, action, children, className }: { title?
 
 export function CornerLink({ href, label }: { href: string; label: string }) {
   return (
-    <a href={href} aria-label={label} className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-slate-900/10 bg-white/5 text-ink/80 transition hover:bg-blue-600 hover:text-white">
+    <a href={href} aria-label={label} className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-slate-900/10 bg-white/5 text-ink/80 transition hover:bg-neutral-900 hover:text-white">
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
     </a>
   );

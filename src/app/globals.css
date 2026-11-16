@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  /* Paleta Roque Santeiro — branco e azul premium */
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-200: #bfdbfe;
-  --color-brand-300: #93c5fd;
-  --color-brand-400: #60a5fa;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e40af;
-  --color-brand-900: #1e3a8a;
+  /* Paleta Roque Santeiro — branco, preto e vermelho de promoção */
+  --color-brand-50: #fafafa;
+  --color-brand-100: #f5f5f5;
+  --color-brand-200: #e5e5e5;
+  --color-brand-300: #d4d4d4;
+  --color-brand-400: #a3a3a3;
+  --color-brand-500: #737373;
+  --color-brand-600: #525252;
+  --color-brand-700: #404040;
+  --color-brand-800: #262626;
+  --color-brand-900: #171717;
   --color-ink: #0f172a;
   --color-cream: #ffffff;
-  --color-beige: #3b82f6;
+  --color-beige: #171717;
   --color-panel: #ffffff;
   --color-panel-2: #f8fafc;
   --color-field: #f1f5f9;
@@ -25,13 +25,13 @@
   --color-accent-600: #d13b40;
   --color-accent-700: #b42f34;
   --color-amber: #f5a623;
-  --color-gold: #2563eb;
-  --color-gold-300: #93c5fd;
-  --color-gold-700: #1d4ed8;
+  --color-gold: #171717;
+  --color-gold-300: #d4d4d4;
+  --color-gold-700: #404040;
   --color-promo: #e5484d;
   --color-promo-50: #fef2f2;
-  --color-line: #e2e8f0;
-  --color-mist: #f1f5f9;
+  --color-line: #e5e5e5;
+  --color-mist: #f5f5f5;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 }
@@ -44,8 +44,8 @@
 html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
 body {
   background:
-    radial-gradient(1100px 520px at 85% -10%, rgba(37, 99, 235, 0.07) 0%, transparent 62%),
-    radial-gradient(900px 620px at -12% 34%, rgba(191, 219, 254, 0.55) 0%, transparent 60%),
+    radial-gradient(1100px 520px at 85% -10%, rgba(0, 0, 0, 0.035) 0%, transparent 62%),
+    radial-gradient(900px 620px at -12% 34%, rgba(0, 0, 0, 0.025) 0%, transparent 60%),
     var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
@@ -73,13 +73,13 @@ body {
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05), 0 16px 34px -22px rgba(15, 23, 42, 0.22);
 }
 @utility brand-gradient {
-  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #3b82f6 100%);
+  background: linear-gradient(135deg, #262626 0%, #171717 55%, #000000 100%);
 }
 @utility promo-gradient {
   background: linear-gradient(135deg, #d13b40 0%, #e5484d 60%, #f0686c 100%);
 }
 @utility text-gradient {
-  background: linear-gradient(90deg, #1e3a8a, #2563eb);
+  background: linear-gradient(90deg, #171717, #525252);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -91,10 +91,10 @@ body {
 @utility pb-safe { padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem); }
 
 @utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.97] disabled:opacity-50; }
-@utility btn-primary { @apply btn brand-gradient text-white shadow-lg shadow-blue-600/25 ring-1 ring-blue-600/20; }
+@utility btn-primary { @apply btn brand-gradient text-white shadow-lg shadow-black/20 ring-1 ring-black/10; }
 @utility btn-ghost { @apply btn glass text-ink; }
 @utility input {
-  @apply w-full rounded-2xl border border-slate-200 bg-field px-4 py-3 text-[15px] text-ink outline-none transition placeholder:text-slate-400 focus:border-blue-400 focus:ring-4 focus:ring-blue-500/10;
+  @apply w-full rounded-2xl border border-slate-200 bg-field px-4 py-3 text-[15px] text-ink outline-none transition placeholder:text-slate-400 focus:border-neutral-900 focus:ring-4 focus:ring-neutral-900/10;
 }
 @utility label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500; }
 
@@ -107,13 +107,13 @@ body {
 }
 
 @utility gold-text {
-  background: linear-gradient(180deg, #1e40af 0%, #2563eb 55%, #60a5fa 100%);
+  background: linear-gradient(180deg, #000000 0%, #262626 55%, #525252 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 @utility gold-ring {
-  box-shadow: 0 0 0 1px rgb(37 99 235 / 0.35), 0 8px 24px -12px rgb(37 99 235 / 0.45);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.12), 0 8px 24px -12px rgb(0 0 0 / 0.3);
 }
 
 /* Entrada num universo: clarão branco da porta que se dissolve */

@@ -46,7 +46,7 @@ export function FoodSpotlight({ dishes, className }: { dishes: Product[]; classN
       <div className="grid sm:grid-cols-2 sm:items-center">
         <div className="relative z-10 px-5 pt-5 sm:py-9 sm:pl-9">
           <div className="flex items-center gap-2">
-            <span className="rounded-full bg-gold px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-white">Comida</span>
+            <span className="rounded-full bg-white px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-neutral-950">Comida</span>
             <span className="flex items-center gap-1 text-[11.5px] text-white/55"><Bike className="h-3.5 w-3.5" />Entrega em Luanda</span>
           </div>
           <div className="relative mt-3 h-[60px] overflow-hidden sm:h-[92px]">
@@ -58,7 +58,7 @@ export function FoodSpotlight({ dishes, className }: { dishes: Product[]; classN
           </div>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div key={p.id} initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reduce ? undefined : { opacity: 0 }} transition={{ duration: 0.3 }}>
-              <a href={`/loja/${p.stores?.slug}`} className="mt-1 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-gold">{p.stores?.name}{p.stores?.is_demo && <span className="rounded-full border border-slate-900/20 px-1.5 py-px text-[9.5px] font-medium uppercase tracking-wide text-white/55">Demonstração</span>}</a>
+              <a href={`/loja/${p.stores?.slug}`} className="mt-1 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-white/85">{p.stores?.name}{p.stores?.is_demo && <span className="rounded-full border border-slate-900/20 px-1.5 py-px text-[9.5px] font-medium uppercase tracking-wide text-white/55">Demonstração</span>}</a>
               <p className="mt-1.5 line-clamp-2 max-w-[60%] text-[12.5px] leading-snug text-white/55 sm:max-w-sm">{p.description}</p>
             </motion.div>
           </AnimatePresence>
@@ -79,7 +79,7 @@ export function FoodSpotlight({ dishes, className }: { dishes: Product[]; classN
       <div className="relative z-10 flex items-center justify-between gap-3 px-5 pb-3 sm:absolute sm:bottom-[92px] sm:left-9 sm:w-[44%] sm:p-0">
         <div className="relative h-[30px] min-w-[110px] overflow-hidden">
           <AnimatePresence mode="popLayout" initial={false}>
-            <motion.p key={p.id} initial={reduce ? false : { y: 30 }} animate={{ y: 0 }} exit={reduce ? undefined : { y: -30 }} transition={{ duration: 0.5, ease: EASE }} className="whitespace-nowrap text-[22px] font-black leading-[30px] text-gold">{kz(p.price)}</motion.p>
+            <motion.p key={p.id} initial={reduce ? false : { y: 30 }} animate={{ y: 0 }} exit={reduce ? undefined : { y: -30 }} transition={{ duration: 0.5, ease: EASE }} className="whitespace-nowrap text-[22px] font-black leading-[30px] text-white">{kz(p.price)}</motion.p>
           </AnimatePresence>
         </div>
         <div className="flex shrink-0 items-center gap-2">

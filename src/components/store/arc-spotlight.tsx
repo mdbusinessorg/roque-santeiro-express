@@ -55,7 +55,7 @@ export function ArcSpotlight({ products, label = "Em destaque", className }: { p
       <div className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
         <div className="relative z-10 px-5 pt-5 lg:order-1 lg:py-10 lg:pl-10">
           <div className="flex items-center justify-between">
-            <span className="rounded-full bg-neutral-950 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-gold">{label}</span>
+            <span className="rounded-full bg-neutral-950 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-white">{label}</span>
             <span className="font-mono text-[11px] text-ink/50">{String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}</span>
           </div>
           <div className="relative mt-3 h-[58px] overflow-hidden lg:h-[104px]">
@@ -102,7 +102,7 @@ export function ArcSpotlight({ products, label = "Em destaque", className }: { p
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <button type="button" onClick={() => cart(false)} disabled={p.stock <= 0} aria-label="Adicionar ao carrinho" className="grid h-11 w-11 place-items-center rounded-full bg-white text-ink shadow-md transition active:scale-90 disabled:opacity-40"><ShoppingCart className="h-[18px] w-[18px]" /></button>
-          <button type="button" onClick={() => cart(true)} disabled={p.stock <= 0} className="flex h-11 items-center gap-1.5 rounded-full bg-neutral-950 px-4 text-[13px] font-bold text-gold shadow-lg transition active:scale-95 disabled:bg-neutral-900/30">{p.stock <= 0 ? "Esgotado" : "Comprar agora"}<ArrowRight className="h-4 w-4" /></button>
+          <button type="button" onClick={() => cart(true)} disabled={p.stock <= 0} className="flex h-11 items-center gap-1.5 rounded-full bg-neutral-950 px-4 text-[13px] font-bold text-white shadow-lg transition active:scale-95 disabled:bg-neutral-900/30">{p.stock <= 0 ? "Esgotado" : "Comprar agora"}<ArrowRight className="h-4 w-4" /></button>
         </div>
       </div>
 

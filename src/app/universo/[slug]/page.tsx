@@ -42,22 +42,22 @@ export default async function UniversePage({ params, searchParams }: { params: P
       <script dangerouslySetInnerHTML={{ __html: DOOR_BOOT }} />
       <DoorReveal />
       <div className="door-stage origin-top">
-        <section className={cn("relative overflow-hidden rounded-[2rem] px-5 pb-6 pt-7 sm:px-9 sm:py-10", u.dark ? "bg-[#111113] text-white" : "bg-[#f0e9e1] text-ink")}>
+        <section className={cn("relative overflow-hidden rounded-[2rem] px-5 pb-6 pt-7 sm:px-9 sm:py-10", u.dark ? "bg-[#111113] text-white" : "bg-[#eff6ff] text-ink")}>
           <span aria-hidden className={cn("absolute -right-16 -top-24 h-64 w-64 rounded-full blur-3xl", u.dark ? "bg-gold/25" : "bg-white/70")} />
           <span aria-hidden className="absolute bottom-0 right-6 h-[78%] w-[34%] max-w-[190px] rounded-t-full border border-gold/40" />
-          <span aria-hidden className={cn("absolute bottom-0 right-10 h-[62%] w-[26%] max-w-[150px] rounded-t-full", u.dark ? "bg-white/[0.06]" : "bg-white/70")} />
+          <span aria-hidden className={cn("absolute bottom-0 right-10 h-[62%] w-[26%] max-w-[150px] rounded-t-full", u.dark ? "bg-slate-100" : "bg-white/70")} />
           <p className={cn("text-[10.5px] font-semibold uppercase tracking-[0.5em]", u.dark ? "text-gold" : "text-gold-700")}>Universo</p>
           <h1 className="mt-1 text-[46px] font-extralight leading-none tracking-[0.02em] sm:text-7xl">{u.name}</h1>
           <p className={cn("mt-3 max-w-[62%] text-[13px] leading-snug sm:max-w-sm sm:text-sm", u.dark ? "text-white/65" : "text-ink/60")}>{u.line}</p>
-          <UniverseDoor universe={u.other} className={cn("relative mt-5 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[12.5px] font-bold", u.dark ? "bg-white/10 text-white ring-1 ring-white/15" : "bg-ink text-gold")}>
+          <UniverseDoor universe={u.other} className={cn("relative mt-5 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[12.5px] font-bold", u.dark ? "bg-slate-900/10 text-white ring-1 ring-white/15" : "bg-blue-600 text-white")}>
             Ir para o Universo {U[u.other].name} <ArrowRight className="h-3.5 w-3.5" />
           </UniverseDoor>
         </section>
 
-        <nav className="no-scrollbar sticky top-[calc(env(safe-area-inset-top)+64px)] z-30 -mx-3 mt-3 flex gap-2 overflow-x-auto bg-[#252525]/85 px-3 py-2 backdrop-blur-xl md:top-[118px]" aria-label={`Categorias do Universo ${u.name}`}>
-          <Link href={base} className={cn("shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold", !active ? "bg-cream text-ink" : "border border-white/15 bg-white/10 text-cream")}>Tudo misturado</Link>
+        <nav className="no-scrollbar sticky top-[calc(env(safe-area-inset-top)+64px)] z-30 -mx-3 mt-3 flex gap-2 overflow-x-auto bg-[#ffffff]/85 px-3 py-2 backdrop-blur-xl md:top-[118px]" aria-label={`Categorias do Universo ${u.name}`}>
+          <Link href={base} className={cn("shrink-0 rounded-full px-4 py-2 text-[13px] font-semibold", !active ? "bg-blue-600 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink")}>Tudo misturado</Link>
           {uCats.map((c) => (
-            <Link key={c.id} href={`${base}?cat=${c.slug}`} className={cn("flex shrink-0 items-center gap-1.5 rounded-full py-1.5 pl-1.5 pr-4 text-[13px] font-semibold", active?.id === c.id ? "bg-cream text-ink" : "border border-white/15 bg-white/10 text-cream")}>
+            <Link key={c.id} href={`${base}?cat=${c.slug}`} className={cn("flex shrink-0 items-center gap-1.5 rounded-full py-1.5 pl-1.5 pr-4 text-[13px] font-semibold", active?.id === c.id ? "bg-blue-600 text-white" : "border border-slate-900/15 bg-slate-900/10 text-ink")}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               {c.image_url ? <img src={c.image_url} alt="" className="h-6 w-6 rounded-full bg-white object-contain p-0.5" /> : <span className="h-6 w-1" />}{c.name}
             </Link>
@@ -78,7 +78,7 @@ export default async function UniversePage({ params, searchParams }: { params: P
         <section className="mt-6">
           <div className="mb-3 flex items-end justify-between px-1">
             <h2 className="text-[19px] font-extrabold tracking-tight">{active ? active.name : "Descobrir"}</h2>
-            <p className="text-[12px] text-cream/50">{list.length} produtos</p>
+            <p className="text-[12px] text-ink/50">{list.length} produtos</p>
           </div>
           <RevealGrid products={list} />
         </section>

@@ -21,10 +21,10 @@ function PromoCard({ href, image, tag, title, sub, tone }: { href: string; image
   return (
     <Link href={href} className={`group relative flex min-h-[160px] flex-col overflow-hidden rounded-[1.4rem] border border-line p-3.5 transition hover:-translate-y-0.5 hover:shadow-[0_18px_36px_-24px_rgba(24,24,27,0.45)] sm:p-5 lg:min-h-0 lg:flex-1 ${tone}`}>
       <span className="pointer-events-none absolute bottom-3 right-3 h-16 w-16 bg-[radial-gradient(rgba(24,24,27,0.12)_1px,transparent_1.5px)] [background-size:8px_8px]" aria-hidden />
-      {tag && <span className="mb-1.5 self-start rounded-full bg-ink px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wide text-white sm:text-[10.5px]">{tag}</span>}
-      <p className="relative z-10 line-clamp-2 max-w-[62%] text-[14px] font-extrabold leading-tight text-cream sm:text-lg">{title}</p>
-      <p className="relative z-10 mt-1 line-clamp-1 max-w-[60%] text-[11.5px] text-cream/60 sm:text-sm">{sub}</p>
-      <span className="relative z-10 mt-auto inline-flex items-center gap-1 pt-3 text-[12px] font-bold text-cream underline decoration-cream/30 underline-offset-4 group-hover:text-promo sm:text-[13px]"><span className="sm:hidden">Ver</span><span className="hidden sm:inline">Comprar agora</span> <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" /></span>
+      {tag && <span className="mb-1.5 self-start rounded-full bg-slate-900 px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-wide text-white sm:text-[10.5px]">{tag}</span>}
+      <p className="relative z-10 line-clamp-2 max-w-[62%] text-[14px] font-extrabold leading-tight text-ink sm:text-lg">{title}</p>
+      <p className="relative z-10 mt-1 line-clamp-1 max-w-[60%] text-[11.5px] text-ink/60 sm:text-sm">{sub}</p>
+      <span className="relative z-10 mt-auto inline-flex items-center gap-1 pt-3 text-[12px] font-bold text-ink underline decoration-blue-600/30 underline-offset-4 group-hover:text-promo sm:text-[13px]"><span className="sm:hidden">Ver</span><span className="hidden sm:inline">Comprar agora</span> <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" /></span>
       {/* eslint-disable-next-line @next/next/no-img-element */ image && <img src={image} alt="" className="absolute -bottom-1 -right-2 aspect-square w-[46%] object-contain mix-blend-multiply transition duration-500 group-hover:-translate-y-1 group-hover:scale-105 sm:w-[46%]" />}
     </Link>
   );
@@ -52,16 +52,16 @@ export function Hero({ featured, all = [], deals = [], fresh = [], cats = [] }: 
       <h1 className="sr-only">Roque Santeiro Express — o grande mercado digital de Angola</h1>
       <div className="grid gap-3 lg:grid-cols-[230px_minmax(0,1fr)_290px]">
         <aside className="hidden flex-col rounded-[1.4rem] border border-line bg-white p-4 lg:flex">
-          <p className="text-[15px] font-extrabold text-cream">Categorias</p>
+          <p className="text-[15px] font-extrabold text-ink">Categorias</p>
           <span className="mb-2 mt-1.5 h-0.5 w-6 rounded-full bg-promo" />
           <nav className="flex flex-1 flex-col overflow-hidden">
             {cats.slice(0, 8).map((c) => (
-              <Link key={c.id} href={`/categoria/${c.slug}`} className="group flex items-center gap-2.5 rounded-xl px-1.5 py-[7px] text-[13.5px] text-cream/75 transition hover:bg-mist hover:text-promo">
+              <Link key={c.id} href={`/categoria/${c.slug}`} className="group flex items-center gap-2.5 rounded-xl px-1.5 py-[7px] text-[13.5px] text-ink/75 transition hover:bg-mist hover:text-promo">
                 {c.image_url ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={c.image_url} alt="" className="h-6 w-6 shrink-0 object-contain" />
                 ) : (
-                  <LayoutGrid className="h-6 w-6 shrink-0 text-cream/30" />
+                  <LayoutGrid className="h-6 w-6 shrink-0 text-ink/30" />
                 )}
                 <span className="truncate">{c.name}</span>
               </Link>
@@ -95,7 +95,7 @@ export function Hero({ featured, all = [], deals = [], fresh = [], cats = [] }: 
 export function TrustMarquee() {
   return (
     <Marquee duration={32} className="card mt-3 rounded-2xl py-2.5" pauseOnHover>
-      {trust.map(({ icon: I, t }) => <span key={t} className="flex items-center gap-2 px-5 text-[13px] font-medium text-cream/80"><I className="h-4 w-4 text-brand-600" />{t}</span>)}
+      {trust.map(({ icon: I, t }) => <span key={t} className="flex items-center gap-2 px-5 text-[13px] font-medium text-ink/80"><I className="h-4 w-4 text-brand-600" />{t}</span>)}
     </Marquee>
   );
 }
@@ -106,23 +106,23 @@ export function CategoryStrip({ cats }: { cats: Category[] }) {
   return (
     <section className="mt-6" aria-label="Categorias">
       <div className="mb-3 flex items-end justify-between px-1">
-        <div><h2 className="text-[19px] font-extrabold tracking-tight text-cream">Categorias</h2><p className="text-[12px] text-cream/50">Descubra por tipo</p></div>
+        <div><h2 className="text-[19px] font-extrabold tracking-tight text-ink">Categorias</h2><p className="text-[12px] text-ink/50">Descubra por tipo</p></div>
         <Link href="/categorias" className="flex items-center gap-1 text-[13px] font-bold text-beige">Ver todas <ArrowRight className="h-3.5 w-3.5" /></Link>
       </div>
       <div className="grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-4">
-        <Link href={`/categoria/${lead.slug}`} className="group relative col-span-2 row-span-2 flex min-h-[190px] flex-col justify-end overflow-hidden rounded-[1.8rem] border border-white/10 bg-panel p-4 transition hover:-translate-y-0.5 hover:shadow-[0_24px_44px_-24px_rgba(0,0,0,0.8)] sm:min-h-[260px] sm:p-5">
+        <Link href={`/categoria/${lead.slug}`} className="group relative col-span-2 row-span-2 flex min-h-[190px] flex-col justify-end overflow-hidden rounded-[1.8rem] border border-slate-900/10 bg-white p-4 transition hover:-translate-y-0.5 hover:shadow-[0_24px_44px_-24px_rgba(0,0,0,0.8)] sm:min-h-[260px] sm:p-5">
           <span aria-hidden className="pointer-events-none absolute -bottom-8 -right-6 h-44 w-44 rounded-full bg-beige/15 blur-2xl transition group-hover:bg-beige/25" />
           {lead.image_url && <img src={lead.image_url} alt="" className="pointer-events-none absolute bottom-3 right-3 h-[62%] w-[52%] object-contain transition duration-500 group-hover:scale-105 group-hover:-rotate-3" />}
           <p className="relative z-10 text-[10.5px] font-semibold uppercase tracking-[0.28em] text-beige">Categoria</p>
-          <p className="relative z-10 mt-1 max-w-[70%] text-[22px] font-extrabold leading-tight tracking-tight text-cream sm:text-[26px]">{lead.name}</p>
-          <span className="relative z-10 mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-cream/10 px-3 py-1.5 text-[12px] font-bold text-cream backdrop-blur">Explorar <ArrowRight className="h-3.5 w-3.5" /></span>
+          <p className="relative z-10 mt-1 max-w-[70%] text-[22px] font-extrabold leading-tight tracking-tight text-ink sm:text-[26px]">{lead.name}</p>
+          <span className="relative z-10 mt-3 inline-flex w-fit items-center gap-1 rounded-full bg-blue-600/10 px-3 py-1.5 text-[12px] font-bold text-ink backdrop-blur">Explorar <ArrowRight className="h-3.5 w-3.5" /></span>
         </Link>
         {rest.map((c, i) => (
-          <Link key={c.id} href={`/categoria/${c.slug}`} className="group relative flex min-h-[92px] flex-col justify-end overflow-hidden rounded-[1.6rem] border border-white/10 bg-panel p-3.5 transition hover:-translate-y-0.5 hover:border-beige/30 sm:min-h-[124px]">
+          <Link key={c.id} href={`/categoria/${c.slug}`} className="group relative flex min-h-[92px] flex-col justify-end overflow-hidden rounded-[1.6rem] border border-slate-900/10 bg-white p-3.5 transition hover:-translate-y-0.5 hover:border-beige/30 sm:min-h-[124px]">
             {c.image_url && <img src={c.image_url} alt="" className="pointer-events-none absolute -bottom-2 -right-1 h-[86%] w-[48%] object-contain opacity-90 transition duration-500 group-hover:scale-105" />}
             <span aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-            <p className="relative z-10 text-[15px] font-extrabold leading-tight tracking-tight text-cream sm:text-[17px]">{c.name}</p>
-            <p className="relative z-10 mt-0.5 text-[11px] font-medium text-cream/60">{["Descobrir", "Ver produtos", "Explorar", "Comprar", "Ver mais", "Entrar"][i % 6]}</p>
+            <p className="relative z-10 text-[15px] font-extrabold leading-tight tracking-tight text-ink sm:text-[17px]">{c.name}</p>
+            <p className="relative z-10 mt-0.5 text-[11px] font-medium text-ink/60">{["Descobrir", "Ver produtos", "Explorar", "Comprar", "Ver mais", "Entrar"][i % 6]}</p>
           </Link>
         ))}
       </div>
@@ -144,13 +144,13 @@ export function QuadCards({ products }: { products: Product[] }) {
         const items = products.filter((p) => slugs.includes(p.categories?.slug ?? "")).slice(0, 4);
         return (
           <div key={title} className="card p-4">
-            <h3 className="text-[16px] font-bold text-cream">{title}</h3>
+            <h3 className="text-[16px] font-bold text-ink">{title}</h3>
             <div className="mt-3 grid grid-cols-2 gap-2">
               {items.map((p) => (
                 <Link key={p.id} href={`/produto/${p.slug}`} className="block">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={p.images[0]} alt={p.name} className="aspect-square w-full rounded-xl bg-mist object-contain p-2" />
-                  <p className="mt-1 line-clamp-1 text-[11.5px] text-cream/70">{p.name}</p>
+                  <p className="mt-1 line-clamp-1 text-[11.5px] text-ink/70">{p.name}</p>
                 </Link>
               ))}
             </div>

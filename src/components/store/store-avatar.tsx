@@ -11,7 +11,7 @@ export function StoreAvatar({ store, size = 48 }: { store: Pick<Store, "name" | 
       ) : (
         <span className="brand-gradient grid h-full w-full place-items-center rounded-[30%] font-extrabold text-white shadow-lg shadow-brand-600/25" style={{ fontSize: size * 0.36 }}>{initials}</span>
       )}
-      {store.is_official && <BadgeCheck className="absolute -bottom-1 -right-1 rounded-full bg-cream text-ink" style={{ width: size * 0.38, height: size * 0.38 }} />}
+      {store.is_official && <BadgeCheck className="absolute -bottom-1 -right-1 rounded-full bg-blue-600 text-white" style={{ width: size * 0.38, height: size * 0.38 }} />}
     </span>
   );
 }

@@ -98,11 +98,11 @@ export default function OrderDetail({ params }: { params: Promise<{ id: string }
         <div className="card border-amber-200 bg-amber-50 p-5">
           <Clock className="h-7 w-7 text-amber-600" />
           <p className="mt-2 text-xl font-extrabold"><BlurReveal>Encomenda registada — pagamento pendente</BlurReveal></p>
-          <p className="text-sm text-cream/70">Número #{o.number}. {canPay ? "A compra só fica confirmada depois de validarmos o pagamento. Siga as instruções abaixo." : "Pagamento na entrega: o vendedor vai preparar a encomenda."}</p>
+          <p className="text-sm text-ink/70">Número #{o.number}. {canPay ? "A compra só fica confirmada depois de validarmos o pagamento. Siga as instruções abaixo." : "Pagamento na entrega: o vendedor vai preparar a encomenda."}</p>
         </div>
       )}
       <div className="card flex flex-wrap items-center justify-between gap-3 p-4">
-        <div><p className="text-lg font-extrabold">Encomenda #{o.number}</p><p className="text-xs text-cream/55">{new Date(o.created_at).toLocaleString("pt-AO")} · {PAY_METHOD[o.payment_method]}</p></div>
+        <div><p className="text-lg font-extrabold">Encomenda #{o.number}</p><p className="text-xs text-ink/55">{new Date(o.created_at).toLocaleString("pt-AO")} · {PAY_METHOD[o.payment_method]}</p></div>
         <span className={`rounded-full px-3 py-1 text-sm font-semibold ${o.payment_status === "paid" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>{PAY_STATUS[o.payment_status]}</span>
       </div>
       {canPay && (
@@ -111,19 +111,19 @@ export default function OrderDetail({ params }: { params: Promise<{ id: string }
             <p className="font-bold">Como pagar {kz(o.total)}</p>
             {PAYMENT_INFO[o.payment_method] ? (
               <div className="space-y-2">
-                <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-2.5">
+                <div className="flex items-center gap-3 rounded-xl border border-slate-900/10 bg-slate-50 p-2.5">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={PAYMENT_INFO[o.payment_method].logo} alt={PAY_METHOD[o.payment_method]} className="h-8 w-auto max-w-[110px] object-contain" />
+                  <img src={PAYMENT_INFO[o.payment_method].logo} alt={PAY_METHOD[o.payment_method]} className="h-8 w-auto max-w-[110px] rounded-xl bg-white object-contain p-1 ring-1 ring-slate-200" />
                   <div className="min-w-0 flex-1">
-                    <p className="text-[10.5px] uppercase tracking-wide text-cream/50">Referência de pagamento</p>
-                    <p className="text-lg font-extrabold tracking-[0.2em] text-cream">{PAYMENT_REFERENCE}</p>
+                    <p className="text-[10.5px] uppercase tracking-wide text-ink/50">Referência de pagamento</p>
+                    <p className="text-lg font-extrabold tracking-[0.2em] text-ink">{PAYMENT_REFERENCE}</p>
                   </div>
-                  <button type="button" onClick={() => { navigator.clipboard?.writeText(PAYMENT_REFERENCE); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="shrink-0 rounded-full bg-cream px-3 py-1.5 text-[12px] font-bold text-ink">{copied ? "Copiado" : "Copiar"}</button>
+                  <button type="button" onClick={() => { navigator.clipboard?.writeText(PAYMENT_REFERENCE); setCopied(true); setTimeout(() => setCopied(false), 1500); }} className="shrink-0 rounded-full bg-blue-600 px-3 py-1.5 text-[12px] font-bold text-white">{copied ? "Copiado" : "Copiar"}</button>
                 </div>
-                <ol className="space-y-1 text-[12.5px] leading-snug text-cream/70">
+                <ol className="space-y-1 text-[12.5px] leading-snug text-ink/70">
                   {PAYMENT_INFO[o.payment_method].steps.map((st, i) => <li key={i} className="flex gap-2"><span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-beige/20 text-[10px] font-bold text-beige">{i + 1}</span>{st}</li>)}
                 </ol>
-                {o.payment_method === "multicaixa_express" && <p className="text-[12px] text-cream/55">Conta Multicaixa: <b>{pay.multicaixa_express_phone || "o número indicado pelo nosso apoio"}</b>{pay.beneficiary ? ` (${pay.beneficiary})` : ""}.</p>}
+                {o.payment_method === "multicaixa_express" && <p className="text-[12px] text-ink/55">Conta Multicaixa: <b>{pay.multicaixa_express_phone || "o número indicado pelo nosso apoio"}</b>{pay.beneficiary ? ` (${pay.beneficiary})` : ""}.</p>}
               </div>
             ) : o.payment_method === "transfer"
               ? <p>Transfira para <b>{pay.beneficiary}</b>{pay.bank ? ` · ${pay.bank}` : ""}{pay.iban ? <> · IBAN <b>{pay.iban}</b></> : " (IBAN enviado pelo apoio)"}. Descritivo <b>RSE{o.number}</b>.</p>
@@ -134,7 +134,7 @@ export default function OrderDetail({ params }: { params: Promise<{ id: string }
               <button disabled={busy} className="btn-primary w-full">{busy && <Loader2 className="h-4 w-4 animate-spin" />}Enviar comprovativo</button>
             </form>
           </div>
-          <div className="flex flex-col items-center gap-1"><QRCode value={`RSE${o.number}|${o.total}|${pay.iban ?? ""}`} size={140} /><p className="text-[11px] text-cream/50">Ref. RSE{o.number}</p></div>
+          <div className="flex flex-col items-center gap-1"><QRCode value={`RSE${o.number}|${o.total}|${pay.iban ?? ""}`} size={140} /><p className="text-[11px] text-ink/50">Ref. RSE{o.number}</p></div>
         </div>
       )}
       {o.payment_status === "awaiting_confirmation" && <PaymentProcessing number={o.number} total={o.total} reference={o.payment_reference} />}
@@ -153,10 +153,10 @@ export default function OrderDetail({ params }: { params: Promise<{ id: string }
         </div>
       )}
       <div className="card space-y-1 p-4 text-sm">
-        <div className="flex justify-between"><span className="text-cream/60">Produtos</span><span>{kz(o.subtotal)}</span></div>
-        <div className="flex justify-between"><span className="text-cream/60">Portes</span><span>{kz(o.shipping_total)}</span></div>
+        <div className="flex justify-between"><span className="text-ink/60">Produtos</span><span>{kz(o.subtotal)}</span></div>
+        <div className="flex justify-between"><span className="text-ink/60">Portes</span><span>{kz(o.shipping_total)}</span></div>
         <div className="flex justify-between border-t border-brand-100 pt-2 text-base font-extrabold"><span>Total</span><span className="text-brand-800">{kz(o.total)}</span></div>
-        <p className="pt-2 text-xs text-cream/55">Entrega: {o.contact_name} · {o.contact_phone} · {[o.address?.street, o.address?.city, o.address?.province].filter(Boolean).join(", ")}</p>
+        <p className="pt-2 text-xs text-ink/55">Entrega: {o.contact_name} · {o.contact_phone} · {[o.address?.street, o.address?.city, o.address?.province].filter(Boolean).join(", ")}</p>
       </div>
       {o.payment_status === "paid" && <RecoRail kind="bought_together" productId={o.sub_orders[0]?.order_items[0]?.product_id} exclude={o.sub_orders.flatMap((x) => x.order_items.map((i) => i.product_id ?? ""))} title="Complete a sua compra" subtitle="Produtos que combinam com o que comprou" />}
     </div>

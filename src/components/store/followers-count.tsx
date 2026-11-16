@@ -12,5 +12,5 @@ export function FollowersCount({ storeId }: { storeId: string }) {
     return () => { alive = false; };
   }, [storeId]);
   if (n === null || n === 0) return null;
-  return <span className="inline-flex items-center gap-1 text-[12px] font-medium text-cream/60"><Users className="h-3.5 w-3.5" />{n} {n === 1 ? "seguidor" : "seguidores"}</span>;
+  return <span className="inline-flex items-center gap-1 text-[12px] font-medium text-ink/60"><Users className="h-3.5 w-3.5" />{n} {n === 1 ? "seguidor" : "seguidores"}</span>;
 }

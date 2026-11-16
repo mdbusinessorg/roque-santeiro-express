@@ -9,34 +9,34 @@ const SIDE: [string, typeof LayoutGrid, string][][] = [
   [["/vendedor", LayoutGrid, "Resumo"], ["/vendedor/produtos", Package, "Produtos"], ["/vendedor/encomendas", ShoppingBag, "Encomendas"], ["/vendedor/carteira", Wallet, "Carteira"]],
   [["/vendedor/avaliacoes", MessageSquare, "Avaliações"], ["/vendedor#estatisticas", BarChart3, "Estatísticas"]],
 ];
-const TOP: [string, string][] = [["/vendedor", "Dashboard"], ["/vendedor/produtos", "Produtos"], ["/vendedor/encomendas", "Encomendas"], ["/vendedor/carteira", "Carteira"], ["/vendedor/avaliacoes", "Avaliações"], ["/vendedor/loja", "Perfil da loja"]];
+const TOP: [string, string][] = [["/vendedor", "Dashboard"], ["/vendedor/produtos", "Produtos"], ["/vendedor/encomendas", "Encomendas"], ["/vendedor/mensagens", "Mensagens"], ["/vendedor/carteira", "Carteira"], ["/vendedor/avaliacoes", "Avaliações"], ["/vendedor/loja", "Perfil da loja"]];
 
 export function DashShell({ children, storeSlug }: { children: React.ReactNode; storeSlug?: string }) {
   const path = usePathname();
   const { signOut } = useAuth();
   return (
     <div className="-mx-3 px-3 pb-6 pt-3 sm:mx-0 sm:mt-3 sm:px-0">
-      <div className="mb-4 flex items-center gap-2 rounded-full border border-white/10 bg-panel/80 p-1.5 shadow-lg shadow-black/30 backdrop-blur-xl">
+      <div className="mb-4 flex items-center gap-2 rounded-full border border-slate-900/10 bg-white/80 p-1.5 shadow-lg shadow-black/30 backdrop-blur-xl">
         <nav className="no-scrollbar flex flex-1 gap-1 overflow-x-auto rounded-full bg-black/25 p-1">
           {TOP.map(([h, l]) => (
-            <a key={h} href={h} className={cn("shrink-0 rounded-full px-3.5 py-2 text-[13px] font-medium transition", path === h ? "bg-cream font-semibold text-ink shadow-sm" : "text-cream/60 hover:text-cream")}>{l}</a>
+            <a key={h} href={h} className={cn("shrink-0 rounded-full px-3.5 py-2 text-[13px] font-medium transition", path === h ? "bg-blue-600 font-semibold text-white shadow-sm" : "text-ink/60 hover:text-ink")}>{l}</a>
           ))}
         </nav>
-        {storeSlug && <a href={`/loja/${storeSlug}`} aria-label="Ver loja" className="hidden h-10 w-10 shrink-0 place-items-center rounded-full bg-white/10 text-cream/80 transition hover:bg-white/15 sm:grid"><ExternalLink className="h-4 w-4" /></a>}
+        {storeSlug && <a href={`/loja/${storeSlug}`} aria-label="Ver loja" className="hidden h-10 w-10 shrink-0 place-items-center rounded-full bg-slate-900/10 text-ink/80 transition hover:bg-slate-900/15 sm:grid"><ExternalLink className="h-4 w-4" /></a>}
       </div>
       <div className="flex gap-4">
         <aside className="hidden w-14 shrink-0 flex-col gap-3 lg:flex">
           {SIDE.map((group, gi) => (
-            <div key={gi} className="flex flex-col items-center gap-2 rounded-full border border-white/10 bg-panel/80 p-1.5 shadow-lg shadow-black/30 backdrop-blur-xl">
+            <div key={gi} className="flex flex-col items-center gap-2 rounded-full border border-slate-900/10 bg-white/80 p-1.5 shadow-lg shadow-black/30 backdrop-blur-xl">
               {group.map(([h, I, l]) => {
                 const on = path === h;
-                return <a key={h} href={h} title={l} aria-label={l} className={cn("grid h-11 w-11 place-items-center rounded-full transition", on ? "bg-cream text-ink" : "text-cream/55 hover:bg-white/10 hover:text-cream")}><I className="h-[18px] w-[18px]" /></a>;
+                return <a key={h} href={h} title={l} aria-label={l} className={cn("grid h-11 w-11 place-items-center rounded-full transition", on ? "bg-blue-600 text-white" : "text-ink/55 hover:bg-slate-900/10 hover:text-ink")}><I className="h-[18px] w-[18px]" /></a>;
               })}
             </div>
           ))}
-          <div className="mt-auto flex flex-col items-center gap-2 rounded-full border border-white/10 bg-panel/80 p-1.5 shadow-lg shadow-black/30 backdrop-blur-xl">
-            <a href="/vendedor/loja" title="Perfil da loja" className="grid h-11 w-11 place-items-center rounded-full text-cream/55 hover:bg-white/10 hover:text-cream"><Settings className="h-[18px] w-[18px]" /></a>
-            <button onClick={() => signOut().then(() => { location.href = "/"; })} title="Sair" className="grid h-11 w-11 place-items-center rounded-full text-cream/55 hover:bg-white/10 hover:text-cream"><LogOut className="h-[18px] w-[18px]" /></button>
+          <div className="mt-auto flex flex-col items-center gap-2 rounded-full border border-slate-900/10 bg-white/80 p-1.5 shadow-lg shadow-black/30 backdrop-blur-xl">
+            <a href="/vendedor/loja" title="Perfil da loja" className="grid h-11 w-11 place-items-center rounded-full text-ink/55 hover:bg-slate-900/10 hover:text-ink"><Settings className="h-[18px] w-[18px]" /></a>
+            <button onClick={() => signOut().then(() => { location.href = "/"; })} title="Sair" className="grid h-11 w-11 place-items-center rounded-full text-ink/55 hover:bg-slate-900/10 hover:text-ink"><LogOut className="h-[18px] w-[18px]" /></button>
           </div>
         </aside>
         <div className="min-w-0 flex-1 space-y-4">{children}</div>
@@ -47,10 +47,10 @@ export function DashShell({ children, storeSlug }: { children: React.ReactNode; 
 
 export function Panel({ title, subtitle, action, children, className }: { title?: React.ReactNode; subtitle?: string; action?: React.ReactNode; children: React.ReactNode; className?: string }) {
   return (
-    <section className={cn("rounded-[28px] border border-white/10 bg-panel/80 p-4 backdrop-blur-xl sm:p-5", className)}>
+    <section className={cn("rounded-[28px] border border-slate-900/10 bg-white/80 p-4 backdrop-blur-xl sm:p-5", className)}>
       {(title || action) && (
         <div className="mb-3 flex items-start justify-between gap-2">
-          <div><p className="text-[15px] font-semibold text-cream">{title}</p>{subtitle && <p className="text-xs text-cream/50">{subtitle}</p>}</div>
+          <div><p className="text-[15px] font-semibold text-ink">{title}</p>{subtitle && <p className="text-xs text-ink/50">{subtitle}</p>}</div>
           {action}
         </div>
       )}
@@ -61,7 +61,7 @@ export function Panel({ title, subtitle, action, children, className }: { title?
 
 export function CornerLink({ href, label }: { href: string; label: string }) {
   return (
-    <a href={href} aria-label={label} className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-white/10 bg-white/5 text-cream/80 transition hover:bg-cream hover:text-ink">
+    <a href={href} aria-label={label} className="grid h-10 w-10 shrink-0 place-items-center rounded-full border border-slate-900/10 bg-white/5 text-ink/80 transition hover:bg-blue-600 hover:text-white">
       <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17 17 7M8 7h9v9" /></svg>
     </a>
   );

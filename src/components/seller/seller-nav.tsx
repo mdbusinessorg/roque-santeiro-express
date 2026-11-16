@@ -4,7 +4,7 @@ import Link from "@/components/ui/native-link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-const tabs = [["/vendedor", "Resumo"], ["/vendedor/produtos", "Produtos"], ["/vendedor/encomendas", "Encomendas"], ["/vendedor/carteira", "Carteira e liquidações"], ["/vendedor/avaliacoes", "Avaliações"], ["/vendedor/loja", "Perfil da loja"]];
+const tabs = [["/vendedor", "Resumo"], ["/vendedor/produtos", "Produtos"], ["/vendedor/encomendas", "Encomendas"], ["/vendedor/mensagens", "Mensagens"], ["/vendedor/carteira", "Carteira e liquidações"], ["/vendedor/avaliacoes", "Avaliações"], ["/vendedor/loja", "Perfil da loja"]];
 
 export function SellerNav() {
   const path = usePathname();

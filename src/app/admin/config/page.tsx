@@ -33,7 +33,7 @@ export default function AdminConfig() {
   return (
     <AdminShell>
       <form onSubmit={save} className="card max-w-2xl space-y-4 p-5">
-        <div><label className="label">Comissão global (%)</label><input value={rate} onChange={(e) => setRate(e.target.value)} inputMode="decimal" className="input" /><p className="mt-1 text-xs text-cream/50">Prioridade: comissão da loja → da categoria → global.</p></div>
+        <div><label className="label">Comissão global (%)</label><input value={rate} onChange={(e) => setRate(e.target.value)} inputMode="decimal" className="input" /><p className="mt-1 text-xs text-ink/50">Prioridade: comissão da loja → da categoria → global.</p></div>
         <div className="grid grid-cols-3 gap-2">
           <div><label className="label">Portes rede RSE</label><input value={ship.rse} onChange={(e) => setShip({ ...ship, rse: e.target.value })} className="input" /></div>
           <div><label className="label">Portes vendedor</label><input value={ship.seller} onChange={(e) => setShip({ ...ship, seller: e.target.value })} className="input" /></div>

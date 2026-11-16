@@ -51,7 +51,7 @@ export function ProductActions({ item }: { item: Omit<CartItem, "quantity"> }) {
         </span>
         <button onClick={toggleFav} aria-label="Favorito" className="glass ml-auto grid h-11 w-11 place-items-center rounded-full">
           <motion.span key={String(fav)} initial={{ scale: 0.6 }} animate={{ scale: [0.6, 1.25, 1] }} transition={{ duration: 0.35 }} className="grid place-items-center">
-            <Heart className={cn("h-5 w-5", fav ? "fill-brand-600 text-brand-600" : "text-cream/70")} />
+            <Heart className={cn("h-5 w-5", fav ? "fill-brand-600 text-brand-600" : "text-ink/70")} />
           </motion.span>
         </button>
       </div>

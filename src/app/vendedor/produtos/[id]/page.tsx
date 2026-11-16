@@ -78,7 +78,7 @@ export default function ProductForm({ params }: { params: Promise<{ id: string }
                 <div key={src} className="relative h-20 w-20">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={src} alt="" className="h-full w-full rounded-xl bg-mist object-contain" />
-                  <button type="button" onClick={() => setImages(images.filter((x) => x !== src))} className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-ink text-white"><X className="h-3 w-3" /></button>
+                  <button type="button" onClick={() => setImages(images.filter((x) => x !== src))} className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full bg-slate-900 text-white"><X className="h-3 w-3" /></button>
                 </div>
               ))}
               <label className="grid h-20 w-20 cursor-pointer place-items-center rounded-xl border-2 border-dashed border-brand-200 text-brand-600">

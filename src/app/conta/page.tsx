@@ -68,13 +68,13 @@ export default function AccountPage() {
       <div className="brand-gradient relative overflow-hidden rounded-[1.75rem] p-5 text-white">
         <div className="absolute -right-10 -top-12 h-40 w-40 rounded-full bg-promo/30 blur-3xl" />
         <div className="relative flex items-center gap-4">
-          <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-white/15 text-2xl font-extrabold uppercase ring-2 ring-white/30">{name.slice(0, 1)}</div>
+          <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full bg-slate-900/15 text-2xl font-extrabold uppercase ring-2 ring-white/30">{name.slice(0, 1)}</div>
           <div className="min-w-0 flex-1">
             <p className="truncate text-xl font-extrabold">{name}</p>
             <p className="truncate text-[13px] text-white/70">{user.email}{profile?.phone ? ` · ${profile.phone}` : ""}</p>
           </div>
         </div>
-        <div className="relative mt-4 grid grid-cols-3 divide-x divide-white/15 rounded-2xl bg-white/10 py-2.5 text-center">
+        <div className="relative mt-4 grid grid-cols-3 divide-x divide-white/15 rounded-2xl bg-slate-900/10 py-2.5 text-center">
           <Link href="/conta/favoritos"><p className="text-lg font-extrabold">{c?.fav ?? "–"}</p><p className="text-[11px] text-white/70">Favoritos</p></Link>
           <Link href="/conta/encomendas"><p className="text-lg font-extrabold">{c ? c.pay + c.ship + c.sent : "–"}</p><p className="text-[11px] text-white/70">Em curso</p></Link>
           <Link href="/conta/notificacoes"><p className="text-lg font-extrabold">{c?.notif ?? "–"}</p><p className="text-[11px] text-white/70">Mensagens</p></Link>
@@ -84,14 +84,14 @@ export default function AccountPage() {
       <section className="card mt-3 p-4">
         <div className="flex items-center justify-between">
           <h2 className="font-bold">As minhas encomendas</h2>
-          <Link href="/conta/encomendas" className="flex items-center text-[13px] text-cream/55">Ver todas<ChevronRight className="h-4 w-4" /></Link>
+          <Link href="/conta/encomendas" className="flex items-center text-[13px] text-ink/55">Ver todas<ChevronRight className="h-4 w-4" /></Link>
         </div>
         <div className="mt-3 grid grid-cols-4 gap-1">
           {orders.map(({ href, icon: I, l, n }, i) => (
             <motion.div key={l} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}>
               <Link href={href} className="flex flex-col items-center gap-1.5 rounded-2xl py-2 active:bg-mist">
-                <span className="relative"><I className="h-6 w-6 text-cream" strokeWidth={1.7} /><Badge n={n} /></span>
-                <span className="text-center text-[12px] font-medium text-cream/75">{l}</span>
+                <span className="relative"><I className="h-6 w-6 text-ink" strokeWidth={1.7} /><Badge n={n} /></span>
+                <span className="text-center text-[12px] font-medium text-ink/75">{l}</span>
               </Link>
             </motion.div>
           ))}
@@ -101,8 +101,8 @@ export default function AccountPage() {
       <section className="card mt-3 grid grid-cols-4 gap-1 p-3">
         {tiles.map(({ href, icon: I, l, n }) => (
           <Link key={l} href={href} className="flex flex-col items-center gap-1.5 rounded-2xl py-2 active:bg-mist">
-            <span className="relative grid h-11 w-11 place-items-center rounded-full bg-mist"><I className="h-5 w-5 text-cream" strokeWidth={1.8} /><Badge n={n} /></span>
-            <span className="text-center text-[11.5px] font-medium leading-tight text-cream/75">{l}</span>
+            <span className="relative grid h-11 w-11 place-items-center rounded-full bg-mist"><I className="h-5 w-5 text-ink" strokeWidth={1.8} /><Badge n={n} /></span>
+            <span className="text-center text-[11.5px] font-medium leading-tight text-ink/75">{l}</span>
           </Link>
         ))}
       </section>
@@ -110,7 +110,7 @@ export default function AccountPage() {
       <div className="card mt-3 divide-y divide-line">
         {more.map(({ href, icon: I, l }) => (
           <Link key={l} href={href} className="flex items-center gap-3 p-4 text-[15px] font-medium active:bg-mist">
-            <I className="h-5 w-5 text-cream/70" /><span className="flex-1">{l}</span><ChevronRight className="h-4 w-4 text-cream/30" />
+            <I className="h-5 w-5 text-ink/70" /><span className="flex-1">{l}</span><ChevronRight className="h-4 w-4 text-ink/30" />
           </Link>
         ))}
         <button onClick={async () => { await signOut(); router.replace("/"); }} className="flex w-full items-center gap-3 p-4 text-[15px] font-medium text-promo"><LogOut className="h-5 w-5" />Terminar sessão</button>

@@ -17,7 +17,7 @@ export default async function CategoriesPage() {
               // eslint-disable-next-line @next/next/no-img-element
               <img src={c.image_url} alt="" className="aspect-square w-full rounded-2xl bg-mist object-contain p-2" />
             ) : (
-              <span className="grid aspect-square w-full place-items-center rounded-2xl bg-mist"><LayoutGrid className="h-10 w-10 text-cream/25" /></span>
+              <span className="grid aspect-square w-full place-items-center rounded-2xl bg-mist"><LayoutGrid className="h-10 w-10 text-ink/25" /></span>
             )}
             <span className="text-[12.5px] font-semibold leading-tight">{c.name}</span>
           </Link>

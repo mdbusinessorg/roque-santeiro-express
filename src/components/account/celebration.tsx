@@ -18,21 +18,21 @@ export function Celebration({ number, total, items, eta }: { number: number; tot
           <motion.span key={i} className="absolute h-1.5 w-1.5 rounded-full" style={{ background: p.c }} initial={{ x: 0, y: 0, opacity: 0 }}
             animate={{ x: Math.cos(p.a) * p.d, y: Math.sin(p.a) * p.d, opacity: [0, 1, 0] }} transition={{ duration: 1.4, delay: 0.35 + (i % 4) * 0.04, ease: "easeOut" }} />
         ))}
-        <motion.span className="absolute inset-0 rounded-full bg-white/20" initial={{ scale: 0 }} animate={{ scale: [0, 1.25, 1] }} transition={{ duration: 0.6 }} />
+        <motion.span className="absolute inset-0 rounded-full bg-slate-900/20" initial={{ scale: 0 }} animate={{ scale: [0, 1.25, 1] }} transition={{ duration: 0.6 }} />
         <svg viewBox="0 0 52 52" className="relative h-14 w-14">
           <motion.circle cx="26" cy="26" r="24" fill="#fff" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: "spring", damping: 12, stiffness: 200, delay: 0.1 }} />
           <motion.path d="M15 27 l7 7 l15 -16" fill="none" stroke="#e5484d" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.45, delay: 0.45 }} />
         </svg>
       </div>
       <p className="mt-3 text-2xl font-extrabold"><BlurReveal delay={0.5}>Pagamento confirmado!</BlurReveal></p>
-      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }} className="mx-auto mt-4 grid max-w-sm grid-cols-3 gap-2 rounded-2xl bg-white/15 p-3 text-xs backdrop-blur">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.9 }} className="mx-auto mt-4 grid max-w-sm grid-cols-3 gap-2 rounded-2xl bg-slate-900/15 p-3 text-xs backdrop-blur">
         <div><p className="text-white/70">Encomenda</p><p className="font-bold">#{number}</p></div>
         <div><p className="text-white/70">Artigos</p><p className="font-bold">{items}</p></div>
         <div><p className="text-white/70">Total pago</p><p className="font-bold">{kz(total)}</p></div>
       </motion.div>
       {eta && <p className="mt-3 text-sm text-white/85">Previsão de entrega: <b>{new Date(eta).toLocaleDateString("pt-AO")}</b></p>}
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1 }}>
-        <Link href="#acompanhar" className="btn mt-4 bg-cream px-5 py-2.5 font-bold text-ink"><MapPin className="h-4 w-4" />Acompanhar encomenda</Link>
+        <Link href="#acompanhar" className="btn mt-4 bg-blue-600 px-5 py-2.5 font-bold text-white"><MapPin className="h-4 w-4" />Acompanhar encomenda</Link>
       </motion.div>
     </motion.div>
   );

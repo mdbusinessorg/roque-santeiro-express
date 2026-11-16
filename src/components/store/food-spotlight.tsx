@@ -46,7 +46,7 @@ export function FoodSpotlight({ dishes, className }: { dishes: Product[]; classN
       <div className="grid sm:grid-cols-2 sm:items-center">
         <div className="relative z-10 px-5 pt-5 sm:py-9 sm:pl-9">
           <div className="flex items-center gap-2">
-            <span className="rounded-full bg-gold px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-cream">Comida</span>
+            <span className="rounded-full bg-gold px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-white">Comida</span>
             <span className="flex items-center gap-1 text-[11.5px] text-white/55"><Bike className="h-3.5 w-3.5" />Entrega em Luanda</span>
           </div>
           <div className="relative mt-3 h-[60px] overflow-hidden sm:h-[92px]">
@@ -58,14 +58,14 @@ export function FoodSpotlight({ dishes, className }: { dishes: Product[]; classN
           </div>
           <AnimatePresence mode="wait" initial={false}>
             <motion.div key={p.id} initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reduce ? undefined : { opacity: 0 }} transition={{ duration: 0.3 }}>
-              <a href={`/loja/${p.stores?.slug}`} className="mt-1 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-gold">{p.stores?.name}{p.stores?.is_demo && <span className="rounded-full border border-white/20 px-1.5 py-px text-[9.5px] font-medium uppercase tracking-wide text-white/55">Demonstração</span>}</a>
+              <a href={`/loja/${p.stores?.slug}`} className="mt-1 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-gold">{p.stores?.name}{p.stores?.is_demo && <span className="rounded-full border border-slate-900/20 px-1.5 py-px text-[9.5px] font-medium uppercase tracking-wide text-white/55">Demonstração</span>}</a>
               <p className="mt-1.5 line-clamp-2 max-w-[60%] text-[12.5px] leading-snug text-white/55 sm:max-w-sm">{p.description}</p>
             </motion.div>
           </AnimatePresence>
         </div>
 
         <div className="relative mx-auto -mt-6 h-[250px] w-full sm:mt-0 sm:h-[340px]">
-          <span aria-hidden className="absolute right-[-12%] top-1/2 aspect-square h-[104%] -translate-y-1/2 rounded-full border border-dashed border-white/15 sm:right-[2%]" />
+          <span aria-hidden className="absolute right-[-12%] top-1/2 aspect-square h-[104%] -translate-y-1/2 rounded-full border border-dashed border-slate-900/15 sm:right-[2%]" />
           <AnimatePresence initial={false} custom={dir}>
             <motion.div key={p.id} custom={dir} className="absolute right-[-8%] top-1/2 aspect-square h-[88%] overflow-hidden rounded-full shadow-[0_30px_50px_-20px_rgba(0,0,0,.9)] ring-4 ring-white/10 sm:right-[6%]" style={{ y: "-50%" }}
               initial={reduce ? { opacity: 0 } : { rotate: dir * 110, x: "70%", opacity: 0, scale: 0.7 }} animate={{ rotate: 0, x: "0%", opacity: 1, scale: 1 }} exit={reduce ? { opacity: 0 } : { rotate: dir * -110, x: "70%", opacity: 0, scale: 0.7 }} transition={{ duration: 0.85, ease: EASE }}>
@@ -83,8 +83,8 @@ export function FoodSpotlight({ dishes, className }: { dishes: Product[]; classN
           </AnimatePresence>
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <button type="button" onClick={() => order(false)} aria-label="Adicionar ao carrinho" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 ring-1 ring-white/15 transition active:scale-90"><ShoppingCart className="h-[18px] w-[18px]" /></button>
-          <button type="button" onClick={() => order(true)} className="flex h-11 items-center gap-1.5 rounded-full bg-gold px-4 text-[13px] font-bold text-cream transition active:scale-95">Pedir agora<ArrowRight className="h-4 w-4" /></button>
+          <button type="button" onClick={() => order(false)} aria-label="Adicionar ao carrinho" className="grid h-11 w-11 place-items-center rounded-full bg-slate-900/10 ring-1 ring-white/15 transition active:scale-90"><ShoppingCart className="h-[18px] w-[18px]" /></button>
+          <button type="button" onClick={() => order(true)} className="flex h-11 items-center gap-1.5 rounded-full bg-gold px-4 text-[13px] font-bold text-white transition active:scale-95">Pedir agora<ArrowRight className="h-4 w-4" /></button>
         </div>
       </div>
 
@@ -95,7 +95,7 @@ export function FoodSpotlight({ dishes, className }: { dishes: Product[]; classN
             <img src={it.images[0].replace("w=900&h=900", "w=160&h=160")} alt="" loading="lazy" className="h-full w-full object-cover" />
           </button>
         ))}
-        <a href="/lojas?tipo=comida" className="ml-auto flex h-14 shrink-0 items-center gap-1 self-center rounded-full bg-white/10 px-4 text-[12.5px] font-semibold ring-1 ring-white/15">Ver restaurantes<ArrowRight className="h-3.5 w-3.5" /></a>
+        <a href="/lojas?tipo=comida" className="ml-auto flex h-14 shrink-0 items-center gap-1 self-center rounded-full bg-slate-900/10 px-4 text-[12.5px] font-semibold ring-1 ring-white/15">Ver restaurantes<ArrowRight className="h-3.5 w-3.5" /></a>
       </div>
     </section>
   );

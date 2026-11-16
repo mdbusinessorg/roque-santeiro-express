@@ -33,10 +33,10 @@ export default function AdminStores() {
   return (
     <AdminShell>
       <div className="no-scrollbar -mx-3 mb-3 flex gap-2 overflow-x-auto px-3">
-        {FILTERS.map((f) => <button key={f} onClick={() => setFilter(f)} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${filter === f ? "bg-cream text-ink" : "bg-white/10 text-cream/70"}`}>{STORE_STATUS[f]}</button>)}
+        {FILTERS.map((f) => <button key={f} onClick={() => setFilter(f)} className={`shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold ${filter === f ? "bg-blue-600 text-white" : "bg-slate-900/10 text-ink/70"}`}>{STORE_STATUS[f]}</button>)}
       </div>
       {msg && <p className="mb-3 rounded-xl bg-brand-50 p-3 text-sm">{msg}</p>}
-      {!rows ? <div className="skeleton h-40" /> : !rows.length ? <p className="card p-8 text-center text-sm text-cream/60">Nenhuma loja neste estado.</p> : (
+      {!rows ? <div className="skeleton h-40" /> : !rows.length ? <p className="card p-8 text-center text-sm text-ink/60">Nenhuma loja neste estado.</p> : (
         <div className="space-y-3">
           {rows.map((s) => (
             <div key={s.id} className="card p-4 text-sm">
@@ -44,9 +44,9 @@ export default function AdminStores() {
                 <StoreAvatar store={s} size={48} />
                 <div className="min-w-0 flex-1">
                   <p className="font-bold">{s.name} {s.is_official && <span className="text-xs text-brand-600">(oficial)</span>}</p>
-                  <p className="text-xs text-cream/60">{s.responsible_name} · {s.phone} · WhatsApp {s.whatsapp} · {s.email}</p>
-                  <p className="text-xs text-cream/60">{[s.address, s.city, s.province].filter(Boolean).join(", ")} · {new Date(s.created_at).toLocaleDateString("pt-AO")}</p>
-                  {s.description && <p className="mt-1 text-cream/75">{s.description}</p>}
+                  <p className="text-xs text-ink/60">{s.responsible_name} · {s.phone} · WhatsApp {s.whatsapp} · {s.email}</p>
+                  <p className="text-xs text-ink/60">{[s.address, s.city, s.province].filter(Boolean).join(", ")} · {new Date(s.created_at).toLocaleDateString("pt-AO")}</p>
+                  {s.description && <p className="mt-1 text-ink/75">{s.description}</p>}
                   {s.documents_url && <a href={s.documents_url} target="_blank" rel="noreferrer" className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-brand-600"><FileText className="h-3.5 w-3.5" />Ver documento</a>}
                   {s.status === "approved" && <Link href={`/loja/${s.slug}`} className="ml-3 text-xs font-semibold text-brand-600">Ver loja pública</Link>}
                 </div>

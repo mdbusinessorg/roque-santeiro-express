@@ -9,7 +9,7 @@ const cols = [
 
 export function Footer() {
   return (
-    <footer className="mt-10 bg-ink pb-28 text-white md:pb-0">
+    <footer className="mt-10 bg-slate-900 pb-28 text-white md:pb-0">
       <div className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
           <p className="text-xl font-extrabold tracking-tight">Roque Santeiro <span className="text-[#ff7a7e]">Express</span></p>
@@ -25,7 +25,7 @@ export function Footer() {
           </div>
         ))}
       </div>
-      <div className="border-t border-white/15 py-4 text-center text-xs text-white/60">© {new Date().getFullYear()} Roque Santeiro Express · Luanda, Angola</div>
+      <div className="border-t border-slate-900/15 py-4 text-center text-xs text-white/60">© {new Date().getFullYear()} Roque Santeiro Express · Luanda, Angola</div>
     </footer>
   );
 }

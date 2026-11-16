@@ -36,13 +36,13 @@ export default function Notifications() {
         {rows?.some((r) => !r.read_at) && <button onClick={readAll} className="flex items-center gap-1 text-sm font-semibold text-brand-600"><CheckCheck className="h-4 w-4" />Marcar todas como lidas</button>}
       </div>
       {!rows ? <div className="skeleton h-60" /> : !rows.length ? (
-        <div className="card p-8 text-center text-sm text-cream/60"><Bell className="mx-auto mb-2 h-8 w-8 text-cream/30" />Sem notificações. Aqui aparecem pagamentos, envios, entregas e respostas às suas avaliações. <Link href="/conta/encomendas" className="text-brand-600">Ver encomendas</Link></div>
+        <div className="card p-8 text-center text-sm text-ink/60"><Bell className="mx-auto mb-2 h-8 w-8 text-ink/30" />Sem notificações. Aqui aparecem pagamentos, envios, entregas e respostas às suas avaliações. <Link href="/conta/encomendas" className="text-brand-600">Ver encomendas</Link></div>
       ) : (
         <div className="card divide-y divide-line overflow-hidden">
           {rows.map((n, i) => { const I = icon(n.type); return (
             <motion.button key={n.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: Math.min(i, 10) * 0.03 }} onClick={() => open(n)} className={`flex w-full items-start gap-3 p-4 text-left transition hover:bg-mist ${n.read_at ? "" : "bg-brand-50/60"}`}>
-              <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${n.read_at ? "bg-mist text-cream/50" : "bg-cream text-ink"}`}><I className="h-4 w-4" /></span>
-              <span className="min-w-0 flex-1"><span className="block text-sm font-semibold">{n.title}</span>{n.body && <span className="block text-xs text-cream/60">{n.body}</span>}<span className="mt-0.5 block text-[11px] text-cream/40">{new Date(n.created_at).toLocaleString("pt-AO")}</span></span>
+              <span className={`grid h-9 w-9 shrink-0 place-items-center rounded-full ${n.read_at ? "bg-mist text-ink/50" : "bg-blue-600 text-white"}`}><I className="h-4 w-4" /></span>
+              <span className="min-w-0 flex-1"><span className="block text-sm font-semibold">{n.title}</span>{n.body && <span className="block text-xs text-ink/60">{n.body}</span>}<span className="mt-0.5 block text-[11px] text-ink/40">{new Date(n.created_at).toLocaleString("pt-AO")}</span></span>
               {!n.read_at && <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-brand-600" />}
             </motion.button>
           ); })}

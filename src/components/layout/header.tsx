@@ -50,14 +50,14 @@ function SearchBox() {
         onFocus={() => setOpen(true)}
         onBlur={() => setTimeout(() => setOpen(false), 150)}
         placeholder="Pesquisar no Roque Santeiro"
-        className="h-11 w-full rounded-full border border-white/15 bg-white/10 pl-11 pr-24 text-[15px] text-white shadow-inner outline-none backdrop-blur placeholder:text-white/45 focus:ring-4 focus:ring-beige/30"
+        className="h-11 w-full rounded-full border border-slate-900/15 bg-slate-900/10 pl-11 pr-24 text-[15px] text-white shadow-inner outline-none backdrop-blur placeholder:text-white/45 focus:ring-4 focus:ring-beige/30"
         enterKeyHint="search"
         aria-label="Pesquisar"
       />
-      {canVoice && <button type="button" onClick={voice} aria-label="Pesquisar por voz" className="absolute right-[5.5rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-cream/45 active:bg-cream/5"><Mic className="h-[18px] w-[18px]" /></button>}
-      <button className="absolute right-1 top-1 bg-ink transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
+      {canVoice && <button type="button" onClick={voice} aria-label="Pesquisar por voz" className="absolute right-[5.5rem] top-1/2 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 active:bg-blue-600/5"><Mic className="h-[18px] w-[18px]" /></button>}
+      <button className="absolute right-1 top-1 bg-slate-900 transition active:scale-95 h-9 rounded-full px-4 text-sm font-semibold text-white">Buscar</button>
       {open && items.length > 0 && (
-        <ul className="glass absolute inset-x-0 top-12 z-50 overflow-hidden rounded-2xl py-1 text-cream">
+        <ul className="glass absolute inset-x-0 top-12 z-50 overflow-hidden rounded-2xl py-1 text-ink">
           {items.map((s) => (
             <li key={s.slug}>
               <Link href={`/produto/${s.slug}`} className="flex items-center gap-3 px-3 py-2 hover:bg-brand-50">
@@ -89,23 +89,23 @@ export function Header() {
           </Link>
           <div className="hidden flex-1 md:flex"><Suspense><SearchBox /></Suspense></div>
           <nav className="ml-auto flex items-center gap-1 text-sm">
-            <Link href="/vender" className="hidden items-center gap-1.5 rounded-full px-3 py-2 hover:bg-white/10 lg:flex"><Store className="h-4 w-4" />Vender</Link>
-            {isStaff(profile?.role) && <Link href="/admin" className="hidden rounded-full px-3 py-2 hover:bg-white/10 md:block">Admin</Link>}
-            <Link href={user ? "/conta" : "/entrar"} className="flex items-center gap-1.5 rounded-full px-3 py-2 hover:bg-white/10">
+            <Link href="/vender" className="hidden items-center gap-1.5 rounded-full px-3 py-2 hover:bg-slate-900/10 lg:flex"><Store className="h-4 w-4" />Vender</Link>
+            {isStaff(profile?.role) && <Link href="/admin" className="hidden rounded-full px-3 py-2 hover:bg-slate-900/10 md:block">Admin</Link>}
+            <Link href={user ? "/conta" : "/entrar"} className="flex items-center gap-1.5 rounded-full px-3 py-2 hover:bg-slate-900/10">
               <User className="h-5 w-5" /><span className="hidden max-w-28 truncate md:inline">{user ? profile?.full_name?.split(" ")[0] || "Conta" : "Entrar"}</span>
             </Link>
-            <Link href="/conta/favoritos" className="hidden rounded-full p-2 hover:bg-white/10 md:block" aria-label="Favoritos"><Heart className="h-5 w-5" /></Link>
-            <NotificationBell className="relative grid h-9 w-9 place-items-center rounded-full hover:bg-white/10" />
-            <Link href="/carrinho" className="relative hidden rounded-full p-2 hover:bg-white/10 md:block" aria-label="Carrinho">
+            <Link href="/conta/favoritos" className="hidden rounded-full p-2 hover:bg-slate-900/10 md:block" aria-label="Favoritos"><Heart className="h-5 w-5" /></Link>
+            <NotificationBell className="relative grid h-9 w-9 place-items-center rounded-full hover:bg-slate-900/10" />
+            <Link href="/carrinho" className="relative hidden rounded-full p-2 hover:bg-slate-900/10 md:block" aria-label="Carrinho">
               <ShoppingCart className="h-5 w-5" />
-              {count > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-cream px-1 text-center text-[10px] font-bold leading-[18px] text-ink">{count}</span>}
+              {count > 0 && <span className="absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full bg-blue-600 px-1 text-center text-[10px] font-bold leading-[18px] text-white">{count}</span>}
             </Link>
           </nav>
         </div>
         <div className="mx-auto max-w-7xl px-3 pb-3 md:hidden"><Suspense><SearchBox /></Suspense></div>
       </div>
       <div className="glass border-x-0 border-t-0">
-        <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-3 py-2 text-[13px] font-medium text-cream sm:px-5">
+        <div className="no-scrollbar mx-auto flex max-w-7xl items-center gap-1 overflow-x-auto px-3 py-2 text-[13px] font-medium text-ink sm:px-5">
           <span className="flex shrink-0 items-center gap-1 pr-2 text-brand-600"><MapPin className="h-4 w-4" />Entregar em Luanda</span>
           {[["Ofertas", "/pesquisa?ofertas=1"], ["Mais vendidos", "/pesquisa?ordem=vendidos"], ["Novidades", "/pesquisa?ordem=novos"], ["Electrónica", "/categoria/electronica"], ["Telemóveis", "/categoria/telemoveis"], ["Moda", "/categoria/moda"], ["Casa", "/categoria/casa-cozinha"], ["Beleza", "/categoria/beleza"], ["Lojas", "/lojas"], ["Vender", "/vender"]].map(([l, h]) => (
             <Link key={h} href={h} className="shrink-0 rounded-full px-3 py-1.5 hover:bg-brand-50 hover:text-brand-600">{l}</Link>

@@ -44,18 +44,18 @@ export default function OrdersPage() {
       <h1 className="mb-3 px-1 text-2xl font-extrabold tracking-tight">As minhas encomendas</h1>
       <div className="no-scrollbar -mx-3 mb-3 flex gap-2 overflow-x-auto px-3">
         {TABS.map((t) => (
-          <button key={t.k} onClick={() => { setTab(t.k); window.history.replaceState(null, "", t.k ? `?estado=${t.k}` : window.location.pathname); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${tab === t.k ? "bg-cream text-ink" : "bg-white/10 text-cream/70 ring-1 ring-white/10"}`}>
+          <button key={t.k} onClick={() => { setTab(t.k); window.history.replaceState(null, "", t.k ? `?estado=${t.k}` : window.location.pathname); }} className={`shrink-0 rounded-full px-4 py-2 text-sm font-semibold transition ${tab === t.k ? "bg-blue-600 text-white" : "bg-slate-900/10 text-ink/70 ring-1 ring-white/10"}`}>
             {t.l} <span className="opacity-60">{rows.filter((o) => match(o, t.k)).length}</span>
           </button>
         ))}
       </div>
-      {!rows.filter((o) => match(o, tab)).length && <div className="card p-8 text-center"><Package className="mx-auto h-10 w-10 text-brand-400" /><p className="mt-2 text-sm text-cream/60">Ainda não fez encomendas.</p><Link href="/" className="btn-primary mt-4">Comprar</Link></div>}
+      {!rows.filter((o) => match(o, tab)).length && <div className="card p-8 text-center"><Package className="mx-auto h-10 w-10 text-brand-400" /><p className="mt-2 text-sm text-ink/60">Ainda não fez encomendas.</p><Link href="/" className="btn-primary mt-4">Comprar</Link></div>}
       <div className="space-y-2">
         {rows.filter((o) => match(o, tab)).map((o) => (
           <Link key={o.id} href={`/conta/encomendas/${o.id}`} className="card flex items-center justify-between gap-3 p-4">
             <div>
               <p className="font-bold">Encomenda #{o.number}</p>
-              <p className="text-xs text-cream/55">{new Date(o.created_at).toLocaleDateString("pt-AO")} · {o.sub_orders.length} {o.sub_orders.length === 1 ? "loja" : "lojas"}</p>
+              <p className="text-xs text-ink/55">{new Date(o.created_at).toLocaleDateString("pt-AO")} · {o.sub_orders.length} {o.sub_orders.length === 1 ? "loja" : "lojas"}</p>
             </div>
             <div className="text-right">
               <p className="font-bold text-brand-800">{kz(o.total)}</p>

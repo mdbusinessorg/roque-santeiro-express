@@ -75,7 +75,7 @@ export default async function Home() {
       <RecoRail kind="top_rated" title="Mais bem avaliados" subtitle="Ranking por avaliações verificadas" href="/pesquisa?ordem=avaliacao" />
 
       <section className="card mt-8 overflow-hidden p-6 sm:p-10">
-        <WordsStagger className="text-[22px] font-bold leading-snug tracking-tight text-cream sm:text-3xl">
+        <WordsStagger className="text-[22px] font-bold leading-snug tracking-tight text-ink sm:text-3xl">
           Tem uma loja? Venda para toda Angola no Roque Santeiro Express. Abra a sua loja grátis, publique produtos e receba as suas vendas.
         </WordsStagger>
         <div className="mt-5"><FlowButton href="/vender">Tornar-se vendedor</FlowButton></div>

@@ -10,7 +10,7 @@ import { interact, track } from "@/lib/tracking";
 import { tapFeedback } from "@/lib/native";
 import { toCartItem } from "@/components/store/product-card";
 
-const TONES = ["#f4ead4", "#e8e9ee", "#f2e3dc", "#e2e9e4", "#ece7f0", "#f6efe2"];
+const TONES = ["#f4ead4", "#e8e9ee", "#f2e3dc", "#e2e9e4", "#ece7f0", "#eff6ff"];
 const SPRING = { type: "spring", stiffness: 170, damping: 24, mass: 0.9 } as const;
 
 /** Montra em arco: o produto activo fica grande dentro do arco, os vizinhos esbatidos aos lados e o fundo muda de tom. */
@@ -46,7 +46,7 @@ export function ArcSpotlight({ products, label = "Em destaque", className }: { p
 
   return (
     <motion.section
-      className={cn("relative isolate overflow-hidden rounded-[2rem] border border-white/70 shadow-[0_30px_60px_-40px_rgba(24,24,27,.55)]", className)}
+      className={cn("relative isolate overflow-hidden rounded-[2rem] border border-slate-900/70 shadow-[0_30px_60px_-40px_rgba(24,24,27,.55)]", className)}
       animate={{ backgroundColor: TONES[i % TONES.length] }}
       transition={{ duration: 0.7, ease: [0.3, 0.7, 0.2, 1] }}
       onPointerDown={() => { touched.current = true; }}
@@ -55,17 +55,17 @@ export function ArcSpotlight({ products, label = "Em destaque", className }: { p
       <div className="grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-center">
         <div className="relative z-10 px-5 pt-5 lg:order-1 lg:py-10 lg:pl-10">
           <div className="flex items-center justify-between">
-            <span className="rounded-full bg-ink px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-gold">{label}</span>
-            <span className="font-mono text-[11px] text-cream/50">{String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}</span>
+            <span className="rounded-full bg-slate-900 px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-gold">{label}</span>
+            <span className="font-mono text-[11px] text-ink/50">{String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}</span>
           </div>
           <div className="relative mt-3 h-[58px] overflow-hidden lg:h-[104px]">
             <AnimatePresence mode="popLayout" initial={false} custom={dir}>
               <motion.a key={p.id} href={`/produto/${p.slug}`} onClick={() => interact({ kind: "click", product_id: p.id })} custom={dir}
                 initial={reduce ? false : { y: dir * 40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={reduce ? undefined : { y: dir * -40, opacity: 0 }} transition={SPRING}
-                className="line-clamp-2 block text-[23px] font-black leading-[1.12] tracking-tight text-cream lg:text-[44px]">{p.name}</motion.a>
+                className="line-clamp-2 block text-[23px] font-black leading-[1.12] tracking-tight text-ink lg:text-[44px]">{p.name}</motion.a>
             </AnimatePresence>
           </div>
-          <p className="mt-1 truncate text-[12px] text-cream/55">{p.stores?.name}{p.categories?.name ? ` · ${p.categories.name}` : ""}</p>
+          <p className="mt-1 truncate text-[12px] text-ink/55">{p.stores?.name}{p.categories?.name ? ` · ${p.categories.name}` : ""}</p>
         </div>
 
         <motion.div
@@ -73,7 +73,7 @@ export function ArcSpotlight({ products, label = "Em destaque", className }: { p
           drag={n > 1 ? "x" : false} dragConstraints={{ left: 0, right: 0 }} dragElastic={0.18} dragSnapToOrigin
           onDragEnd={(_e, info) => { if (Math.abs(info.offset.x) > 46) go(info.offset.x < 0 ? 1 : -1); }}
         >
-          <div aria-hidden className="absolute bottom-0 left-1/2 h-[96%] w-[68%] max-w-[380px] -translate-x-1/2 rounded-t-full border border-white/80" />
+          <div aria-hidden className="absolute bottom-0 left-1/2 h-[96%] w-[68%] max-w-[380px] -translate-x-1/2 rounded-t-full border border-slate-900/80" />
           {items.map((it, k) => {
             const d = rel(k);
             const far = Math.abs(d) > 1;
@@ -95,14 +95,14 @@ export function ArcSpotlight({ products, label = "Em destaque", className }: { p
         <div className="min-w-0">
           <div className="relative h-[30px] overflow-hidden">
             <AnimatePresence mode="popLayout" initial={false}>
-              <motion.p key={p.id} initial={reduce ? false : { y: 30 }} animate={{ y: 0 }} exit={reduce ? undefined : { y: -30 }} transition={SPRING} className="whitespace-nowrap text-[21px] font-black leading-[30px] tracking-tight text-cream sm:text-[24px]">{kz(p.price)}</motion.p>
+              <motion.p key={p.id} initial={reduce ? false : { y: 30 }} animate={{ y: 0 }} exit={reduce ? undefined : { y: -30 }} transition={SPRING} className="whitespace-nowrap text-[21px] font-black leading-[30px] tracking-tight text-ink sm:text-[24px]">{kz(p.price)}</motion.p>
             </AnimatePresence>
           </div>
-          {off > 0 && <p className="text-[11.5px] text-cream/45 line-through">{kz(p.compare_at_price)}</p>}
+          {off > 0 && <p className="text-[11.5px] text-ink/45 line-through">{kz(p.compare_at_price)}</p>}
         </div>
         <div className="flex shrink-0 items-center gap-2">
-          <button type="button" onClick={() => cart(false)} disabled={p.stock <= 0} aria-label="Adicionar ao carrinho" className="grid h-11 w-11 place-items-center rounded-full bg-white text-cream shadow-md transition active:scale-90 disabled:opacity-40"><ShoppingCart className="h-[18px] w-[18px]" /></button>
-          <button type="button" onClick={() => cart(true)} disabled={p.stock <= 0} className="flex h-11 items-center gap-1.5 rounded-full bg-ink px-4 text-[13px] font-bold text-gold shadow-lg transition active:scale-95 disabled:bg-cream/30">{p.stock <= 0 ? "Esgotado" : "Comprar agora"}<ArrowRight className="h-4 w-4" /></button>
+          <button type="button" onClick={() => cart(false)} disabled={p.stock <= 0} aria-label="Adicionar ao carrinho" className="grid h-11 w-11 place-items-center rounded-full bg-white text-ink shadow-md transition active:scale-90 disabled:opacity-40"><ShoppingCart className="h-[18px] w-[18px]" /></button>
+          <button type="button" onClick={() => cart(true)} disabled={p.stock <= 0} className="flex h-11 items-center gap-1.5 rounded-full bg-slate-900 px-4 text-[13px] font-bold text-gold shadow-lg transition active:scale-95 disabled:bg-blue-600/30">{p.stock <= 0 ? "Esgotado" : "Comprar agora"}<ArrowRight className="h-4 w-4" /></button>
         </div>
       </div>
 
@@ -111,7 +111,7 @@ export function ArcSpotlight({ products, label = "Em destaque", className }: { p
           <button aria-label="Anterior" onClick={() => go(-1)} className="glass absolute left-3 top-[52%] z-10 hidden h-9 w-9 place-items-center rounded-full lg:left-auto lg:right-[52%] lg:grid"><ChevronLeft className="h-4 w-4" /></button>
           <button aria-label="Seguinte" onClick={() => go(1)} className="glass absolute right-3 top-[52%] z-10 hidden h-9 w-9 place-items-center rounded-full lg:grid"><ChevronRight className="h-4 w-4" /></button>
           <div className="absolute left-1/2 top-[calc(100%-8px)] z-10 flex -translate-x-1/2 -translate-y-full gap-1 lg:left-auto lg:right-8 lg:translate-x-0">
-            {items.map((it, k) => <button key={it.id} aria-label={`Produto ${k + 1}`} onClick={() => { setDir(k > i ? 1 : -1); setI(k); }} className={cn("h-1 rounded-full transition-all duration-500", k === i ? "w-5 bg-ink" : "w-1.5 bg-cream/20")} />)}
+            {items.map((it, k) => <button key={it.id} aria-label={`Produto ${k + 1}`} onClick={() => { setDir(k > i ? 1 : -1); setI(k); }} className={cn("h-1 rounded-full transition-all duration-500", k === i ? "w-5 bg-slate-900" : "w-1.5 bg-blue-600/20")} />)}
           </div>
         </>
       )}

@@ -31,7 +31,7 @@ const DAYS = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
 function pct(cur: number, prev: number) { return prev > 0 ? Math.round(((cur - prev) / prev) * 100) : null; }
 function Badge({ v }: { v: number | null }) {
   if (v === null) return null;
-  return <span className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${v >= 0 ? "bg-ink text-gold" : "bg-red-100 text-red-700"}`}>{v >= 0 ? "+" : ""}{v}%</span>;
+  return <span className={`rounded-full px-2 py-0.5 text-[11px] font-bold ${v >= 0 ? "bg-blue-600 text-white" : "bg-red-100 text-red-700"}`}>{v >= 0 ? "+" : ""}{v}%</span>;
 }
 
 export default function SellerHome() {
@@ -79,22 +79,22 @@ export default function SellerHome() {
         {store && (
           <DashShell storeSlug={store.status === "approved" ? store.slug : undefined}>
             <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-              <h1 className="text-[26px] font-medium leading-tight tracking-tight text-cream sm:text-4xl">Bem-vindo de volta, <span className="text-cream/45">{first || "vendedor"}</span></h1>
+              <h1 className="text-[26px] font-medium leading-tight tracking-tight text-ink sm:text-4xl">Bem-vindo de volta, <span className="text-ink/45">{first || "vendedor"}</span></h1>
               <div className="flex flex-wrap gap-2">
                 {staff && stores.length > 0 && (
-                  <select value={store.id} onChange={(e) => setPick(e.target.value)} className="h-10 rounded-full border border-white/10 bg-panel px-4 text-[13px] font-medium text-cream outline-none">
+                  <select value={store.id} onChange={(e) => setPick(e.target.value)} className="h-10 rounded-full border border-slate-900/10 bg-white px-4 text-[13px] font-medium text-ink outline-none">
                     {stores.map((s) => <option key={s.id} value={s.id}>{s.name}</option>)}
                   </select>
                 )}
-                <span className="inline-flex h-10 items-center gap-2 rounded-full border border-white/10 bg-panel px-4 text-[13px] font-medium text-cream"><CalendarDays className="h-4 w-4" />{fmt(from)} - {fmt(today)}</span>
-                <a href="/vendedor/produtos/novo" className="inline-flex h-10 items-center gap-1.5 rounded-full bg-cream px-4 text-[13px] font-semibold text-ink active:scale-95"><Plus className="h-4 w-4" />Adicionar produto</a>
+                <span className="inline-flex h-10 items-center gap-2 rounded-full border border-slate-900/10 bg-white px-4 text-[13px] font-medium text-ink"><CalendarDays className="h-4 w-4" />{fmt(from)} - {fmt(today)}</span>
+                <a href="/vendedor/produtos/novo" className="inline-flex h-10 items-center gap-1.5 rounded-full bg-blue-600 px-4 text-[13px] font-semibold text-white active:scale-95"><Plus className="h-4 w-4" />Adicionar produto</a>
               </div>
             </div>
 
             <div className="grid gap-4 lg:grid-cols-[1fr_1.55fr_1fr]">
               <div className="flex flex-col gap-4">
                 <Panel title="Saldo da loja" subtitle="Total a receber" action={<CornerLink href="/vendedor/carteira" label="Carteira" />}>
-                  <div className="relative overflow-hidden rounded-[22px] bg-ink p-5 text-white">
+                  <div className="relative overflow-hidden rounded-[22px] bg-slate-900 p-5 text-white">
                     <div className="absolute -right-10 -top-12 h-36 w-36 rounded-full bg-gold/25 blur-2xl" />
                     <div className="relative flex items-center justify-between"><span className="flex items-center gap-2"><StoreAvatar store={store} size={28} /><b className="gold-text text-sm tracking-wide">{store.name}</b></span><svg viewBox="0 0 24 24" className="h-5 w-5 text-white/70" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M8.5 16.5a6 6 0 0 0 0-9M12 19a9.5 9.5 0 0 0 0-14M15.5 21.5a13 13 0 0 0 0-19" /></svg></div>
                     <p className="relative mt-4 text-xs text-white/60">Conta contabilística</p>
@@ -103,28 +103,28 @@ export default function SellerHome() {
                   </div>
                 </Panel>
                 <Panel>
-                  <p className="text-xs text-cream/55">Vendas desta semana</p>
+                  <p className="text-xs text-ink/55">Vendas desta semana</p>
                   <div className="mt-1 flex items-center justify-between gap-2"><p className="text-[26px] font-semibold tracking-tight">{kz(week)}</p><Badge v={pct(week, prevWeek)} /></div>
                 </Panel>
               </div>
 
-              <Panel title={<span className="flex items-center gap-2"><span className="grid h-9 w-9 place-items-center rounded-full bg-white/10"><Eye className="h-4 w-4" /></span>Visitas à loja</span>}
-                action={<div className="flex items-center gap-2"><div className="flex rounded-full border border-white/10 bg-black/25 p-1 text-[12px] font-medium">{(["week", "month"] as const).map((m) => <button key={m} onClick={() => setMode(m)} className={`rounded-full px-3 py-1.5 transition ${mode === m ? "bg-ink text-white" : "text-cream/55"}`}>{m === "week" ? "Semanal" : "Mensal"}</button>)}</div><CornerLink href="#estatisticas" label="Estatísticas" /></div>}>
+              <Panel title={<span className="flex items-center gap-2"><span className="grid h-9 w-9 place-items-center rounded-full bg-slate-900/10"><Eye className="h-4 w-4" /></span>Visitas à loja</span>}
+                action={<div className="flex items-center gap-2"><div className="flex rounded-full border border-slate-900/10 bg-black/25 p-1 text-[12px] font-medium">{(["week", "month"] as const).map((m) => <button key={m} onClick={() => setMode(m)} className={`rounded-full px-3 py-1.5 transition ${mode === m ? "bg-slate-900 text-white" : "text-ink/55"}`}>{m === "week" ? "Semanal" : "Mensal"}</button>)}</div><CornerLink href="#estatisticas" label="Estatísticas" /></div>}>
                 {a ? <BarPills data={bars} /> : <div className="skeleton h-56" />}
               </Panel>
 
               <div className="flex flex-col gap-4">
                 <Panel title="Vendas pagas" subtitle="Últimos 30 dias" action={<CornerLink href="/vendedor/encomendas" label="Encomendas" />} className="overflow-hidden">
-                  <p className="text-center text-xs text-cream/50">Total vendido</p>
+                  <p className="text-center text-xs text-ink/50">Total vendido</p>
                   <p className="text-center text-[28px] font-semibold tracking-tight">{a ? kz(a.revenue) : "…"}</p>
                   <div className="-mx-5 -mb-5 mt-2">{a ? <MiniChart data={rev} color="#b9780a" fill="rgba(242,178,27,0.18)" height={120} /> : <div className="skeleton h-28" />}</div>
                 </Panel>
-                <Panel title="Conversão" subtitle="Encomendas pagas por visitante" action={<span className="grid h-10 w-10 place-items-center rounded-full bg-white/10"><Users className="h-4 w-4" /></span>}>
-                  <div className="flex items-center gap-2"><p className="text-[30px] font-semibold tracking-tight">{conv.toFixed(1)}<span className="text-cream/40">%</span></p></div>
-                  <div className="mt-3 grid grid-cols-3 gap-2 rounded-[20px] bg-white/[0.05] p-3 text-center text-[11px] text-cream/55">
-                    <div><b className="block text-base text-cream">{a?.visitors ?? "…"}</b>visitantes</div>
-                    <div><b className="block text-base text-cream">{a?.orders ?? "…"}</b>encomendas</div>
-                    <div><b className="flex items-center justify-center gap-0.5 text-base text-cream">{a && a.reviews.n ? Number(a.reviews.avg).toFixed(1) : "—"}<Star className="h-3.5 w-3.5 fill-gold text-gold" /></b>{a?.reviews.n ?? 0} aval.</div>
+                <Panel title="Conversão" subtitle="Encomendas pagas por visitante" action={<span className="grid h-10 w-10 place-items-center rounded-full bg-slate-900/10"><Users className="h-4 w-4" /></span>}>
+                  <div className="flex items-center gap-2"><p className="text-[30px] font-semibold tracking-tight">{conv.toFixed(1)}<span className="text-ink/40">%</span></p></div>
+                  <div className="mt-3 grid grid-cols-3 gap-2 rounded-[20px] bg-slate-50 p-3 text-center text-[11px] text-ink/55">
+                    <div><b className="block text-base text-ink">{a?.visitors ?? "…"}</b>visitantes</div>
+                    <div><b className="block text-base text-ink">{a?.orders ?? "…"}</b>encomendas</div>
+                    <div><b className="flex items-center justify-center gap-0.5 text-base text-ink">{a && a.reviews.n ? Number(a.reviews.avg).toFixed(1) : "—"}<Star className="h-3.5 w-3.5 fill-gold text-gold" /></b>{a?.reviews.n ?? 0} aval.</div>
                   </div>
                 </Panel>
               </div>
@@ -132,20 +132,20 @@ export default function SellerHome() {
 
             <div id="estatisticas" className="mt-4 grid gap-4 lg:grid-cols-[2.55fr_1fr]">
               <Panel title="Histórico de encomendas" subtitle="Encomendas recentes da loja" action={<CornerLink href="/vendedor/encomendas" label="Encomendas" />}>
-                {rows.length === 0 && <p className="py-6 text-center text-xs text-cream/50">Ainda sem encomendas.</p>}
+                {rows.length === 0 && <p className="py-6 text-center text-xs text-ink/50">Ainda sem encomendas.</p>}
                 {rows.length > 0 && (
                   <div className="-mx-2 overflow-x-auto">
                     <table className="w-full min-w-[520px] text-left text-[13px]">
-                      <thead className="text-[11px] text-cream/45"><tr><th className="px-2 py-2 font-medium">Produto</th><th className="px-2 font-medium">Data</th><th className="px-2 font-medium">Hora</th><th className="px-2 font-medium">Estado</th><th className="px-2 text-right font-medium">Valor</th></tr></thead>
+                      <thead className="text-[11px] text-ink/45"><tr><th className="px-2 py-2 font-medium">Produto</th><th className="px-2 font-medium">Data</th><th className="px-2 font-medium">Hora</th><th className="px-2 font-medium">Estado</th><th className="px-2 text-right font-medium">Valor</th></tr></thead>
                       <tbody>
                         {rows.map((r, i) => {
-                          const d = new Date(r.created_at); const st = ST[r.status] ?? [r.status, "bg-cream/40"];
+                          const d = new Date(r.created_at); const st = ST[r.status] ?? [r.status, "bg-blue-600/40"];
                           return (
-                            <tr key={r.id} className={i % 2 ? "bg-white/[0.03]" : ""}>
-                              <td className="rounded-l-2xl px-2 py-2.5"><p className="max-w-[200px] truncate font-medium">{r.order_items?.[0]?.name ?? "Encomenda"}</p><p className="text-[11px] text-cream/45">#{r.orders?.number} · {r.orders?.contact_name}</p></td>
+                            <tr key={r.id} className={i % 2 ? "bg-slate-50" : ""}>
+                              <td className="rounded-l-2xl px-2 py-2.5"><p className="max-w-[200px] truncate font-medium">{r.order_items?.[0]?.name ?? "Encomenda"}</p><p className="text-[11px] text-ink/45">#{r.orders?.number} · {r.orders?.contact_name}</p></td>
                               <td className="px-2">{d.toLocaleDateString("pt-AO", { day: "2-digit", month: "short", year: "numeric" })}</td>
                               <td className="px-2">{d.toLocaleTimeString("pt-AO", { hour: "2-digit", minute: "2-digit" })}</td>
-                              <td className="px-2"><span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-panel px-2 py-0.5"><span className={`h-1.5 w-1.5 rounded-full ${st[1]}`} />{st[0]}</span></td>
+                              <td className="px-2"><span className="inline-flex items-center gap-1.5 rounded-full border border-slate-900/10 bg-white px-2 py-0.5"><span className={`h-1.5 w-1.5 rounded-full ${st[1]}`} />{st[0]}</span></td>
                               <td className="rounded-r-2xl px-2 text-right font-semibold">{kz(r.subtotal)}</td>
                             </tr>
                           );
@@ -156,13 +156,13 @@ export default function SellerHome() {
                 )}
               </Panel>
               <Panel title="Produtos" subtitle={a ? `${a.products.active} activos · ${a.products.out} esgotados` : "…"} action={<CornerLink href="/vendedor/produtos" label="Produtos" />}>
-                <p className="text-xs text-cream/50">Mais vistos</p>
+                <p className="text-xs text-ink/50">Mais vistos</p>
                 <div className="mt-2 flex items-center">
                   {(a?.top_viewed.length ? a.top_viewed : a?.top_sold ?? []).slice(0, 4).map((x, i) => (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img key={x.id} src={x.img} alt={x.name} title={x.name} className="h-12 w-12 rounded-full border-2 border-white bg-white object-contain p-1 shadow-sm" style={{ marginLeft: i ? -10 : 0 }} />
                   ))}
-                  <a href="/vendedor/produtos" className="-ml-2 grid h-12 w-12 place-items-center rounded-full border-2 border-white bg-ink text-sm font-bold text-gold">+{a?.products.active ?? 0}</a>
+                  <a href="/vendedor/produtos" className="-ml-2 grid h-12 w-12 place-items-center rounded-full border-2 border-white bg-slate-900 text-sm font-bold text-gold">+{a?.products.active ?? 0}</a>
                 </div>
                 {a && a.low_stock.length > 0 && <p className="mt-3 rounded-2xl bg-amber-50 px-3 py-2 text-[12px] text-amber-900">{a.low_stock.length} produto(s) com stock baixo</p>}
                 {a && a.to_ship > 0 && <a href="/vendedor/encomendas" className="mt-2 block rounded-2xl bg-sky-50 px-3 py-2 text-[12px] text-sky-900">{a.to_ship} encomenda(s) por enviar →</a>}

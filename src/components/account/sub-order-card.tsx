@@ -34,13 +34,13 @@ export function Timeline({ status, events, createdAt }: { status: string; events
         return (
           <motion.li key={s} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.05 }} className="relative flex gap-3 pb-4 last:pb-0">
             {i < steps.length - 1 && <span className="absolute left-[11px] top-6 h-full w-0.5 bg-line"><motion.span className="block w-full bg-brand-600" initial={{ height: 0 }} animate={{ height: done && FLOW.indexOf(steps[i + 1]) <= lastIdx ? "100%" : 0 }} transition={{ duration: 0.5, delay: i * 0.08 }} /></span>}
-            <span className={`relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 ${done ? "border-cream bg-cream text-ink" : "border-white/15 bg-white/10"}`}>
+            <span className={`relative z-10 grid h-6 w-6 shrink-0 place-items-center rounded-full border-2 ${done ? "border-blue-600 bg-blue-600 text-white" : "border-slate-900/15 bg-slate-900/10"}`}>
               {done && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
               {active && <span className="absolute inset-0 animate-ping rounded-full bg-brand-500/40 motion-reduce:hidden" />}
             </span>
             <div className="min-w-0 pt-0.5">
-              <p className={`text-sm ${done ? "font-semibold text-cream" : "text-cream/45"}`}>{SUB_STATUS[s]}</p>
-              {e && <p className="text-[11.5px] text-cream/50">{fmt(e.created_at)}{e.note ? ` · ${e.note}` : ""}</p>}
+              <p className={`text-sm ${done ? "font-semibold text-ink" : "text-ink/45"}`}>{SUB_STATUS[s]}</p>
+              {e && <p className="text-[11.5px] text-ink/50">{fmt(e.created_at)}{e.note ? ` · ${e.note}` : ""}</p>}
             </div>
           </motion.li>
         );
@@ -51,10 +51,10 @@ export function Timeline({ status, events, createdAt }: { status: string; events
       {evs.length > 0 && (
         <li className="mt-3 list-none">
           <details className="rounded-2xl bg-mist p-3 text-xs">
-            <summary className="cursor-pointer font-semibold text-cream/70">Histórico completo ({evs.length})</summary>
+            <summary className="cursor-pointer font-semibold text-ink/70">Histórico completo ({evs.length})</summary>
             <ul className="mt-2 space-y-1.5">
               {[...evs].reverse().map((e, i) => (
-                <li key={e.id ?? i} className="flex justify-between gap-3"><span className="font-medium">{SUB_STATUS[e.status] ?? e.status}{e.note ? <span className="font-normal text-cream/55"> · {e.note}</span> : null}</span><span className="shrink-0 text-cream/45">{fmt(e.created_at)}</span></li>
+                <li key={e.id ?? i} className="flex justify-between gap-3"><span className="font-medium">{SUB_STATUS[e.status] ?? e.status}{e.note ? <span className="font-normal text-ink/55"> · {e.note}</span> : null}</span><span className="shrink-0 text-ink/45">{fmt(e.created_at)}</span></li>
               ))}
             </ul>
           </details>
@@ -69,21 +69,21 @@ export function SubOrderCard({ s, onConfirm, createdAt }: { s: SubOrder; onConfi
   return (
     <div className="card p-4">
       <div className="flex items-center justify-between gap-2">
-        <Link href={`/loja/${s.stores.slug}`} className="flex items-center gap-2 font-bold text-cream hover:text-brand-600"><Store className="h-4 w-4 text-brand-600" />{s.stores.name}</Link>
+        <Link href={`/loja/${s.stores.slug}`} className="flex items-center gap-2 font-bold text-ink hover:text-brand-600"><Store className="h-4 w-4 text-brand-600" />{s.stores.name}</Link>
         <motion.span key={s.status} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="rounded-full bg-brand-50 px-2.5 py-1 text-xs font-bold text-brand-600">{SUB_STATUS[s.status]}</motion.span>
       </div>
-      <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-cream/60">
+      <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-xs text-ink/60">
         <span className="flex items-center gap-1"><Truck className="h-3.5 w-3.5" />{DELIVERY[s.delivery_method]} · {kz(s.shipping_fee)}</span>
-        {s.carrier && <span>Transportador: <b className="text-cream">{s.carrier}</b></span>}
-        {s.tracking_code && <span>Código: <b className="font-mono text-cream">{s.tracking_code}</b></span>}
-        {s.estimated_delivery && s.status !== "delivered" && <span>Previsão: <b className="text-cream">{new Date(s.estimated_delivery).toLocaleDateString("pt-AO")}</b></span>}
+        {s.carrier && <span>Transportador: <b className="text-ink">{s.carrier}</b></span>}
+        {s.tracking_code && <span>Código: <b className="font-mono text-ink">{s.tracking_code}</b></span>}
+        {s.estimated_delivery && s.status !== "delivered" && <span>Previsão: <b className="text-ink">{new Date(s.estimated_delivery).toLocaleDateString("pt-AO")}</b></span>}
       </div>
       <Timeline status={s.status} events={events} createdAt={createdAt} />
       {s.order_items.map((i) => (
         <div key={i.id} className="mt-3 flex items-center gap-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={i.image} alt="" className="h-14 w-14 rounded-xl bg-mist object-contain p-1" />
-          <p className="line-clamp-2 flex-1 text-sm">{i.name} <span className="text-cream/50">× {i.quantity}</span></p>
+          <p className="line-clamp-2 flex-1 text-sm">{i.name} <span className="text-ink/50">× {i.quantity}</span></p>
           <p className="text-sm font-semibold">{kz(i.line_total)}</p>
         </div>
       ))}

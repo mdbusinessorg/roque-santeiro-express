@@ -73,15 +73,15 @@ export default function SellerWallet() {
             {bal && (bal.reserved > 0 || bal.in_payout > 0) && <p className="mt-1 text-xs text-white/60">Reservado {kz(bal.reserved)} · Em liquidação {kz(bal.in_payout)}</p>}
           </div>
           {[["Saldo pendente", bal?.pending, "Pago pelo cliente, aguarda entrega"], ["Disponível para liquidação", bal?.available, "Entregue e sem disputa"], ["Total já recebido", bal?.withdrawn, "Transferências confirmadas"]].map(([l, v, h]) => (
-            <div key={l as string} className="card p-4"><p className="text-xs text-cream/55">{l}</p><p className="mt-1 text-lg font-extrabold">{v === undefined ? "…" : kz(Number(v))}</p><p className="text-[11px] text-cream/45">{h}</p></div>
+            <div key={l as string} className="card p-4"><p className="text-xs text-ink/55">{l}</p><p className="mt-1 text-lg font-extrabold">{v === undefined ? "…" : kz(Number(v))}</p><p className="text-[11px] text-ink/45">{h}</p></div>
           ))}
         </div>
-        <p className="mt-3 flex gap-2 rounded-2xl bg-cream/[0.04] p-3 text-xs text-cream/65"><Info className="h-4 w-4 shrink-0" />Estes valores são um registo contabilístico da Roque Santeiro, não uma conta bancária nem dinheiro electrónico. O dinheiro só chega a si quando a transferência é feita e confirmada pelo banco/prestador de pagamentos.</p>
+        <p className="mt-3 flex gap-2 rounded-2xl bg-blue-600/[0.04] p-3 text-xs text-ink/65"><Info className="h-4 w-4 shrink-0" />Estes valores são um registo contabilístico da Roque Santeiro, não uma conta bancária nem dinheiro electrónico. O dinheiro só chega a si quando a transferência é feita e confirmada pelo banco/prestador de pagamentos.</p>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
           <form onSubmit={request} className="card space-y-2 p-4">
             <p className="font-bold">Pedir liquidação</p>
-            <p className="text-xs text-cream/55">Dados de recebimento</p>
+            <p className="text-xs text-ink/55">Dados de recebimento</p>
             <input required value={form.holder} onChange={(e) => setForm({ ...form, holder: e.target.value })} placeholder="Titular da conta" className="input" />
             <div className="grid grid-cols-2 gap-2">
               <input value={form.bank} onChange={(e) => setForm({ ...form, bank: e.target.value })} placeholder="Banco" className="input" />
@@ -89,19 +89,19 @@ export default function SellerWallet() {
             </div>
             <input required value={form.iban} onChange={(e) => setForm({ ...form, iban: e.target.value })} placeholder="IBAN AO06…" className="input" />
             {!enabled && <p className="text-xs text-amber-700">As liquidações ainda não estão activas no modelo de pagamento contratado.</p>}
-            {enabled && !canRequest && <p className="text-xs text-cream/55">Ainda não há valores elegíveis{min ? ` (mínimo ${kz(min)})` : ""}.</p>}
+            {enabled && !canRequest && <p className="text-xs text-ink/55">Ainda não há valores elegíveis{min ? ` (mínimo ${kz(min)})` : ""}.</p>}
             {msg && <p className="text-sm text-brand-800">{msg}</p>}
             <button disabled={busy || !canRequest} className="btn-primary w-full disabled:opacity-50">{busy && <Loader2 className="h-4 w-4 animate-spin" />}Pedir liquidação</button>
           </form>
           <div className="card p-4 text-sm">
             <p className="mb-2 font-bold">Histórico de liquidações</p>
-            {payouts.length === 0 && <p className="text-xs text-cream/50">Sem pedidos.</p>}
+            {payouts.length === 0 && <p className="text-xs text-ink/50">Sem pedidos.</p>}
             {payouts.map((p) => {
               const [l, c] = PAYOUT_STATUS[p.status] ?? [p.status, ""];
               return (
-                <div key={p.id} className="border-t border-cream/5 py-2">
+                <div key={p.id} className="border-t border-blue-600/5 py-2">
                   <div className="flex items-center justify-between gap-2"><span>{new Date(p.created_at).toLocaleDateString("pt-AO")}</span><b>{kz(p.amount)}</b><span className={`rounded-full px-2 py-0.5 text-[11px] font-semibold ${c}`}>{l}</span></div>
-                  {p.provider_reference && <p className="text-[11px] text-cream/50">Ref. transferência: {p.provider_reference}</p>}
+                  {p.provider_reference && <p className="text-[11px] text-ink/50">Ref. transferência: {p.provider_reference}</p>}
                   {p.rejection_reason && <p className="text-[11px] text-red-600">Motivo: {p.rejection_reason}</p>}
                 </div>
               );
@@ -111,10 +111,10 @@ export default function SellerWallet() {
 
         <div className="card mt-4 p-4 text-sm">
           <p className="mb-2 font-bold">Histórico de movimentos</p>
-          {entries.length === 0 && <p className="text-xs text-cream/50">Sem movimentos. Aparecem quando um pagamento é confirmado.</p>}
+          {entries.length === 0 && <p className="text-xs text-ink/50">Sem movimentos. Aparecem quando um pagamento é confirmado.</p>}
           {entries.map((e) => (
-            <div key={e.id} className="flex items-center justify-between gap-2 border-t border-cream/5 py-2">
-              <div className="min-w-0"><p className="truncate font-medium">{ENTRY[e.entry_type] ?? e.entry_type}</p><p className="text-[11px] text-cream/50">{new Date(e.created_at).toLocaleString("pt-AO")} · {ACCOUNT[e.account] ?? e.account}{e.memo ? ` · ${e.memo}` : ""}</p></div>
+            <div key={e.id} className="flex items-center justify-between gap-2 border-t border-blue-600/5 py-2">
+              <div className="min-w-0"><p className="truncate font-medium">{ENTRY[e.entry_type] ?? e.entry_type}</p><p className="text-[11px] text-ink/50">{new Date(e.created_at).toLocaleString("pt-AO")} · {ACCOUNT[e.account] ?? e.account}{e.memo ? ` · ${e.memo}` : ""}</p></div>
               <span className={`shrink-0 font-bold ${Number(e.amount) < 0 ? "text-red-600" : "text-emerald-700"}`}>{Number(e.amount) > 0 ? "+" : ""}{kz(Number(e.amount))}</span>
             </div>
           ))}

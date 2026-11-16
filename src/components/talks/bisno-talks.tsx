@@ -125,7 +125,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
   const now = liveOf(topic);
 
   return (
-    <section id="bisno-talks" className="mt-8 scroll-mt-24 overflow-hidden rounded-[28px] bg-ink text-white">
+    <section id="bisno-talks" className="mt-8 scroll-mt-24 overflow-hidden rounded-[28px] bg-slate-900 text-white">
       <div className="p-5">
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-1.5 rounded-full bg-red-600 px-2.5 py-1 text-[10.5px] font-extrabold uppercase tracking-wider"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" />Ao vivo</span>
@@ -138,8 +138,8 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
           {TOPICS.map((t) => {
             const l = liveOf(t);
             return (
-              <button key={t} type="button" onClick={() => setTopic(t)} aria-pressed={topic === t} className={cn("flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold transition active:scale-95", topic === t ? "bg-gold text-cream" : "bg-white/10 text-white/80")}>
-                {TALK_TOPICS[t]}{l && <span className={cn("rounded-full px-1.5 text-[10.5px] font-bold", topic === t ? "bg-ink text-gold" : "bg-red-600 text-white")}>{l.people}</span>}
+              <button key={t} type="button" onClick={() => setTopic(t)} aria-pressed={topic === t} className={cn("flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold transition active:scale-95", topic === t ? "bg-gold text-white" : "bg-slate-900/10 text-white/80")}>
+                {TALK_TOPICS[t]}{l && <span className={cn("rounded-full px-1.5 text-[10.5px] font-bold", topic === t ? "bg-blue-600 text-white" : "bg-red-600 text-white")}>{l.people}</span>}
               </button>
             );
           })}
@@ -149,45 +149,45 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
 
         <div className="mt-3 flex gap-2">
           {user ? (
-            <button type="button" onClick={() => void enter()} disabled={joining || rec.state !== "idle"} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gold text-[14.5px] font-extrabold text-cream transition active:scale-[0.98] disabled:opacity-60">
+            <button type="button" onClick={() => void enter()} disabled={joining || rec.state !== "idle"} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gold text-[14.5px] font-extrabold text-white transition active:scale-[0.98] disabled:opacity-60">
               {joining ? <Loader2 className="h-5 w-5 animate-spin" /> : <Radio className="h-5 w-5" />}{joining ? "A ligar…" : "Entrar ao vivo"}
             </button>
           ) : (
-            <a href={login} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gold text-[14.5px] font-extrabold text-cream"><Radio className="h-5 w-5" />Entrar para falar</a>
+            <a href={login} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gold text-[14.5px] font-extrabold text-white"><Radio className="h-5 w-5" />Entrar para falar</a>
           )}
-          {user && rec.state === "idle" && <button type="button" onClick={() => void startRec()} aria-label="Gravar mensagem de voz" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white/10 transition active:scale-90"><Mic className="h-5 w-5" /></button>}
+          {user && rec.state === "idle" && <button type="button" onClick={() => void startRec()} aria-label="Gravar mensagem de voz" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-slate-900/10 transition active:scale-90"><Mic className="h-5 w-5" /></button>}
         </div>
 
         {rec.state !== "idle" && (
-          <div className="mt-3 flex items-center gap-3 rounded-full bg-white/10 py-1.5 pl-4 pr-1.5" role="status">
+          <div className="mt-3 flex items-center gap-3 rounded-full bg-slate-900/10 py-1.5 pl-4 pr-1.5" role="status">
             <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-red-500" />
             <span className="flex-1 text-[13px] font-semibold tabular-nums">{rec.state === "sending" ? "A enviar…" : `A gravar ${mmss(rec.secs)} / 1:00`}</span>
             {rec.state === "recording" && <>
-              <button type="button" aria-label="Cancelar gravação" onClick={() => stopRec(true)} className="grid h-9 w-9 place-items-center rounded-full bg-white/10"><Trash2 className="h-4 w-4" /></button>
-              <button type="button" aria-label="Parar e enviar" onClick={() => stopRec()} className="grid h-9 w-9 place-items-center rounded-full bg-gold text-cream"><Square className="h-4 w-4 fill-current" /></button>
+              <button type="button" aria-label="Cancelar gravação" onClick={() => stopRec(true)} className="grid h-9 w-9 place-items-center rounded-full bg-slate-900/10"><Trash2 className="h-4 w-4" /></button>
+              <button type="button" aria-label="Parar e enviar" onClick={() => stopRec()} className="grid h-9 w-9 place-items-center rounded-full bg-gold text-white"><Square className="h-4 w-4 fill-current" /></button>
             </>}
             {rec.state === "sending" && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
           </div>
         )}
-        {msg && <p className="mt-3 rounded-2xl bg-white/10 px-3.5 py-2.5 text-[12.5px] text-white/85" role="alert">{msg}</p>}
+        {msg && <p className="mt-3 rounded-2xl bg-slate-900/10 px-3.5 py-2.5 text-[12.5px] text-white/85" role="alert">{msg}</p>}
       </div>
 
-      <div className="border-t border-white/10 px-5 py-4">
+      <div className="border-t border-slate-900/10 px-5 py-4">
         <p className="text-[11px] font-bold uppercase tracking-wider text-white/45">Mensagens de voz</p>
-        {notes === null ? <div className="mt-3 h-12 animate-pulse rounded-2xl bg-white/10" /> : notes.length === 0 ? (
+        {notes === null ? <div className="mt-3 h-12 animate-pulse rounded-2xl bg-slate-900/10" /> : notes.length === 0 ? (
           <p className="mt-2 text-[12.5px] text-white/50">Ainda não há mensagens de voz sobre este produto.</p>
         ) : (
           <ul className="mt-2 space-y-2">
             {notes.map((n) => (
               <li key={n.id} className="flex items-center gap-3 rounded-2xl bg-white/[0.07] p-2">
-                <button type="button" aria-label={playing === n.id ? "Pausar" : `Ouvir mensagem de ${n.name}`} onClick={() => toggle(n)} className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold text-cream">{playing === n.id ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current" />}</button>
+                <button type="button" aria-label={playing === n.id ? "Pausar" : `Ouvir mensagem de ${n.name}`} onClick={() => toggle(n)} className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold text-white">{playing === n.id ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current" />}</button>
                 <div className="min-w-0 flex-1">
                   <p className="flex items-center gap-1 truncate text-[13px] font-bold">{n.name}{n.verified && <BadgeCheck className="h-3.5 w-3.5 shrink-0 text-gold" aria-label="Comprador verificado" />}</p>
                   <p className="truncate text-[11.5px] text-white/50">{TALK_TOPICS[n.topic] ?? n.topic} · {mmss(n.duration_s)}</p>
                 </div>
                 {user?.id === n.user_id
-                  ? <button type="button" aria-label="Apagar a minha mensagem" onClick={() => void removeNote(n.id)} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10"><Trash2 className="h-4 w-4" /></button>
-                  : user && <button type="button" aria-label="Denunciar mensagem" onClick={() => void report({ note: n.id })} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white/10 text-white/60"><Flag className="h-4 w-4" /></button>}
+                  ? <button type="button" aria-label="Apagar a minha mensagem" onClick={() => void removeNote(n.id)} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-900/10"><Trash2 className="h-4 w-4" /></button>
+                  : user && <button type="button" aria-label="Denunciar mensagem" onClick={() => void report({ note: n.id })} className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-slate-900/10 text-white/60"><Flag className="h-4 w-4" /></button>}
               </li>
             ))}
           </ul>
@@ -210,7 +210,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
               <ul className="grid grid-cols-3 gap-x-3 gap-y-6 sm:grid-cols-4">
                 {peers.map((p) => (
                   <li key={p.user_id} className="flex flex-col items-center text-center">
-                    <span className={cn("relative grid h-[84px] w-[84px] place-items-center rounded-full bg-white/10 text-[26px] font-black transition-shadow duration-150", p.speaking && "shadow-[0_0_0_4px_#f2b21b,0_0_34px_2px_rgba(242,178,27,.55)]", !p.connected && "opacity-45")}>
+                    <span className={cn("relative grid h-[84px] w-[84px] place-items-center rounded-full bg-slate-900/10 text-[26px] font-black transition-shadow duration-150", p.speaking && "shadow-[0_0_0_4px_#f2b21b,0_0_34px_2px_rgba(242,178,27,.55)]", !p.connected && "opacity-45")}>
                       {p.name.slice(0, 1)}
                       {p.muted && <span className="absolute -bottom-1 -right-1 grid h-7 w-7 place-items-center rounded-full bg-[#0b0b0d] ring-2 ring-white/15"><MicOff className="h-3.5 w-3.5 text-red-400" /></span>}
                     </span>
@@ -221,11 +221,11 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
                 ))}
               </ul>
               {peers.length <= 1 && <p className="mx-auto mt-10 max-w-[260px] text-center text-[13px] leading-snug text-white/50">Está sozinho na sala. Fique por aqui: quem abrir este produto vê que há uma conversa ao vivo.</p>}
-              {msg && <p className="mx-auto mt-6 max-w-sm rounded-2xl bg-white/10 px-3.5 py-2.5 text-center text-[12.5px]" role="alert">{msg}</p>}
+              {msg && <p className="mx-auto mt-6 max-w-sm rounded-2xl bg-slate-900/10 px-3.5 py-2.5 text-center text-[12.5px]" role="alert">{msg}</p>}
             </div>
 
             <footer className="flex items-center justify-center gap-5 px-5 pb-[max(22px,env(safe-area-inset-bottom))] pt-3">
-              <button type="button" aria-label={muted ? "Ligar microfone" : "Silenciar microfone"} aria-pressed={muted} onClick={() => { const m = !muted; setMuted(m); room.setMuted(m); }} className={cn("grid h-16 w-16 place-items-center rounded-full transition active:scale-90", muted ? "bg-white/10 text-red-400" : "bg-gold text-cream")}>{muted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}</button>
+              <button type="button" aria-label={muted ? "Ligar microfone" : "Silenciar microfone"} aria-pressed={muted} onClick={() => { const m = !muted; setMuted(m); room.setMuted(m); }} className={cn("grid h-16 w-16 place-items-center rounded-full transition active:scale-90", muted ? "bg-slate-900/10 text-red-400" : "bg-gold text-white")}>{muted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}</button>
               <button type="button" onClick={() => void leave()} className="flex h-16 items-center gap-2 rounded-full bg-red-600 px-7 text-[15px] font-extrabold transition active:scale-95"><PhoneOff className="h-5 w-5" />Sair</button>
             </footer>
           </motion.div>

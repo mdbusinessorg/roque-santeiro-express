@@ -40,7 +40,7 @@ export function StoreSearch() {
       role="search"
       aria-label="Pesquisar lojas"
     >
-      <Search className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500" />
+      <Search className="pointer-events-none absolute left-4 top-1/2 z-10 h-[18px] w-[18px] -translate-y-1/2 text-neutral-500" />
       <input
         value={q}
         onChange={(e) => setQ(e.target.value)}

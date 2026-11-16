@@ -5,10 +5,12 @@ import { Volume2, VolumeX } from "lucide-react";
 
 /** Música de fundo do site: autoplay com volume moderado, em loop.
  *  Pausa quando o BISNO TALKS está ao vivo, durante a pesquisa por voz
- *  ou quando o separador está escondido. O botão mostra o estado real
- *  (a tocar / em pausa) e permite desligar ou voltar a ligar o som. */
+ *  ou quando o separador está escondido. O botão fica por baixo do
+ *  assistente e mostra o estado real. Depois de silenciar, a música
+ *  só volta a tocar clicando outra vez no botão. */
 export function BackgroundMusic() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const mutedRef = useRef(false);
   const [playing, setPlaying] = useState(true);
 
   useEffect(() => {
@@ -23,7 +25,7 @@ export function BackgroundMusic() {
     a.addEventListener("pause", sync);
     a.addEventListener("ended", sync);
 
-    const play = () => { if (!document.hidden) void a.play().catch(() => {}); };
+    const play = () => { if (!document.hidden && !mutedRef.current) void a.play().catch(() => {}); };
     const pause = () => a.pause();
     const onVis = () => (document.hidden ? pause() : play());
     const kick = () => play();
@@ -51,8 +53,9 @@ export function BackgroundMusic() {
   function toggle() {
     const a = audioRef.current;
     if (!a) return;
-    if (a.paused) void a.play().catch(() => {});
-    else a.pause();
+    mutedRef.current = !mutedRef.current;
+    if (mutedRef.current) a.pause();
+    else if (!document.hidden) void a.play().catch(() => {});
   }
 
   return (
@@ -61,7 +64,7 @@ export function BackgroundMusic() {
       onClick={toggle}
       aria-label={playing ? "Desligar música" : "Ligar música"}
       aria-pressed={!playing}
-      className="fixed bottom-[88px] left-3 z-40 grid h-11 w-11 place-items-center rounded-full bg-neutral-950 text-white shadow-xl shadow-black/25 ring-1 ring-white/15 transition active:scale-90 md:bottom-6 md:left-6"
+      className="fixed bottom-[24px] right-3 z-40 grid h-11 w-11 place-items-center rounded-full bg-neutral-950 text-white shadow-xl shadow-black/25 ring-1 ring-white/15 transition active:scale-90 md:bottom-6 md:right-24"
     >
       {playing ? <Volume2 className="h-5 w-5" /> : <VolumeX className="h-5 w-5 text-white/60" />}
     </button>

@@ -35,7 +35,7 @@ export async function POST(req: Request) {
   let form: FormData;
   try { form = await req.formData(); } catch { return NextResponse.json({ error: "Pedido inválido." }, { status: 400 }); }
   const file = form.get("image");
-  if (!(file instanceof File) || file.size === 0) return NextResponse.json({ error: "Envie uma foto." }, { status: 400 });
+  if (!file || typeof file === "string" || file.size === 0) return NextResponse.json({ error: "Envie uma foto." }, { status: 400 });
   if (file.size > 6 * 1024 * 1024) return NextResponse.json({ error: "Foto demasiado grande." }, { status: 400 });
 
   const buf = Buffer.from(await file.arrayBuffer());

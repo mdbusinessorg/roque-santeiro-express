@@ -17,7 +17,7 @@ export default function ProductForm({ params }: { params: Promise<{ id: string }
   const router = useRouter();
   const { store } = useMyStore("/vendedor/produtos");
   const [cats, setCats] = useState<Category[]>([]);
-  const [f, setF] = useState({ name: "", brand: "", sku: "", price: "", compare_at_price: "", stock: "1", category_id: "", description: "", status: "active", specs: "" });
+  const [f, setF] = useState({ name: "", brand: "", sku: "", price: "", compare_at_price: "", stock: "1", category_id: "", description: "", status: "active", specs: "", shipping_fee: "", delivery_time: "", video_url: "", sponsored: false, featured: false });
   const [images, setImages] = useState<string[]>([]);
   const [busy, setBusy] = useState(false);
   const [up, setUp] = useState(false);
@@ -29,7 +29,8 @@ export default function ProductForm({ params }: { params: Promise<{ id: string }
     if (!isNew) sb.from("products").select("*").eq("id", id).maybeSingle().then(({ data: p }) => {
       if (!p) return;
       setF({ name: p.name, brand: p.brand ?? "", sku: p.sku ?? "", price: String(p.price), compare_at_price: p.compare_at_price ? String(p.compare_at_price) : "", stock: String(p.stock),
-        category_id: p.category_id ?? "", description: p.description ?? "", status: p.status, specs: Object.entries(p.specs ?? {}).map(([k, v]) => `${k}: ${v}`).join("\n") });
+        category_id: p.category_id ?? "", description: p.description ?? "", status: p.status, specs: Object.entries(p.specs ?? {}).map(([k, v]) => `${k}: ${v}`).join("\n"),
+        shipping_fee: p.shipping_fee != null ? String(p.shipping_fee) : "", delivery_time: p.delivery_time ?? "", video_url: p.video_url ?? "", sponsored: !!p.sponsored, featured: !!p.featured });
       setImages(p.images ?? []);
     });
   }, [id, isNew]);
@@ -56,6 +57,7 @@ export default function ProductForm({ params }: { params: Promise<{ id: string }
     const row = {
       name: f.name.trim(), brand: f.brand.trim() || null, sku: f.sku.trim() || null, price: Number(f.price), stock: Math.max(0, Number(f.stock) || 0),
       compare_at_price: f.compare_at_price ? Number(f.compare_at_price) : null, category_id: f.category_id || null, description: f.description.trim(), status: f.status, specs, images,
+      shipping_fee: f.shipping_fee ? Number(f.shipping_fee) : null, delivery_time: f.delivery_time.trim() || null, video_url: f.video_url.trim() || null, sponsored: f.sponsored, featured: f.featured,
     };
     const sb = supabaseBrowser();
     const { error } = isNew
@@ -100,6 +102,9 @@ export default function ProductForm({ params }: { params: Promise<{ id: string }
             <div><label className="label">SKU</label><input value={f.sku} onChange={set("sku")} className="input" /></div>
           </div>
           <div><label className="label">Descrição</label><textarea value={f.description} onChange={set("description")} className="input min-h-24" /></div>
+          <div className="grid grid-cols-2 gap-3"><div><label className="label">Frete (Kz, 0 = grátis)</label><input inputMode="numeric" placeholder="Ex.: 1000" value={f.shipping_fee} onChange={set("shipping_fee")} className="input" /></div><div><label className="label">Prazo de entrega</label><input placeholder="Ex.: 2 a 5 dias úteis" value={f.delivery_time} onChange={set("delivery_time")} className="input" /></div></div>
+          <div><label className="label">Vídeo do produto (URL opcional)</label><input type="url" inputMode="url" placeholder="https://… (YouTube ou MP4)" value={f.video_url} onChange={set("video_url")} className="input" /></div>
+          <div className="grid gap-2 sm:grid-cols-2"><label className="flex items-center gap-2 rounded-xl border border-brand-100 p-3 text-sm"><input type="checkbox" className="accent-brand-600" checked={f.sponsored} onChange={(e) => setF({ ...f, sponsored: e.target.checked })} />Promover este produto (aparece como Patrocinado)</label><label className="flex items-center gap-2 rounded-xl border border-brand-100 p-3 text-sm"><input type="checkbox" className="accent-brand-600" checked={f.featured} onChange={(e) => setF({ ...f, featured: e.target.checked })} />Destacar na página inicial</label></div>
           <div><label className="label">Especificações (uma por linha, ex.: Cor: Azul)</label><textarea value={f.specs} onChange={set("specs")} className="input min-h-20" /></div>
           <div><label className="label">Estado</label><select value={f.status} onChange={set("status")} className="input"><option value="active">Activo (visível)</option><option value="inactive">Inactivo</option><option value="draft">Rascunho</option></select></div>
           {err && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{err}</p>}

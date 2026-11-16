@@ -79,6 +79,20 @@ export default async function StorePage({ params, searchParams }: { params: Prom
         <div className="px-4 pb-4 sm:px-6"><StoreChat storeId={store.id} storeName={store.name} /></div>
       </section>
 
+      {store.video_url && (
+        <section className="card mt-4 overflow-hidden p-0">
+          {(() => {
+            const v = store.video_url ?? "";
+            const yt = v.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([\w-]{6,})/);
+            return yt ? (
+              <iframe src={`https://www.youtube.com/embed/${yt[1]}`} title={`Vídeo de ${store.name}`} className="aspect-video w-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+            ) : (
+              <video src={v} controls playsInline className="aspect-video w-full bg-black object-contain" />
+            );
+          })()}
+        </section>
+      )}
+
       {highlights.length > 0 && !sp.cat && (
         <section className="mt-5">
           <h2 className="mb-2 px-1 text-lg font-extrabold">{sold > 0 ? "Mais vendidos da loja" : "Novidades da loja"}</h2>

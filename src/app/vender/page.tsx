@@ -80,6 +80,9 @@ export default function SellPage() {
       </div>
 
       <div className="mx-auto mt-6 max-w-2xl">
+        <p className="mb-3 rounded-2xl border border-dashed border-promo/40 bg-promo/[0.04] p-4 text-center text-sm text-ink/70">
+          Não quer abrir uma loja? <Link href="/conta/consignacao" className="font-bold text-promo">Venda um produto em AMARROS</Link> — entrega-o à Roque Santeiro e nós vendemos por si.
+        </p>
         {loading || existing === undefined ? <div className="skeleton h-60" /> : existing ? (
           <div className="card p-6 text-center">
             <p className="text-lg font-bold">{existing.name}</p>

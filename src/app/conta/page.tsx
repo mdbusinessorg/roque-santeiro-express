@@ -4,7 +4,7 @@ import Link from "@/components/ui/native-link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import { Bell, ChevronRight, CreditCard, Eye, Heart, LayoutDashboard, LogOut, Package, PackageCheck, Search, Shield, Star, Store, Truck } from "lucide-react";
+import { Bell, ChevronRight, CreditCard, Eye, HandCoins, Heart, LayoutDashboard, LogOut, Package, PackageCheck, Search, Shield, Star, Store, Truck } from "lucide-react";
 import { useAuth, isStaff } from "@/lib/auth";
 import { supabaseBrowser } from "@/lib/supabase/client";
 
@@ -58,6 +58,7 @@ export default function AccountPage() {
     { href: "/vendedor", icon: LayoutDashboard, l: "Painel do vendedor" },
     { href: "/parceiro", icon: LayoutDashboard, l: "Roque Partners" },
     { href: "/vender", icon: Store, l: "Abrir uma loja" },
+    { href: "/conta/consignacao", icon: HandCoins, l: "Vender sem loja (AMARROS)" },
     { href: "/lojas", icon: Eye, l: "Visitar lojas" },
     ...(isStaff(profile?.role) ? [{ href: "/admin", icon: Shield, l: "Administração" }] : []),
   ];

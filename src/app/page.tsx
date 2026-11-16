@@ -20,12 +20,13 @@ import type { Product } from "@/lib/types";
 export const revalidate = 60;
 
 export default async function Home() {
-  const [allCats, all, deals, fresh, featured] = await Promise.all([
+  const [allCats, all, deals, fresh, featured, promoted] = await Promise.all([
     getCategories(),
     getProducts({ limit: 80, noServices: true }),
     getProducts({ deals: true, limit: 12, noServices: true }),
     getProducts({ sort: "novos", limit: 8, noServices: true }),
     getProducts({ featured: true, limit: 14, noServices: true }),
+    getProducts({ sponsored: true, limit: 10, noServices: true }),
   ]);
   // Farmácia, supermercado e comida ficam fora dos feeds gerais; a comida vive nas lojas e categorias próprias.
   const cats = allCats.filter((c) => !["farmacia", "supermercado"].includes(c.slug));
@@ -35,6 +36,7 @@ export default async function Home() {
   const dealProducts = first(deals.products);
   const freshProducts = first(fresh.products);
   const featuredProducts = first(featured.products);
+  const promotedProducts = first(promoted.products).filter((x) => x.stock > 0);
   const mixed = mixByStore(allProducts);
 
   return (
@@ -69,6 +71,7 @@ export default async function Home() {
       <Section title="Produtos em destaque" href="/pesquisa"><ProductGrid products={featuredProducts} /></Section>
       {allProducts.some((x) => x.sold_count > 0) && <Section title="Mais vendidos" href="/pesquisa?ordem=vendidos"><ProductGrid products={[...allProducts].filter((x) => x.sold_count > 0).sort((a, b) => b.sold_count - a.sold_count).slice(0, 10)} /></Section>}
       <Section title="Novidades" href="/pesquisa?ordem=novos"><ProductGrid products={freshProducts} /></Section>
+      {promotedProducts.length > 0 && <Section title="Produtos promovidos" subtitle="Lojas que destacam os seus produtos" href="/pesquisa"><ProductGrid products={promotedProducts} /></Section>}
       <RecentlyViewed />
       <RecoRail kind="for_you" title="Recomendados para si" subtitle="Com base no que vê e compra" />
       <RecoRail kind="popular_week" title="Populares esta semana" subtitle="Mais procurados nos últimos 7 dias" />

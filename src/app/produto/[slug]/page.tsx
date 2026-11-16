@@ -70,6 +70,26 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </a>
           </div>
           {p.description && <div className="card p-4"><h2 className="font-bold">Descrição</h2><p className="mt-2 whitespace-pre-line text-[14.5px] leading-relaxed text-ink/75">{p.description}</p></div>}
+          {(p.shipping_fee != null || p.delivery_time) && (
+            <div className="card flex flex-wrap items-center gap-x-6 gap-y-2 p-4 text-sm">
+              <span className="flex items-center gap-2 font-semibold text-ink"><Truck className="h-4 w-4 text-promo" />Envio e entrega</span>
+              {p.shipping_fee != null && <span className="text-ink/70">Frete: <b className="text-ink">{Number(p.shipping_fee) === 0 ? "Grátis" : kz(p.shipping_fee)}</b></span>}
+              {p.delivery_time && <span className="text-ink/70">Prazo: <b className="text-ink">{p.delivery_time}</b></span>}
+            </div>
+          )}
+          {p.video_url && (
+            <div className="card overflow-hidden p-0">
+              {(() => {
+                const v = p.video_url ?? "";
+                const yt = v.match(/(?:youtube\.com\/(?:watch\?v=|shorts\/)|youtu\.be\/)([\w-]{6,})/);
+                return yt ? (
+                  <iframe src={`https://www.youtube.com/embed/${yt[1]}`} title="Vídeo do produto" className="aspect-video w-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                ) : (
+                  <video src={v} controls playsInline className="aspect-video w-full bg-black object-contain" />
+                );
+              })()}
+            </div>
+          )}
           {specs.length > 0 && (
             <div className="card p-4">
               <h2 className="font-bold">Especificações</h2>

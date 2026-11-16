@@ -60,9 +60,16 @@ export default function ProductForm({ params }: { params: Promise<{ id: string }
       shipping_fee: f.shipping_fee ? Number(f.shipping_fee) : null, delivery_time: f.delivery_time.trim() || null, video_url: f.video_url.trim() || null, sponsored: f.sponsored, featured: f.featured,
     };
     const sb = supabaseBrowser();
-    const { error } = isNew
-      ? await sb.from("products").insert({ ...row, store_id: store.id, slug: `${slugify(f.name)}-${Math.random().toString(36).slice(2, 7)}` })
-      : await sb.from("products").update(row).eq("id", id);
+    const write = (r: Record<string, unknown>) =>
+      isNew
+        ? sb.from("products").insert({ ...r, store_id: store.id, slug: `${slugify(f.name)}-${Math.random().toString(36).slice(2, 7)}` })
+        : sb.from("products").update(r).eq("id", id);
+    let { error } = await write(row);
+    // Colunas da migração 0020 ainda não aplicadas: grava sem elas para não bloquear o vendedor.
+    if (error && /column|schema cache/i.test(error.message ?? "")) {
+      const { shipping_fee: _a, delivery_time: _b, video_url: _c, ...legacy } = row;
+      ({ error } = await write(legacy));
+    }
     setBusy(false);
     if (error) setErr(rpcError(error)); else router.push("/vendedor/produtos");
   }

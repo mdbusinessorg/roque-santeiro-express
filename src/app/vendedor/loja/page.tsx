@@ -28,7 +28,13 @@ export default function StoreProfile() {
     setBusy(true); setMsg(null);
     try {
       const [logo_url, banner_url] = await Promise.all([logo ? uploadMedia(logo, "lojas") : store.logo_url, banner ? uploadMedia(banner, "lojas") : store.banner_url]);
-      const { error } = await supabaseBrowser().from("stores").update({ ...f, website: f.website.trim() || null, logo_url, banner_url, video_url: f.video_url.trim() || null, delivery_methods: methods.length ? methods : ["seller"] }).eq("id", store.id);
+      const payload = { ...f, website: f.website.trim() || null, logo_url, banner_url, video_url: f.video_url.trim() || null, delivery_methods: methods.length ? methods : ["seller"] };
+      let { error } = await supabaseBrowser().from("stores").update(payload).eq("id", store.id);
+      // Coluna video_url da migração 0020 ainda não aplicada: grava sem ela.
+      if (error && /column|schema cache/i.test(error.message ?? "")) {
+        const { video_url: _v, ...legacy } = payload;
+        ({ error } = await supabaseBrowser().from("stores").update(legacy).eq("id", store.id));
+      }
       if (error) throw error;
       setMsg("Perfil guardado."); reload();
     } catch (err) { setMsg(rpcError(err as { message?: string })); }

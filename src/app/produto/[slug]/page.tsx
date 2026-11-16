@@ -110,7 +110,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {store.delivery_methods.map((d) => <p key={d} className="flex items-start gap-2 text-ink/70"><Truck className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />{DELIVERY[d] ?? d}</p>)}
             <p className="flex items-start gap-2 text-ink/70"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />Pagamento só é confirmado após verificação</p>
             <p className="flex items-start gap-2 text-ink/70"><RotateCcw className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />Devolução em 7 dias se o produto chegar com defeito</p>
-            {store.whatsapp && <LeadLink label="whatsapp_produto" href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(`Olá, tenho interesse em: ${p.name}`)}`} className="btn-ghost w-full"><MessageCircle className="h-4 w-4" />Perguntar ao vendedor</LeadLink>}
           </div>
         </aside>
       </div>

@@ -4,7 +4,7 @@ import Link from "@/components/ui/native-link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "motion/react";
-import { Bell, ChevronRight, CreditCard, Eye, HandCoins, Heart, LayoutDashboard, LogOut, Package, PackageCheck, Search, Shield, Star, Store, Truck } from "lucide-react";
+import { Bell, ChevronRight, CreditCard, Eye, HandCoins, Heart, LayoutDashboard, LogOut, MessageCircle, Package, PackageCheck, Search, Shield, Star, Store, Truck } from "lucide-react";
 import { useAuth, isStaff } from "@/lib/auth";
 import { supabaseBrowser } from "@/lib/supabase/client";
 
@@ -50,6 +50,7 @@ export default function AccountPage() {
   ];
   const tiles = [
     { href: "/conta/favoritos", icon: Heart, l: "Favoritos", n: c?.fav },
+    { href: "/conta/mensagens", icon: MessageCircle, l: "Mensagens" },
     { href: "/conta/notificacoes", icon: Bell, l: "Notificações", n: c?.notif },
     { href: "/rastrear", icon: Search, l: "Seguir encomenda" },
     { href: "/conta/encomendas", icon: PackageCheck, l: "Todas as encomendas" },

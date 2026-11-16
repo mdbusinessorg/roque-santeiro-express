@@ -71,7 +71,6 @@ export default async function StorePage({ params, searchParams }: { params: Prom
           {store.description && <p className="flex-1 text-sm text-ink/75">{store.description}</p>}
           <div className="flex flex-wrap gap-2">
             <FollowButton storeId={store.id} storeSlug={store.slug} />
-            {store.whatsapp && <a href={`https://wa.me/${store.whatsapp.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" className="btn-primary"><MessageCircle className="h-4 w-4" />WhatsApp</a>}
             {store.phone && <a href={`tel:${store.phone.replace(/\s/g, "")}`} className="btn-ghost"><Phone className="h-4 w-4" />Ligar</a>}
             <ShareButton title={store.name} url={url} />
           </div>

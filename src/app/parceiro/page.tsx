@@ -64,7 +64,7 @@ export default function PartnerDashboard() {
         <h1 className="mt-1 text-2xl font-extrabold">{p.display_name}</h1>
         {p.status !== "active" && <p className="mt-2 rounded-xl bg-slate-900/10 px-3 py-2 text-xs">{p.status === "pending" ? "Candidatura em análise. O link começa a contar quando for aprovada." : `Conta ${p.status === "suspended" ? "suspensa" : "rejeitada"}.`}</p>}
         <div className="mt-4 rounded-2xl bg-slate-900/10 p-3">
-          <p className="text-[11px] text-white/60">O teu link · código <b className="text-gold">{p.code}</b></p>
+          <p className="text-[11px] text-white/60">O teu link · código <b className="text-white">{p.code}</b></p>
           <p className="truncate text-sm font-semibold">{link}</p>
           <div className="mt-2 flex gap-2">
             <button onClick={async () => { await navigator.clipboard.writeText(link); setMsg("Link copiado."); }} className="inline-flex items-center gap-1 rounded-full bg-neutral-900 px-3 py-1.5 text-xs font-bold text-white active:scale-95"><Copy className="h-3.5 w-3.5" />Copiar</button>

@@ -46,7 +46,7 @@ export default async function UniversePage({ params, searchParams }: { params: P
           <span aria-hidden className={cn("absolute -right-16 -top-24 h-64 w-64 rounded-full blur-3xl", u.dark ? "bg-gold/25" : "bg-white/70")} />
           <span aria-hidden className="absolute bottom-0 right-6 h-[78%] w-[34%] max-w-[190px] rounded-t-full border border-gold/40" />
           <span aria-hidden className={cn("absolute bottom-0 right-10 h-[62%] w-[26%] max-w-[150px] rounded-t-full", u.dark ? "bg-slate-100" : "bg-white/70")} />
-          <p className={cn("text-[10.5px] font-semibold uppercase tracking-[0.5em]", u.dark ? "text-gold" : "text-gold-700")}>Universo</p>
+          <p className={cn("text-[10.5px] font-semibold uppercase tracking-[0.5em]", u.dark ? "text-gold-300" : "text-gold-700")}>Universo</p>
           <h1 className="mt-1 text-[46px] font-extralight leading-none tracking-[0.02em] sm:text-7xl">{u.name}</h1>
           <p className={cn("mt-3 max-w-[62%] text-[13px] leading-snug sm:max-w-sm sm:text-sm", u.dark ? "text-white/65" : "text-ink/60")}>{u.line}</p>
           <UniverseDoor universe={u.other} className={cn("relative mt-5 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-[12.5px] font-bold", u.dark ? "bg-slate-900/10 text-white ring-1 ring-white/15" : "bg-neutral-900 text-white")}>

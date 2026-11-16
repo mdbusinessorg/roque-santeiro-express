@@ -29,7 +29,6 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       onMouseLeave={() => setPaused(false)}
     >
       <span className="pointer-events-none absolute -right-16 -top-24 h-72 w-72 rounded-full bg-white/70 blur-2xl" aria-hidden />
-      <span className="pointer-events-none absolute right-[18%] top-[12%] hidden h-[70%] w-[38%] rounded-full border border-slate-900/90 sm:block" aria-hidden />
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={i}

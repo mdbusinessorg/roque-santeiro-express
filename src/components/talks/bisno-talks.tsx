@@ -42,7 +42,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
   useEffect(() => {
     void loadLive(); void loadNotes();
     const t = setInterval(() => { if (document.visibilityState === "visible") void loadLive(); }, 20_000);
-    return () => { clearInterval(t); void roomRef.current?.leave(); player.current?.pause(); recorder.current?.stream.getTracks().forEach((x) => x.stop()); };
+    return () => { clearInterval(t); window.dispatchEvent(new Event("site-audio-resume")); void roomRef.current?.leave(); player.current?.pause(); recorder.current?.stream.getTracks().forEach((x) => x.stop()); };
   }, [loadLive, loadNotes]);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
     if (joining || room) return;
     setMsg(null); setJoining(true);
     const r = new TalkRoom(setPeers);
-    try { await r.join(productId, topic); roomRef.current = r; setRoom(r); setMuted(false); }
+    try { await r.join(productId, topic); roomRef.current = r; setRoom(r); setMuted(false); window.dispatchEvent(new Event("site-audio-pause")); }
     catch (e) { setMsg(e instanceof Error ? e.message : "Não foi possível entrar na sala."); }
     finally { setJoining(false); }
   }
@@ -64,6 +64,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
   async function leave() {
     const r = roomRef.current; roomRef.current = null;
     setRoom(null); setPeers([]);
+    window.dispatchEvent(new Event("site-audio-resume"));
     await r?.leave(); void loadLive();
   }
 

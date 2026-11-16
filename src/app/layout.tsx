@@ -1,4 +1,5 @@
 import { Assistant } from "@/components/assistant/assistant";
+import { BackgroundMusic } from "@/components/effects/background-music";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart/cart";
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Footer />
             <BottomNav />
             <Assistant />
+            <BackgroundMusic />
             <Tracker />
             <NativeBridge />
             <RefCapture />

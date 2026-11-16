@@ -65,7 +65,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             </div>
             <a href="#bisno-talks" className="mt-3 flex items-center gap-3 rounded-2xl bg-neutral-950 px-4 py-3 text-white transition active:scale-[0.98]">
               <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold text-white"><Mic className="h-4 w-4" /></span>
-              <span className="min-w-0 flex-1"><b className="block text-[14px] leading-tight">BISNO <span className="text-gold">TALKS</span></b><span className="block text-[12px] text-white/60">Fale ao vivo sobre este produto</span></span>
+              <span className="min-w-0 flex-1"><b className="block text-[14px] leading-tight">BISNO <span className="text-promo">TALKS</span></b><span className="block text-[12px] text-white/60">Fale ao vivo sobre este produto</span></span>
               <span className="rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider">Ao vivo</span>
             </a>
           </div>

@@ -21,11 +21,14 @@ function SearchBox() {
   const [canVoice, setCanVoice] = useState(false);
   useEffect(() => { setCanVoice(typeof window !== "undefined" && ("webkitSpeechRecognition" in window || "SpeechRecognition" in window)); }, []);
   function voice() {
-    const W = window as unknown as Record<string, new () => { lang: string; onresult: (e: { results: { 0: { 0: { transcript: string } } } }) => void; start: () => void }>;
+    const W = window as unknown as Record<string, new () => { lang: string; onresult: (e: { results: { 0: { 0: { transcript: string } } } }) => void; onend?: () => void; onerror?: () => void; start: () => void }>;
     const R = W.SpeechRecognition || W.webkitSpeechRecognition;
     if (!R) return;
     const r = new R(); r.lang = "pt-PT";
+    window.dispatchEvent(new Event("site-audio-pause"));
     r.onresult = (e) => { const t = e.results[0][0].transcript; setQ(t); router.push(`/pesquisa?q=${encodeURIComponent(t)}`); };
+    r.onend = () => window.dispatchEvent(new Event("site-audio-resume"));
+    r.onerror = () => window.dispatchEvent(new Event("site-audio-resume"));
     r.start();
   }
 

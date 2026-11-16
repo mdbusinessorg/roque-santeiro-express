@@ -59,6 +59,10 @@ export const PAYMENT_INFO: Record<string, { logo: string; alt: string; steps: st
     logo: "/pay/unitel-money.svg", alt: "Unitel Money",
     steps: ["Abra a app Unitel Money.", "Escolha «Transferir» para a entidade 00930.", "Indique o valor total da encomenda e a referência 926115429.", "Confirme e guarde o comprovativo."],
   },
+  cash_on_delivery: {
+    logo: "/pay/cod.svg", alt: "Pagamento na entrega",
+    steps: ["Prepare o valor total da encomenda em dinheiro ou multicaixa.", "Pague ao estafeta no momento em que receber a encomenda.", "A encomenda é confirmada pela nossa equipa após a entrega."],
+  },
 };
 export const DELIVERY: Record<string, string> = {
   rse: "Rede logística Roque Santeiro Express", seller: "Entrega pelo vendedor", pickup: "Levantamento na loja",

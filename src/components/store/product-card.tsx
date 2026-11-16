@@ -93,7 +93,7 @@ export function ProductCard({ p, compact, className }: { p: Product; compact?: b
         )}
       </Link>
       <div className={cn("px-3 pb-3 pt-2", compact && "px-2.5 pb-2.5")}>
-        <button type="button" disabled={out} onClick={buyNow} className="flex h-9 w-full items-center justify-center gap-1.5 rounded-full bg-neutral-950 text-[12.5px] font-bold text-gold transition hover:bg-neutral-900/90 active:scale-[0.98] disabled:bg-neutral-900/30">
+        <button type="button" disabled={out} onClick={buyNow} className="flex h-9 w-full items-center justify-center gap-1.5 rounded-full bg-neutral-950 text-[12.5px] font-bold text-white transition hover:bg-neutral-900/90 active:scale-[0.98] disabled:bg-neutral-900/30">
           {out ? "Esgotado" : "Comprar agora"}
         </button>
       </div>

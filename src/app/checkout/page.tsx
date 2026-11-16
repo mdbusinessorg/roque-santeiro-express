@@ -102,8 +102,8 @@ export default function CheckoutPage() {
         <section className="card space-y-3 p-4">
           <h2 className="font-bold">3. Pagamento</h2>
           <p className="text-xs text-ink/55">Escolha como quer pagar. A encomenda fica <b>Pendente de confirmação</b> até a nossa equipa verificar o pagamento.</p>
-          <div className="grid gap-2.5 sm:grid-cols-3">
-            {(["multicaixa_express", "paypay", "unitel_money"] as const).map((k) => {
+          <div className="grid gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+            {(["multicaixa_express", "paypay", "unitel_money", "cash_on_delivery"] as const).map((k) => {
               const info = PAYMENT_INFO[k];
               const on = pay === k;
               return (
@@ -123,14 +123,14 @@ export default function CheckoutPage() {
                 <p className="text-[13px] font-bold text-ink">{PAY_METHOD[pay]}</p>
                 <p className="text-[13px] font-extrabold text-beige">{kz(subtotal + shipping)}</p>
               </div>
-              <div className="mt-2 flex items-center justify-between gap-2 rounded-xl bg-slate-100 px-3 py-2">
+{pay !== "cash_on_delivery" && (<div className="mt-2 flex items-center justify-between gap-2 rounded-xl bg-slate-100 px-3 py-2">
                 <div><p className="text-[10.5px] uppercase tracking-wide text-ink/50">Referência de pagamento</p><p className="text-lg font-extrabold tracking-[0.2em] text-ink">{PAYMENT_REFERENCE}</p></div>
                 <button type="button" onClick={() => navigator.clipboard?.writeText(PAYMENT_REFERENCE)} className="rounded-full bg-neutral-900 px-3.5 py-1.5 text-[12px] font-bold text-white">Copiar</button>
-              </div>
+              </div>)}
               <ol className="mt-2.5 space-y-1.5 text-[12.5px] leading-snug text-ink/70">
                 {PAYMENT_INFO[pay].steps.map((st, i) => <li key={i} className="flex gap-2"><span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-beige/20 text-[10px] font-bold text-beige">{i + 1}</span>{st}</li>)}
               </ol>
-              <p className="mt-2.5 text-[11.5px] text-ink/50">Depois de pagar, envie o comprovativo na página da encomenda. A encomenda só passa a «Pago» depois de verificação manual da nossa equipa.</p>
+              {pay === "cash_on_delivery" ? <p className="mt-2.5 text-[11.5px] text-ink/50">Paga no momento da entrega. A encomenda fica «Pendente de confirmação» até a entrega ser confirmada pela nossa equipa.</p> : <p className="mt-2.5 text-[11.5px] text-ink/50">Depois de pagar, envie o comprovativo na página da encomenda. A encomenda só passa a «Pago» depois de verificação manual da nossa equipa.</p>}
             </div>
           )}
           <textarea value={f.notes} onChange={set("notes")} placeholder="Notas para a entrega (opcional)" className="input min-h-20" />

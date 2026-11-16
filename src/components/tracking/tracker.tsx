@@ -16,7 +16,7 @@ export function Tracker() {
   useEffect(() => { if (!getConsent()) setAsk(true); else loadPixel(); }, []);
   useEffect(() => { const t = setTimeout(() => track("PageView", {}, `PageView_${path}_${Date.now()}`), 300); return () => clearTimeout(t); }, [path]);
 
-  async function choose(a: boolean, m: boolean) { setAsk(false); await saveConsent(a, m); track("PageView"); }
+  async function choose(a: boolean, m: boolean) { setAsk(false); await saveConsent(a, m); track("PageView"); window.dispatchEvent(new Event("site-audio-resume")); }
 
   return (
     <AnimatePresence>

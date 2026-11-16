@@ -46,7 +46,7 @@ export function FoodSpotlight({ dishes, className }: { dishes: Product[]; classN
       <div className="grid sm:grid-cols-2 sm:items-center">
         <div className="relative z-10 px-5 pt-5 sm:py-9 sm:pl-9">
           <div className="flex items-center gap-2">
-            <span className="rounded-full bg-gold px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-ink">Comida</span>
+            <span className="rounded-full bg-gold px-3 py-1 text-[10.5px] font-bold uppercase tracking-[0.18em] text-cream">Comida</span>
             <span className="flex items-center gap-1 text-[11.5px] text-white/55"><Bike className="h-3.5 w-3.5" />Entrega em Luanda</span>
           </div>
           <div className="relative mt-3 h-[60px] overflow-hidden sm:h-[92px]">
@@ -84,7 +84,7 @@ export function FoodSpotlight({ dishes, className }: { dishes: Product[]; classN
         </div>
         <div className="flex shrink-0 items-center gap-2">
           <button type="button" onClick={() => order(false)} aria-label="Adicionar ao carrinho" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 ring-1 ring-white/15 transition active:scale-90"><ShoppingCart className="h-[18px] w-[18px]" /></button>
-          <button type="button" onClick={() => order(true)} className="flex h-11 items-center gap-1.5 rounded-full bg-gold px-4 text-[13px] font-bold text-ink transition active:scale-95">Pedir agora<ArrowRight className="h-4 w-4" /></button>
+          <button type="button" onClick={() => order(true)} className="flex h-11 items-center gap-1.5 rounded-full bg-gold px-4 text-[13px] font-bold text-cream transition active:scale-95">Pedir agora<ArrowRight className="h-4 w-4" /></button>
         </div>
       </div>
 

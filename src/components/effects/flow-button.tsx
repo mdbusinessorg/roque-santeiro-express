@@ -8,7 +8,7 @@ export function FlowButton({ children, href, className, light }: { children: Rea
       href={href}
       className={cn(
         "group relative inline-flex items-center gap-2 overflow-hidden rounded-full px-6 py-3 text-sm font-semibold transition active:scale-[0.97]",
-        light ? "bg-white text-brand-800" : "brand-gradient text-white shadow-lg shadow-brand-600/30",
+        light ? "bg-cream text-ink" : "brand-gradient text-white shadow-lg shadow-brand-600/30",
         className,
       )}
     >

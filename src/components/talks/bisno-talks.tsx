@@ -138,7 +138,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
           {TOPICS.map((t) => {
             const l = liveOf(t);
             return (
-              <button key={t} type="button" onClick={() => setTopic(t)} aria-pressed={topic === t} className={cn("flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold transition active:scale-95", topic === t ? "bg-gold text-ink" : "bg-white/10 text-white/80")}>
+              <button key={t} type="button" onClick={() => setTopic(t)} aria-pressed={topic === t} className={cn("flex shrink-0 items-center gap-1.5 rounded-full px-3.5 py-2 text-[13px] font-semibold transition active:scale-95", topic === t ? "bg-gold text-cream" : "bg-white/10 text-white/80")}>
                 {TALK_TOPICS[t]}{l && <span className={cn("rounded-full px-1.5 text-[10.5px] font-bold", topic === t ? "bg-ink text-gold" : "bg-red-600 text-white")}>{l.people}</span>}
               </button>
             );
@@ -149,11 +149,11 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
 
         <div className="mt-3 flex gap-2">
           {user ? (
-            <button type="button" onClick={() => void enter()} disabled={joining || rec.state !== "idle"} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gold text-[14.5px] font-extrabold text-ink transition active:scale-[0.98] disabled:opacity-60">
+            <button type="button" onClick={() => void enter()} disabled={joining || rec.state !== "idle"} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gold text-[14.5px] font-extrabold text-cream transition active:scale-[0.98] disabled:opacity-60">
               {joining ? <Loader2 className="h-5 w-5 animate-spin" /> : <Radio className="h-5 w-5" />}{joining ? "A ligar…" : "Entrar ao vivo"}
             </button>
           ) : (
-            <a href={login} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gold text-[14.5px] font-extrabold text-ink"><Radio className="h-5 w-5" />Entrar para falar</a>
+            <a href={login} className="flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-gold text-[14.5px] font-extrabold text-cream"><Radio className="h-5 w-5" />Entrar para falar</a>
           )}
           {user && rec.state === "idle" && <button type="button" onClick={() => void startRec()} aria-label="Gravar mensagem de voz" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-white/10 transition active:scale-90"><Mic className="h-5 w-5" /></button>}
         </div>
@@ -164,7 +164,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
             <span className="flex-1 text-[13px] font-semibold tabular-nums">{rec.state === "sending" ? "A enviar…" : `A gravar ${mmss(rec.secs)} / 1:00`}</span>
             {rec.state === "recording" && <>
               <button type="button" aria-label="Cancelar gravação" onClick={() => stopRec(true)} className="grid h-9 w-9 place-items-center rounded-full bg-white/10"><Trash2 className="h-4 w-4" /></button>
-              <button type="button" aria-label="Parar e enviar" onClick={() => stopRec()} className="grid h-9 w-9 place-items-center rounded-full bg-gold text-ink"><Square className="h-4 w-4 fill-current" /></button>
+              <button type="button" aria-label="Parar e enviar" onClick={() => stopRec()} className="grid h-9 w-9 place-items-center rounded-full bg-gold text-cream"><Square className="h-4 w-4 fill-current" /></button>
             </>}
             {rec.state === "sending" && <Loader2 className="mr-2 h-5 w-5 animate-spin" />}
           </div>
@@ -180,7 +180,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
           <ul className="mt-2 space-y-2">
             {notes.map((n) => (
               <li key={n.id} className="flex items-center gap-3 rounded-2xl bg-white/[0.07] p-2">
-                <button type="button" aria-label={playing === n.id ? "Pausar" : `Ouvir mensagem de ${n.name}`} onClick={() => toggle(n)} className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold text-ink">{playing === n.id ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current" />}</button>
+                <button type="button" aria-label={playing === n.id ? "Pausar" : `Ouvir mensagem de ${n.name}`} onClick={() => toggle(n)} className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-gold text-cream">{playing === n.id ? <Pause className="h-4 w-4 fill-current" /> : <Play className="h-4 w-4 fill-current" />}</button>
                 <div className="min-w-0 flex-1">
                   <p className="flex items-center gap-1 truncate text-[13px] font-bold">{n.name}{n.verified && <BadgeCheck className="h-3.5 w-3.5 shrink-0 text-gold" aria-label="Comprador verificado" />}</p>
                   <p className="truncate text-[11.5px] text-white/50">{TALK_TOPICS[n.topic] ?? n.topic} · {mmss(n.duration_s)}</p>
@@ -225,7 +225,7 @@ export function BisnoTalks({ productId, productName, productSlug }: { productId:
             </div>
 
             <footer className="flex items-center justify-center gap-5 px-5 pb-[max(22px,env(safe-area-inset-bottom))] pt-3">
-              <button type="button" aria-label={muted ? "Ligar microfone" : "Silenciar microfone"} aria-pressed={muted} onClick={() => { const m = !muted; setMuted(m); room.setMuted(m); }} className={cn("grid h-16 w-16 place-items-center rounded-full transition active:scale-90", muted ? "bg-white/10 text-red-400" : "bg-gold text-ink")}>{muted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}</button>
+              <button type="button" aria-label={muted ? "Ligar microfone" : "Silenciar microfone"} aria-pressed={muted} onClick={() => { const m = !muted; setMuted(m); room.setMuted(m); }} className={cn("grid h-16 w-16 place-items-center rounded-full transition active:scale-90", muted ? "bg-white/10 text-red-400" : "bg-gold text-cream")}>{muted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}</button>
               <button type="button" onClick={() => void leave()} className="flex h-16 items-center gap-2 rounded-full bg-red-600 px-7 text-[15px] font-extrabold transition active:scale-95"><PhoneOff className="h-5 w-5" />Sair</button>
             </footer>
           </motion.div>

@@ -44,7 +44,7 @@ export default function SellerOrders() {
         <SellerNav />
         <h1 className="mb-3 px-1 text-xl font-extrabold">Encomendas</h1>
         {msg && <p className="mb-3 rounded-xl bg-brand-50 p-3 text-sm">{msg}</p>}
-        {!rows ? <div className="skeleton h-40" /> : !rows.length ? <p className="card p-8 text-center text-sm text-ink/60">Ainda não recebeu encomendas.</p> : (
+        {!rows ? <div className="skeleton h-40" /> : !rows.length ? <p className="card p-8 text-center text-sm text-cream/60">Ainda não recebeu encomendas.</p> : (
           <div className="space-y-3">
             {rows.map((r) => (
               <div key={r.id} className="card p-4 text-sm">
@@ -52,8 +52,8 @@ export default function SellerOrders() {
                   <p className="font-bold">#{r.orders.number} · {new Date(r.created_at).toLocaleDateString("pt-AO")}</p>
                   <span className={`rounded-full px-2.5 py-0.5 text-xs font-semibold ${r.orders.payment_status === "paid" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"}`}>{PAY_STATUS[r.orders.payment_status]}</span>
                 </div>
-                {r.order_items.map((i) => <p key={i.id} className="mt-1 text-ink/75">{i.quantity}× {i.name} — {kz(i.line_total)}</p>)}
-                <p className="mt-2 text-xs text-ink/55">{DELIVERY[r.delivery_method]} · {r.orders.contact_name} · {[r.orders.address?.street, r.orders.address?.city, r.orders.address?.province].filter(Boolean).join(", ")}</p>
+                {r.order_items.map((i) => <p key={i.id} className="mt-1 text-cream/75">{i.quantity}× {i.name} — {kz(i.line_total)}</p>)}
+                <p className="mt-2 text-xs text-cream/55">{DELIVERY[r.delivery_method]} · {r.orders.contact_name} · {[r.orders.address?.street, r.orders.address?.city, r.orders.address?.province].filter(Boolean).join(", ")}</p>
                 <a href={`tel:${r.orders.contact_phone}`} className="mt-1 inline-flex items-center gap-1 text-xs font-semibold text-brand-600"><Phone className="h-3.5 w-3.5" />{r.orders.contact_phone}</a>
                 <p className="mt-2 text-xs">Subtotal {kz(r.subtotal)} · Comissão −{kz(r.commission_amount)} · <b>A receber {kz(r.seller_net)}</b></p>
                 <div className="mt-3 flex flex-wrap items-center gap-2">

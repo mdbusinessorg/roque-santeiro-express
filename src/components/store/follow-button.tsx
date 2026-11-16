@@ -37,10 +37,10 @@ export function FollowButton({ storeId, storeSlug }: { storeId: string; storeSlu
   }
 
   return (
-    <button onClick={toggle} disabled={busy} aria-pressed={on} className={cn("btn-ghost", on && "border-ink bg-ink text-white")}>
+    <button onClick={toggle} disabled={busy} aria-pressed={on} className={cn("btn-ghost", on && "border-cream/20 bg-ink text-white")}>
       {on ? <Check className="h-4 w-4" /> : <Plus className="h-4 w-4" />}
       {on ? "A seguir" : "Seguir"}
-      {count !== null && count > 0 && <span className={cn("text-xs font-semibold", on ? "text-white/70" : "text-ink/50")}>{count}</span>}
+      {count !== null && count > 0 && <span className={cn("text-xs font-semibold", on ? "text-white/70" : "text-cream/50")}>{count}</span>}
     </button>
   );
 }

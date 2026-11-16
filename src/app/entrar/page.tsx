@@ -43,7 +43,7 @@ function AuthForm() {
     <div className="mx-auto max-w-md pt-8">
       <div className="card p-6">
         <h1 className="text-2xl font-extrabold tracking-tight"><BlurReveal key={mode}>{mode === "login" ? "Entrar na sua conta" : "Criar conta grátis"}</BlurReveal></h1>
-        <p className="mt-1 text-sm text-ink/60">Compre de todas as lojas do Roque Santeiro Express.</p>
+        <p className="mt-1 text-sm text-cream/60">Compre de todas as lojas do Roque Santeiro Express.</p>
         <div className="glass mt-5 grid grid-cols-2 rounded-full p-1 text-sm font-semibold">
           {(["login", "signup"] as const).map((m) => (
             <button key={m} type="button" onClick={() => { setMode(m); setMsg(null); }} className={`rounded-full py-2 transition ${mode === m ? "brand-gradient text-white shadow" : "text-brand-900"}`}>{m === "login" ? "Entrar" : "Registar"}</button>
@@ -61,7 +61,7 @@ function AuthForm() {
           {msg && <p className="rounded-2xl bg-brand-50 p-3 text-sm text-brand-900">{msg}</p>}
           <button disabled={busy} className="btn-primary h-12 w-full">{busy && <Loader2 className="h-4 w-4 animate-spin" />}{mode === "login" ? "Entrar" : "Criar conta"}</button>
         </form>
-        <p className="mt-4 text-center text-xs text-ink/50">Ao continuar aceita os termos e a política de privacidade. <Link href="/vender" className="font-semibold text-brand-600">Quer vender?</Link></p>
+        <p className="mt-4 text-center text-xs text-cream/50">Ao continuar aceita os termos e a política de privacidade. <Link href="/vender" className="font-semibold text-brand-600">Quer vender?</Link></p>
       </div>
     </div>
   );

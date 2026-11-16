@@ -50,7 +50,7 @@ export default function SellerProducts() {
           <h1 className="text-xl font-extrabold">Produtos</h1>
           <Link href="/vendedor/produtos/novo" className="btn-primary px-4 py-2"><Plus className="h-4 w-4" />Novo produto</Link>
         </div>
-        {!items ? <div className="skeleton h-40" /> : !items.length ? <p className="card p-8 text-center text-sm text-ink/60">Ainda não tem produtos. Crie o primeiro.</p> : (
+        {!items ? <div className="skeleton h-40" /> : !items.length ? <p className="card p-8 text-center text-sm text-cream/60">Ainda não tem produtos. Crie o primeiro.</p> : (
           <div className="space-y-2">
             {items.map((p) => (
               <div key={p.id} className="card flex items-center gap-3 p-3">
@@ -58,8 +58,8 @@ export default function SellerProducts() {
                 <img src={p.images[0] || "/p/smartphone.webp"} alt="" className="h-14 w-14 shrink-0 rounded-xl bg-mist object-contain p-1" />
                 <div className="min-w-0 flex-1">
                   <p className="line-clamp-1 text-sm font-semibold">{p.name}</p>
-                  <p className="text-xs text-ink/55">{kz(p.price)} · Stock {p.stock} · {p.sold_count} vendidos</p>
-                  <p className="text-[11px] text-ink/45">{stats[p.id]?.views ?? 0} vistas · {stats[p.id]?.clicks ?? 0} cliques · {stats[p.id]?.wishlists ?? 0} favoritos</p>
+                  <p className="text-xs text-cream/55">{kz(p.price)} · Stock {p.stock} · {p.sold_count} vendidos</p>
+                  <p className="text-[11px] text-cream/45">{stats[p.id]?.views ?? 0} vistas · {stats[p.id]?.clicks ?? 0} cliques · {stats[p.id]?.wishlists ?? 0} favoritos</p>
                 </div>
                 <button onClick={() => toggle(p)} className={`rounded-full px-3 py-1 text-xs font-semibold ${p.status === "active" ? "bg-emerald-100 text-emerald-700" : "bg-brand-100 text-brand-800"}`}>{LABEL[p.status] ?? p.status}</button>
                 <Link href={`/vendedor/produtos/${p.id}`} aria-label="Editar" className="grid h-9 w-9 place-items-center rounded-full hover:bg-brand-50"><Pencil className="h-4 w-4 text-brand-700" /></Link>

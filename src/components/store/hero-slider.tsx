@@ -45,11 +45,11 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
         >
           <div className="z-10 pl-5 pr-1 sm:pl-10 lg:pl-12">
             <span className="inline-block rounded-full bg-promo/10 px-3 py-1 text-[10.5px] font-bold uppercase tracking-wide text-promo sm:text-xs">{s.tag}</span>
-            <h2 className="mt-3 text-[25px] font-black uppercase leading-[0.95] tracking-[-0.02em] text-ink sm:text-5xl lg:text-[60px]">{s.title}</h2>
-            <p className="mt-2 line-clamp-2 max-w-xs text-[12.5px] leading-snug text-ink/60 sm:mt-4 sm:text-base">{s.subtitle}</p>
+            <h2 className="mt-3 text-[25px] font-black uppercase leading-[0.95] tracking-[-0.02em] text-cream sm:text-5xl lg:text-[60px]">{s.title}</h2>
+            <p className="mt-2 line-clamp-2 max-w-xs text-[12.5px] leading-snug text-cream/60 sm:mt-4 sm:text-base">{s.subtitle}</p>
             <p className="mt-2 flex flex-wrap items-baseline gap-x-2">
-              <b className="text-base font-extrabold text-ink sm:text-2xl">{kz(s.price)}</b>
-              {s.compare && <s className="text-[11px] text-ink/40 sm:text-sm">{kz(s.compare)}</s>}
+              <b className="text-base font-extrabold text-cream sm:text-2xl">{kz(s.price)}</b>
+              {s.compare && <s className="text-[11px] text-cream/40 sm:text-sm">{kz(s.compare)}</s>}
             </p>
             <Link href={s.href} draggable={false} className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-promo px-4 py-2.5 text-[12.5px] font-bold text-white shadow-lg shadow-promo/30 transition hover:bg-accent-600 active:scale-95 sm:mt-6 sm:gap-2 sm:px-6 sm:py-3 sm:text-sm">
               {s.cta}<ArrowRight className="h-4 w-4" />
@@ -73,7 +73,7 @@ export function HeroSlider({ slides }: { slides: HeroSlide[] }) {
       {n > 1 && (
         <div className="absolute bottom-3 right-4 z-20 flex gap-1.5 sm:bottom-5 sm:left-10 sm:right-auto lg:left-12">
           {slides.map((_, k) => (
-            <button key={k} type="button" aria-label={`Destaque ${k + 1}`} onClick={() => setI(k)} className={`h-1.5 rounded-full transition-all ${k === i ? "w-5 bg-promo" : "w-1.5 bg-ink/20"}`} />
+            <button key={k} type="button" aria-label={`Destaque ${k + 1}`} onClick={() => setI(k)} className={`h-1.5 rounded-full transition-all ${k === i ? "w-5 bg-promo" : "w-1.5 bg-cream/20"}`} />
           ))}
         </div>
       )}

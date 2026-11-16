@@ -1,44 +1,51 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #f6f6f7;
-  --color-brand-100: #ececee;
-  --color-brand-200: #d9d9dd;
-  --color-brand-300: #b4b4ba;
-  --color-brand-400: #7c7c84;
-  --color-brand-500: #4a4a50;
-  --color-brand-600: #1f1f22;
-  --color-brand-700: #18181b;
-  --color-brand-800: #111113;
-  --color-brand-900: #111113;
-  --color-ink: #18181b;
+  /* Paleta Roque Santeiro — referência escura: charcoal, cinzas, bege e creme */
+  --color-brand-50: #26262a;
+  --color-brand-100: #2e2e33;
+  --color-brand-200: #3a3a40;
+  --color-brand-300: #55555d;
+  --color-brand-400: #8b8b94;
+  --color-brand-500: #b9b9c1;
+  --color-brand-600: #d6d4cf;
+  --color-brand-700: #ebe8e2;
+  --color-brand-800: #f4f1ea;
+  --color-brand-900: #fbf9f4;
+  --color-ink: #1c1c1f;
+  --color-cream: #f0e9e1;
+  --color-beige: #d1bca7;
+  --color-panel: #303030;
+  --color-panel-2: #3a3a3c;
+  --color-field: #26262a;
   --color-sky: #e5484d;
-  --color-accent-50: #fff1f1;
-  --color-accent-100: #ffdcdc;
+  --color-accent-50: #2a1a1c;
+  --color-accent-100: #3d2427;
   --color-accent-500: #e5484d;
   --color-accent-600: #d13b40;
   --color-accent-700: #b42f34;
   --color-amber: #f5a623;
-  --color-gold: #f2b21b;
-  --color-gold-300: #ffd56a;
-  --color-gold-700: #b9780a;
+  --color-gold: #d1bca7;
+  --color-gold-300: #f0e9e1;
+  --color-gold-700: #8a7a63;
   --color-promo: #e5484d;
-  --color-promo-50: #fff1f1;
-  --color-line: #e7e7ea;
-  --color-mist: #f5f5f6;
+  --color-promo-50: #2a1a1c;
+  --color-line: #3c3c40;
+  --color-mist: #2c2c2f;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
 }
 
 :root {
-  --background: #f5f5f6;
-  --foreground: #18181b;
+  --background: #252525;
+  --foreground: #f0e9e1;
 }
 
 html { -webkit-tap-highlight-color: transparent; scroll-behavior: smooth; }
 body {
   background:
-    radial-gradient(1200px 520px at 50% -12%, #ffffff 0%, transparent 70%),
+    radial-gradient(1100px 520px at 85% -10%, rgba(209, 188, 167, 0.09) 0%, transparent 62%),
+    radial-gradient(900px 620px at -12% 34%, rgba(48, 48, 48, 0.85) 0%, transparent 60%),
     var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
@@ -47,32 +54,32 @@ body {
 }
 
 @utility glass {
-  background: rgba(255, 255, 255, 0.62);
-  backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 8px 32px -12px rgba(24, 24, 27, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: rgba(38, 38, 42, 0.55);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 36px -14px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 @utility glass-dark {
-  background: rgba(17, 17, 19, 0.5);
-  backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(20, 20, 22, 0.55);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 @utility card {
-  background: #ffffff;
-  border: 1px solid #e7e7ea;
-  border-radius: 1.1rem;
-  box-shadow: 0 1px 2px rgba(24, 24, 27, 0.04), 0 12px 28px -20px rgba(24, 24, 27, 0.28);
+  background: rgba(48, 48, 48, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.6rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 16px 34px -22px rgba(0, 0, 0, 0.65);
 }
 @utility brand-gradient {
-  background: linear-gradient(135deg, #0b0b0c 0%, #1f1f22 60%, #34343a 100%);
+  background: linear-gradient(135deg, #101012 0%, #26262a 55%, #3c3c41 100%);
 }
 @utility promo-gradient {
   background: linear-gradient(135deg, #d13b40 0%, #e5484d 60%, #f0686c 100%);
 }
 @utility text-gradient {
-  background: linear-gradient(90deg, #18181b, #e5484d);
+  background: linear-gradient(90deg, #ebe8e2, #d1bca7);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -84,27 +91,29 @@ body {
 @utility pb-safe { padding-bottom: calc(env(safe-area-inset-bottom) + 0.5rem); }
 
 @utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition active:scale-[0.97] disabled:opacity-50; }
-@utility btn-primary { @apply btn brand-gradient text-white shadow-lg shadow-brand-600/25; }
-@utility btn-ghost { @apply btn glass text-brand-800; }
-@utility input { @apply w-full rounded-2xl border border-line bg-white px-4 py-3 text-[15px] outline-none transition focus:border-brand-500 focus:ring-4 focus:ring-brand-100; }
-@utility label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-brand-900/60; }
+@utility btn-primary { @apply btn brand-gradient text-white shadow-lg shadow-black/40 ring-1 ring-white/10; }
+@utility btn-ghost { @apply btn glass text-cream; }
+@utility input {
+  @apply w-full rounded-2xl border border-white/10 bg-field px-4 py-3 text-[15px] text-cream outline-none transition placeholder:text-cream/35 focus:border-beige/60 focus:ring-4 focus:ring-beige/10;
+}
+@utility label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wide text-cream/55; }
 
 @keyframes shimmer { 100% { transform: translateX(100%); } }
-.skeleton { position: relative; overflow: hidden; border-radius: 0.75rem; background: #ececee; }
-.skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent); animation: shimmer 1.4s infinite; }
+.skeleton { position: relative; overflow: hidden; border-radius: 0.75rem; background: #3a3a3c; }
+.skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(255,255,255,.07), transparent); animation: shimmer 1.4s infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
 @utility gold-text {
-  background: linear-gradient(180deg, #ffe08a 0%, #f2b21b 55%, #b9780a 100%);
+  background: linear-gradient(180deg, #f7ecdb 0%, #d1bca7 55%, #8a7a63 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 @utility gold-ring {
-  box-shadow: 0 0 0 1px rgb(242 178 27 / 0.45), 0 8px 24px -12px rgb(242 178 27 / 0.55);
+  box-shadow: 0 0 0 1px rgb(209 188 167 / 0.45), 0 8px 24px -12px rgb(209 188 167 / 0.55);
 }
 
 /* Entrada num universo: clarão branco da porta que se dissolve */

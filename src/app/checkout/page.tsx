@@ -12,7 +12,7 @@ import { useCart } from "@/lib/cart/cart";
 import { useAuth } from "@/lib/auth";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { rpcError } from "@/lib/rpc-error";
-import { DELIVERY, PAY_METHOD, PROVINCES, kz } from "@/lib/utils";
+import { DELIVERY, PAYMENT_INFO, PAYMENT_REFERENCE, PAY_METHOD, PROVINCES, kz } from "@/lib/utils";
 
 type StoreInfo = { id: string; delivery_methods: string[] };
 
@@ -87,7 +87,7 @@ export default function CheckoutPage() {
           <h2 className="font-bold">2. Entrega por loja</h2>
           {Object.entries(groups).map(([sid, g]) => (
             <div key={sid} className="rounded-2xl border border-brand-100 p-3">
-              <p className="flex items-center gap-2 text-sm font-bold text-brand-800"><Store className="h-4 w-4" />{g[0].store_name} <span className="font-normal text-ink/50">· {g.length} {g.length === 1 ? "artigo" : "artigos"}</span></p>
+              <p className="flex items-center gap-2 text-sm font-bold text-brand-800"><Store className="h-4 w-4" />{g[0].store_name} <span className="font-normal text-cream/50">· {g.length} {g.length === 1 ? "artigo" : "artigos"}</span></p>
               <div className="mt-2 grid gap-2">
                 {(stores[sid]?.delivery_methods ?? ["rse"]).map((m) => (
                   <label key={m} className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 text-sm ${delivery[sid] === m ? "border-brand-500 bg-brand-50" : "border-brand-100"}`}>
@@ -99,20 +99,46 @@ export default function CheckoutPage() {
             </div>
           ))}
         </section>
-        <section className="card space-y-2 p-4">
+        <section className="card space-y-3 p-4">
           <h2 className="font-bold">3. Pagamento</h2>
-          {Object.entries(PAY_METHOD).filter(([k]) => k !== "manual").map(([k, l]) => (
-            <label key={k} className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 text-sm ${pay === k ? "border-brand-500 bg-brand-50" : "border-brand-100"}`}>
-              <input type="radio" name="pay" checked={pay === k} onChange={() => setPay(k)} className="accent-brand-600" />{l}
-            </label>
-          ))}
-          <p className="text-xs text-ink/55">A encomenda fica pendente até o pagamento ser verificado pela nossa equipa. Nunca marcamos pagamentos como pagos sem confirmação.</p>
+          <p className="text-xs text-cream/55">Escolha como quer pagar. A encomenda fica <b>Pendente de confirmação</b> até a nossa equipa verificar o pagamento.</p>
+          <div className="grid gap-2.5 sm:grid-cols-3">
+            {(["multicaixa_express", "paypay", "unitel_money"] as const).map((k) => {
+              const info = PAYMENT_INFO[k];
+              const on = pay === k;
+              return (
+                <label key={k} className={`flex cursor-pointer flex-col items-center gap-2 rounded-2xl border p-3 text-center transition ${on ? "border-beige/60 bg-beige/10 ring-2 ring-beige/20" : "border-white/10 bg-white/[0.03] hover:border-white/25"}`}>
+                  <input type="radio" name="pay" className="sr-only" checked={on} onChange={() => setPay(k)} />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={info.logo} alt={info.alt} className="h-9 w-auto max-w-[130px] object-contain" />
+                  <span className="text-[13px] font-bold text-cream">{PAY_METHOD[k]}</span>
+                  {on && <span className="rounded-full bg-cream px-2.5 py-0.5 text-[10.5px] font-bold uppercase tracking-wide text-ink">Seleccionado</span>}
+                </label>
+              );
+            })}
+          </div>
+          {PAYMENT_INFO[pay] && (
+            <div className="rounded-2xl border border-white/10 bg-black/20 p-3.5">
+              <div className="flex items-center justify-between gap-2">
+                <p className="text-[13px] font-bold text-cream">{PAY_METHOD[pay]}</p>
+                <p className="text-[13px] font-extrabold text-beige">{kz(subtotal + shipping)}</p>
+              </div>
+              <div className="mt-2 flex items-center justify-between gap-2 rounded-xl bg-white/[0.06] px-3 py-2">
+                <div><p className="text-[10.5px] uppercase tracking-wide text-cream/50">Referência de pagamento</p><p className="text-lg font-extrabold tracking-[0.2em] text-cream">{PAYMENT_REFERENCE}</p></div>
+                <button type="button" onClick={() => navigator.clipboard?.writeText(PAYMENT_REFERENCE)} className="rounded-full bg-cream px-3.5 py-1.5 text-[12px] font-bold text-ink">Copiar</button>
+              </div>
+              <ol className="mt-2.5 space-y-1.5 text-[12.5px] leading-snug text-cream/70">
+                {PAYMENT_INFO[pay].steps.map((st, i) => <li key={i} className="flex gap-2"><span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-beige/20 text-[10px] font-bold text-beige">{i + 1}</span>{st}</li>)}
+              </ol>
+              <p className="mt-2.5 text-[11.5px] text-cream/50">Depois de pagar, envie o comprovativo na página da encomenda. A encomenda só passa a «Pago» depois de verificação manual da nossa equipa.</p>
+            </div>
+          )}
           <textarea value={f.notes} onChange={set("notes")} placeholder="Notas para a entrega (opcional)" className="input min-h-20" />
         </section>
       </div>
       <aside className="card mt-4 h-fit space-y-2 p-4 lg:sticky lg:top-36 lg:mt-12">
-        <div className="flex justify-between text-sm"><span className="text-ink/60">Produtos</span><span>{kz(subtotal)}</span></div>
-        <div className="flex justify-between text-sm"><span className="text-ink/60">Portes ({Object.keys(groups).length} {Object.keys(groups).length === 1 ? "loja" : "lojas"})</span><span>{kz(shipping)}</span></div>
+        <div className="flex justify-between text-sm"><span className="text-cream/60">Produtos</span><span>{kz(subtotal)}</span></div>
+        <div className="flex justify-between text-sm"><span className="text-cream/60">Portes ({Object.keys(groups).length} {Object.keys(groups).length === 1 ? "loja" : "lojas"})</span><span>{kz(shipping)}</span></div>
         <div className="flex justify-between border-t border-brand-100 pt-2 text-lg font-extrabold"><span>Total</span><span className="text-brand-800">{kz(subtotal + shipping)}</span></div>
         {err && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{err}</p>}
         <div className="lg:hidden"><SlideCommit label="Deslize para encomendar" doneLabel="Encomenda criada" errorLabel="Verifique os dados" disabled={busy} onConfirm={() => { const fm = document.getElementById("checkout-form") as HTMLFormElement | null; if (!fm?.reportValidity()) return false; fm.requestSubmit(); }} /></div>

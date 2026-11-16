@@ -84,9 +84,9 @@ export default function AdminFinance() {
   return (
     <AdminShell>
       {msg && <p className="mb-3 rounded-2xl bg-brand-50 p-3 text-sm text-brand-900">{msg}</p>}
-      <p className="mb-3 rounded-2xl bg-ink/[0.04] p-3 text-xs text-ink/65">Ledger contabilístico interno. A Roque Santeiro não guarda dinheiro de terceiros: os valores são movimentados pelo banco/prestador de pagamentos. Uma liquidação só passa a &quot;Pago&quot; com a referência real da transferência.</p>
+      <p className="mb-3 rounded-2xl bg-cream/[0.04] p-3 text-xs text-cream/65">Ledger contabilístico interno. A Roque Santeiro não guarda dinheiro de terceiros: os valores são movimentados pelo banco/prestador de pagamentos. Uma liquidação só passa a &quot;Pago&quot; com a referência real da transferência.</p>
       <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
-        {CARDS.map(([k, l]) => <div key={k} className="card p-4"><p className="text-xs text-ink/55">{l}</p><p className="mt-1 text-lg font-extrabold">{sum ? kz(Number(sum[k] ?? 0)) : "…"}</p></div>)}
+        {CARDS.map(([k, l]) => <div key={k} className="card p-4"><p className="text-xs text-cream/55">{l}</p><p className="mt-1 text-lg font-extrabold">{sum ? kz(Number(sum[k] ?? 0)) : "…"}</p></div>)}
       </div>
 
       <div className="card mt-4 p-4 text-sm">
@@ -99,10 +99,10 @@ export default function AdminFinance() {
             </select>
           </label>
         </div>
-        {payouts.length === 0 && <p className="text-xs text-ink/50">Sem pedidos em aberto.</p>}
+        {payouts.length === 0 && <p className="text-xs text-cream/50">Sem pedidos em aberto.</p>}
         {payouts.map((p) => (
-          <div key={p.id} className="flex flex-wrap items-center gap-2 border-t border-ink/5 py-2">
-            <div className="min-w-0 flex-1"><p className="font-semibold">{p.stores.name} · {kz(p.amount)}</p><p className="text-[11px] text-ink/50">{new Date(p.created_at).toLocaleString("pt-AO")} · {p.account_holder ?? "—"} · {p.bank_name ?? ""} {p.iban}</p></div>
+          <div key={p.id} className="flex flex-wrap items-center gap-2 border-t border-cream/5 py-2">
+            <div className="min-w-0 flex-1"><p className="font-semibold">{p.stores.name} · {kz(p.amount)}</p><p className="text-[11px] text-cream/50">{new Date(p.created_at).toLocaleString("pt-AO")} · {p.account_holder ?? "—"} · {p.bank_name ?? ""} {p.iban}</p></div>
             <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[11px] font-semibold text-amber-800">{STATUS[p.status]}</span>
             {(NEXT[p.status] ?? []).map((s) => <button key={s} onClick={() => payout(p, s)} className={`rounded-full px-3 py-1 text-xs font-semibold ${s === "rejected" ? "bg-red-100 text-red-700" : s === "paid" ? "bg-emerald-600 text-white" : "bg-ink text-white"}`}>{STATUS[s]}</button>)}
           </div>
@@ -113,9 +113,9 @@ export default function AdminFinance() {
         <form onSubmit={findOrder} className="card space-y-2 p-4 text-sm">
           <p className="font-bold">Reembolso por subencomenda</p>
           <div className="flex gap-2"><input required inputMode="numeric" value={orderNo} onChange={(e) => setOrderNo(e.target.value)} placeholder="N.º da encomenda" className="input" /><button className="btn-ghost px-4">Procurar</button></div>
-          {subs?.length === 0 && <p className="text-xs text-ink/50">Encomenda não encontrada.</p>}
+          {subs?.length === 0 && <p className="text-xs text-cream/50">Encomenda não encontrada.</p>}
           {subs?.map((s) => (
-            <div key={s.id} className="flex items-center justify-between gap-2 border-t border-ink/5 pt-2">
+            <div key={s.id} className="flex items-center justify-between gap-2 border-t border-cream/5 pt-2">
               <span>{s.stores.name} · {kz(Number(s.seller_net) + Number(s.commission_amount) + Number(s.shipping_fee))}</span>
               <button type="button" onClick={() => refund(s)} className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">Reembolsar</button>
             </div>
@@ -137,7 +137,7 @@ export default function AdminFinance() {
         <p className="mb-2 font-bold">Reconciliação</p>
         {sum && sum.diffs.length === 0 && <p className="text-xs text-emerald-700">Sem diferenças entre encomendas, ledger e gateway.</p>}
         {sum?.diffs.map((d) => (
-          <div key={d.id} className="flex flex-wrap justify-between gap-2 border-t border-ink/5 py-2 text-xs">
+          <div key={d.id} className="flex flex-wrap justify-between gap-2 border-t border-cream/5 py-2 text-xs">
             <Link href={`/conta/encomendas/${d.id}`} className="font-semibold underline">#{d.number}</Link>
             <span>Total {kz(d.total)}</span><span>Ledger {kz(d.ledger)}</span><span>Gateway {d.gateway === null ? "—" : kz(d.gateway)}</span><span>Divisão {kz(d.split)}</span>
           </div>
@@ -147,9 +147,9 @@ export default function AdminFinance() {
       <div className="card mt-4 p-4 text-sm">
         <div className="mb-2 flex items-center justify-between gap-2"><p className="font-bold">Operações (origem)</p><input value={q} onChange={(e) => setQ(e.target.value)} placeholder="N.º encomenda, loja ou chave" className="input h-9 max-w-56 text-xs" /></div>
         {shown.map((e) => (
-          <div key={e.id} className="flex items-center justify-between gap-2 border-t border-ink/5 py-1.5 text-xs">
+          <div key={e.id} className="flex items-center justify-between gap-2 border-t border-cream/5 py-1.5 text-xs">
             <div className="min-w-0"><p className="truncate font-medium">{e.entry_type} · {e.account}{e.stores ? ` · ${e.stores.name}` : ""}</p>
-              <p className="truncate text-[11px] text-ink/50">{new Date(e.created_at).toLocaleString("pt-AO")}{e.orders ? ` · encomenda #${e.orders.number}` : ""}{e.payout_id ? " · liquidação" : ""} · {e.idempotency_key}{e.memo ? ` · ${e.memo}` : ""}</p></div>
+              <p className="truncate text-[11px] text-cream/50">{new Date(e.created_at).toLocaleString("pt-AO")}{e.orders ? ` · encomenda #${e.orders.number}` : ""}{e.payout_id ? " · liquidação" : ""} · {e.idempotency_key}{e.memo ? ` · ${e.memo}` : ""}</p></div>
             <span className={`shrink-0 font-bold ${Number(e.amount) < 0 ? "text-red-600" : "text-emerald-700"}`}>{kz(Number(e.amount))}</span>
           </div>
         ))}

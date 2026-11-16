@@ -6,7 +6,6 @@ import { CategoryStrip, Hero, QuadCards, TrustMarquee } from "@/components/store
 import { FlowButton } from "@/components/effects/flow-button";
 import { WordsStagger } from "@/components/effects/words-stagger";
 import { ArcSpotlight } from "@/components/store/arc-spotlight";
-import { FoodSpotlight } from "@/components/store/food-spotlight";
 import { RevealGrid } from "@/components/store/reveal-grid";
 import { UniverseEntry } from "@/components/universe/entry";
 import { TalksEntry } from "@/components/talks/talks-hub";
@@ -21,15 +20,14 @@ import type { Product } from "@/lib/types";
 export const revalidate = 60;
 
 export default async function Home() {
-  const [allCats, all, deals, fresh, featured, food] = await Promise.all([
+  const [allCats, all, deals, fresh, featured] = await Promise.all([
     getCategories(),
     getProducts({ limit: 80, noServices: true }),
     getProducts({ deals: true, limit: 12, noServices: true }),
     getProducts({ sort: "novos", limit: 8, noServices: true }),
     getProducts({ featured: true, limit: 14, noServices: true }),
-    getProducts({ storeType: "comida", limit: 16 }),
   ]);
-  // Farmácia e supermercado ficam só na aba Lojas; na página inicial só a Comida tem destaque.
+  // Farmácia, supermercado e comida ficam fora dos feeds gerais; a comida vive nas lojas e categorias próprias.
   const cats = allCats.filter((c) => !["farmacia", "supermercado"].includes(c.slug));
   const partnerSlugs = new Set(["gilberto-aqui-tem", "muralha-de-mortalhas"]);
   const first = (arr: Product[]) => [...arr].sort((a, b) => Number(partnerSlugs.has(b.stores?.slug ?? "")) - Number(partnerSlugs.has(a.stores?.slug ?? "")));
@@ -44,7 +42,6 @@ export default async function Home() {
       <Hero featured={featuredProducts} all={allProducts} deals={dealProducts} fresh={freshProducts} cats={cats} />
       <TrustMarquee />
       <CategoryStrip cats={cats} />
-      <FoodSpotlight dishes={mixByStore(food.products)} className="mt-6" />
       <UniverseEntry />
       <TalksEntry className="mt-2.5" />
       <Section title="Em destaque" subtitle="Deslize para ver mais" href="/pesquisa">
@@ -78,7 +75,7 @@ export default async function Home() {
       <RecoRail kind="top_rated" title="Mais bem avaliados" subtitle="Ranking por avaliações verificadas" href="/pesquisa?ordem=avaliacao" />
 
       <section className="card mt-8 overflow-hidden p-6 sm:p-10">
-        <WordsStagger className="text-[22px] font-bold leading-snug tracking-tight text-ink sm:text-3xl">
+        <WordsStagger className="text-[22px] font-bold leading-snug tracking-tight text-cream sm:text-3xl">
           Tem uma loja? Venda para toda Angola no Roque Santeiro Express. Abra a sua loja grátis, publique produtos e receba as suas vendas.
         </WordsStagger>
         <div className="mt-5"><FlowButton href="/vender">Tornar-se vendedor</FlowButton></div>

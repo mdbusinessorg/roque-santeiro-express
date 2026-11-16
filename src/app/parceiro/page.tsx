@@ -67,7 +67,7 @@ export default function PartnerDashboard() {
           <p className="text-[11px] text-white/60">O teu link · código <b className="text-gold">{p.code}</b></p>
           <p className="truncate text-sm font-semibold">{link}</p>
           <div className="mt-2 flex gap-2">
-            <button onClick={async () => { await navigator.clipboard.writeText(link); setMsg("Link copiado."); }} className="inline-flex items-center gap-1 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-ink active:scale-95"><Copy className="h-3.5 w-3.5" />Copiar</button>
+            <button onClick={async () => { await navigator.clipboard.writeText(link); setMsg("Link copiado."); }} className="inline-flex items-center gap-1 rounded-full bg-cream px-3 py-1.5 text-xs font-bold text-ink active:scale-95"><Copy className="h-3.5 w-3.5" />Copiar</button>
             <button onClick={() => shareLink("Roque Santeiro Express", link, "Compra no Roque Santeiro Express:")} className="inline-flex items-center gap-1 rounded-full bg-gold px-3 py-1.5 text-xs font-bold text-ink active:scale-95"><Share2 className="h-3.5 w-3.5" />Partilhar</button>
           </div>
           <p className="mt-2 text-[11px] text-white/50">Para um produto: junta <b>?ref={p.code}</b> ao link do produto.</p>
@@ -77,16 +77,16 @@ export default function PartnerDashboard() {
 
       <div className="mt-4 grid grid-cols-2 gap-2.5 lg:grid-cols-6">
         {[["Visitas pelo link", String(clicks)], ["Encomendas atribuídas", String(orders)], ["Vendas atribuídas", kz(sales.reduce((a, c) => a + Number(c.sale_amount), 0))], ["Pendente", kz(sum("pending"))], ["Aprovado (a pagar)", kz(sum("approved"))], ["Já recebido", kz(sum("paid"))]].map(([l, v]) => (
-          <div key={l} className="card p-4"><p className="text-xs text-ink/55">{l}</p><p className="mt-1 text-lg font-extrabold">{v}</p></div>
+          <div key={l} className="card p-4"><p className="text-xs text-cream/55">{l}</p><p className="mt-1 text-lg font-extrabold">{v}</p></div>
         ))}
       </div>
 
       <div className="card mt-4 p-4 text-sm">
         <p className="mb-2 font-bold">Vendas e comissões</p>
-        {comms.length === 0 && <p className="text-xs text-ink/50">Ainda sem vendas. A comissão aparece quando uma compra feita pelo teu link é paga.</p>}
+        {comms.length === 0 && <p className="text-xs text-cream/50">Ainda sem vendas. A comissão aparece quando uma compra feita pelo teu link é paga.</p>}
         {comms.map((c) => (
-          <div key={c.id} className="flex items-center justify-between gap-2 border-t border-ink/5 py-2">
-            <div className="min-w-0"><p className="font-medium">Encomenda #{c.order_number} · venda {kz(c.sale_amount)}</p><p className="text-[11px] text-ink/50">{new Date(c.created_at).toLocaleDateString("pt-AO")} · {Math.round(c.rate * 100)}% de {kz(c.platform_commission)} de comissão{c.note ? ` · ${c.note}` : ""}</p></div>
+          <div key={c.id} className="flex items-center justify-between gap-2 border-t border-cream/5 py-2">
+            <div className="min-w-0"><p className="font-medium">Encomenda #{c.order_number} · venda {kz(c.sale_amount)}</p><p className="text-[11px] text-cream/50">{new Date(c.created_at).toLocaleDateString("pt-AO")} · {Math.round(c.rate * 100)}% de {kz(c.platform_commission)} de comissão{c.note ? ` · ${c.note}` : ""}</p></div>
             <div className="shrink-0 text-right"><p className="font-bold">{kz(c.amount)}</p><span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${ST[c.status][1]}`}>{ST[c.status][0]}</span></div>
           </div>
         ))}
@@ -95,8 +95,8 @@ export default function PartnerDashboard() {
       <div className="mt-4 grid gap-4 lg:grid-cols-2">
         <div className="card p-4 text-sm">
           <p className="mb-2 font-bold">Histórico de pagamentos</p>
-          {pays.length === 0 && <p className="text-xs text-ink/50">Sem pagamentos.</p>}
-          {pays.map((y) => <div key={y.id} className="flex justify-between border-t border-ink/5 py-2"><span>{new Date(y.created_at).toLocaleDateString("pt-AO")} · {y.method} · ref. {y.reference}</span><b>{kz(y.amount)}</b></div>)}
+          {pays.length === 0 && <p className="text-xs text-cream/50">Sem pagamentos.</p>}
+          {pays.map((y) => <div key={y.id} className="flex justify-between border-t border-cream/5 py-2"><span>{new Date(y.created_at).toLocaleDateString("pt-AO")} · {y.method} · ref. {y.reference}</span><b>{kz(y.amount)}</b></div>)}
         </div>
         <form onSubmit={saveBank} className="card space-y-2 p-4 text-sm">
           <p className="font-bold">Dados de recebimento</p>

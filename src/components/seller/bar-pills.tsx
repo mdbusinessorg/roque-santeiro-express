@@ -14,9 +14,9 @@ export function BarPills({ data, format, height = 220 }: { data: Bar[]; format?:
   const short = (n: number) => (n >= 1e6 ? `${(n / 1e6).toFixed(1)}M` : n >= 1e3 ? `${Math.round(n / 1e3)}k` : String(n));
   return (
     <div className="flex gap-2" style={{ height }}>
-      <div className="flex flex-col justify-between pb-6 text-right text-[10px] text-ink/40">{ticks.map((t, i) => <span key={i}>{short(t)}</span>)}</div>
+      <div className="flex flex-col justify-between pb-6 text-right text-[10px] text-cream/40">{ticks.map((t, i) => <span key={i}>{short(t)}</span>)}</div>
       <div className="relative flex flex-1 items-end justify-between gap-1.5 sm:gap-3">
-        <div className="pointer-events-none absolute inset-x-0 bottom-6 top-1 flex flex-col justify-between">{ticks.map((_, i) => <span key={i} className="border-t border-dashed border-ink/10" />)}</div>
+        <div className="pointer-events-none absolute inset-x-0 bottom-6 top-1 flex flex-col justify-between">{ticks.map((_, i) => <span key={i} className="border-t border-dashed border-cream/10" />)}</div>
         {data.map((d, i) => {
           const hPct = Math.max(6, (d.v / max) * 100);
           const hi = i === peak && d.v > 0;
@@ -27,7 +27,7 @@ export function BarPills({ data, format, height = 220 }: { data: Bar[]; format?:
                   initial={reduce ? false : { height: 0 }}
                   animate={{ height: `${hPct}%` }}
                   transition={{ type: "spring", stiffness: 120, damping: 18, delay: i * 0.04 }}
-                  className={`relative w-full rounded-full ${hi ? "bg-ink" : "bg-ink/15"}`}
+                  className={`relative w-full rounded-full ${hi ? "bg-ink" : "bg-cream/15"}`}
                   style={{ backgroundImage: "repeating-linear-gradient(135deg, rgba(255,255,255,0.18) 0 2px, transparent 2px 9px)" }}
                   title={format ? format(d.v) : String(d.v)}
                 >
@@ -41,7 +41,7 @@ export function BarPills({ data, format, height = 220 }: { data: Bar[]; format?:
                   )}
                 </motion.div>
               </div>
-              <span className="mt-2 h-4 text-[10px] font-medium uppercase text-ink/50">{d.label}</span>
+              <span className="mt-2 h-4 text-[10px] font-medium uppercase text-cream/50">{d.label}</span>
             </div>
           );
         })}

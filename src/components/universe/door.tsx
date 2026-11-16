@@ -46,8 +46,8 @@ function Scene({ universe }: { universe: Universe }) {
         <div className="absolute inset-x-0 bottom-[26%] h-[5px] bg-white/90 shadow-[0_1px_2px_rgba(0,0,0,.12)]" />
 
         <motion.div className="absolute inset-x-0 top-[13%] text-center" initial={{ opacity: 0, y: 10 }} animate={{ opacity: [0, 1, 1, 0], y: 0 }} transition={{ duration: 1.5, times: [0, 0.25, 0.7, 1] }}>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.5em] text-ink/45">Universo</p>
-          <p className="mt-1 text-[34px] font-extralight leading-none tracking-[0.06em] text-ink">{LABEL[universe]}</p>
+          <p className="text-[10px] font-semibold uppercase tracking-[0.5em] text-cream/45">Universo</p>
+          <p className="mt-1 text-[34px] font-extralight leading-none tracking-[0.06em] text-cream">{LABEL[universe]}</p>
           <span className="mx-auto mt-3 block h-px w-10 bg-gold" />
         </motion.div>
 

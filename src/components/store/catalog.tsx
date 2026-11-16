@@ -35,7 +35,7 @@ export async function Catalog({ base, sp, category }: { base: string; sp: Catalo
         <input name="max" inputMode="numeric" defaultValue={sp.max} placeholder="Preço máx." className="input h-10 py-2 text-sm" />
         <button className="btn-primary h-10 px-4 py-2">Filtrar</button>
       </form>
-      <p className="mb-2 mt-4 px-1 text-sm text-ink/55">{total} {total === 1 ? "resultado" : "resultados"}</p>
+      <p className="mb-2 mt-4 px-1 text-sm text-cream/55">{total} {total === 1 ? "resultado" : "resultados"}</p>
       <ProductGrid products={products} />
       {pages > 1 && (
         <div className="mt-5 flex justify-center gap-2">

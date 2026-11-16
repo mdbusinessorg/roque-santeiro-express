@@ -42,8 +42,23 @@ export const PAY_STATUS: Record<string, string> = {
   failed: "Falhado", refunded: "Reembolsado", partially_refunded: "Parcialmente reembolsado",
 };
 export const PAY_METHOD: Record<string, string> = {
-  multicaixa_express: "Multicaixa Express", transfer: "Transferência bancária",
-  cash_on_delivery: "Pagamento na entrega", manual: "Pagamento manual",
+  multicaixa_express: "Multicaixa Express", paypay: "PayPay", unitel_money: "Unitel Money",
+  transfer: "Transferência bancária", cash_on_delivery: "Pagamento na entrega", manual: "Pagamento manual",
+};
+export const PAYMENT_REFERENCE = "926115429";
+export const PAYMENT_INFO: Record<string, { logo: string; alt: string; steps: string[] }> = {
+  multicaixa_express: {
+    logo: "/pay/multicaixa.svg", alt: "Multicaixa Express",
+    steps: ["Abra a app Multicaixa Express e inicie sessão.", "Escolha «Pagar» e indique o valor total da encomenda.", "Introduza a referência 926115429 como descrição do pagamento.", "Confirme o pagamento e guarde o comprovativo."],
+  },
+  paypay: {
+    logo: "/pay/paypay.svg", alt: "PayPay",
+    steps: ["Abra a app PayPay e inicie sessão.", "Escolha «Enviar» ou «Pagar» e indique o valor total.", "Use a referência 926115429 na descrição.", "Confirme e guarde o comprovativo."],
+  },
+  unitel_money: {
+    logo: "/pay/unitel-money.svg", alt: "Unitel Money",
+    steps: ["Abra a app Unitel Money.", "Escolha «Transferir» para o número da referência 926115429.", "Indique o valor total da encomenda.", "Confirme e guarde o comprovativo."],
+  },
 };
 export const DELIVERY: Record<string, string> = {
   rse: "Rede logística Roque Santeiro Express", seller: "Entrega pelo vendedor", pickup: "Levantamento na loja",

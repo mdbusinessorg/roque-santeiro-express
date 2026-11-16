@@ -24,7 +24,7 @@ export function BottomNav() {
           const active = href === "/" ? path === "/" : path.startsWith(href);
           return (
             <li key={href}>
-              <Link href={href} aria-label={label} title={label} className={cn("relative grid h-12 w-12 place-items-center rounded-full transition active:scale-90", active ? "bg-ink text-white shadow-lg shadow-ink/25" : "bg-ink/[0.05] text-ink/60")}>
+              <Link href={href} aria-label={label} title={label} className={cn("relative grid h-12 w-12 place-items-center rounded-full transition active:scale-90", active ? "bg-ink text-white shadow-lg shadow-black/25" : "bg-cream/[0.05] text-cream/60")}>
                 <Icon className="h-[21px] w-[21px]" strokeWidth={active ? 2.3 : 1.9} />
                 {href === "/carrinho" && count > 0 && (
                   <span className="promo-gradient absolute -right-0.5 -top-0.5 min-w-[18px] rounded-full px-1 text-center text-[10px] font-bold leading-[18px] text-white ring-2 ring-white">{count}</span>

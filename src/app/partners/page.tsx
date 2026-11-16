@@ -45,12 +45,12 @@ export default function PartnersPage() {
       <div className="mt-4 grid gap-3 sm:grid-cols-3">
         {[[Link2, "1. Partilha", "Recebe um link e um código próprios."], [BadgePercent, "2. Vende", "A venda fica atribuída a ti quando o cliente compra pelo teu link (válido 30 dias)."], [ShieldCheck, "3. Recebe", "A comissão é aprovada com a entrega e paga por transferência com referência."]].map(([I, t, d]) => {
           const Icon = I as typeof Link2;
-          return <div key={t as string} className="card p-4"><Icon className="h-5 w-5 text-gold-700" /><p className="mt-2 font-bold">{t as string}</p><p className="text-xs text-ink/60">{d as string}</p></div>;
+          return <div key={t as string} className="card p-4"><Icon className="h-5 w-5 text-gold-700" /><p className="mt-2 font-bold">{t as string}</p><p className="text-xs text-cream/60">{d as string}</p></div>;
         })}
       </div>
 
-      <div className="card mt-4 p-4 text-xs text-ink/65">
-        <p className="mb-1 font-bold text-ink">Exemplo</p>
+      <div className="card mt-4 p-4 text-xs text-cream/65">
+        <p className="mb-1 font-bold text-cream">Exemplo</p>
         Venda de 100 000 Kz com comissão da plataforma de 10% = 10 000 Kz. O parceiro recebe 2 000 Kz (20% de 10 000 Kz), não 20% da venda. Não há pagamentos por recrutar pessoas: só por vendas reais, pagas e entregues. Compras feitas por ti próprio não contam.
       </div>
 
@@ -64,8 +64,8 @@ export default function PartnersPage() {
             <p className="text-lg font-extrabold">Candidatura</p>
             <div className="grid gap-2 sm:grid-cols-3">
               {KINDS.map(([k, l, d]) => (
-                <button type="button" key={k} onClick={() => setF({ ...f, kind: k })} className={`rounded-2xl border p-3 text-left transition active:scale-[0.98] ${f.kind === k ? "border-ink bg-ink text-white" : "border-ink/10"}`}>
-                  <p className="font-bold">{l}</p><p className={`text-[11px] ${f.kind === k ? "text-white/70" : "text-ink/55"}`}>{d}</p>
+                <button type="button" key={k} onClick={() => setF({ ...f, kind: k })} className={`rounded-2xl border p-3 text-left transition active:scale-[0.98] ${f.kind === k ? "border-cream/20 bg-ink text-white" : "border-cream/10"}`}>
+                  <p className="font-bold">{l}</p><p className={`text-[11px] ${f.kind === k ? "text-white/70" : "text-cream/55"}`}>{d}</p>
                 </button>
               ))}
             </div>
@@ -77,7 +77,7 @@ export default function PartnersPage() {
             </div>
             {msg && <p className="text-xs text-red-600">{msg}</p>}
             <button disabled={busy} className="btn-primary h-12 w-full">{busy && <Loader2 className="h-4 w-4 animate-spin" />}Enviar candidatura</button>
-            <p className="text-center text-[11px] text-ink/50">A equipa aprova a candidatura antes de o link começar a contar.</p>
+            <p className="text-center text-[11px] text-cream/50">A equipa aprova a candidatura antes de o link começar a contar.</p>
           </form>
         )}
       </div>

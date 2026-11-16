@@ -60,24 +60,24 @@ export default function AdminPartners() {
   return (
     <AdminShell>
       {msg && <p className="mb-3 rounded-2xl bg-brand-50 p-3 text-sm">{msg}</p>}
-      <p className="mb-3 rounded-2xl bg-ink/[0.04] p-3 text-xs text-ink/65">Regra: o parceiro recebe 20% da comissão efectivamente recebida pela plataforma (não do valor da venda). A comissão nasce quando o pagamento é confirmado, é aprovada com a entrega e anulada em cancelamentos, devoluções ou reembolsos. Não há pagamentos por recrutamento.</p>
+      <p className="mb-3 rounded-2xl bg-cream/[0.04] p-3 text-xs text-cream/65">Regra: o parceiro recebe 20% da comissão efectivamente recebida pela plataforma (não do valor da venda). A comissão nasce quando o pagamento é confirmado, é aprovada com a entrega e anulada em cancelamentos, devoluções ou reembolsos. Não há pagamentos por recrutamento.</p>
       <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
-        {CARDS.map(([k, l, money]) => <div key={k} className="card p-4"><p className="text-xs text-ink/55">{l}</p><p className="mt-1 text-lg font-extrabold">{sum ? (money ? kz(Number(sum[k] ?? 0)) : Number(sum[k] ?? 0)) : "…"}</p></div>)}
+        {CARDS.map(([k, l, money]) => <div key={k} className="card p-4"><p className="text-xs text-cream/55">{l}</p><p className="mt-1 text-lg font-extrabold">{sum ? (money ? kz(Number(sum[k] ?? 0)) : Number(sum[k] ?? 0)) : "…"}</p></div>)}
       </div>
 
       <div className="card mt-4 p-4 text-sm">
         <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
           <p className="font-bold">Parceiros</p>
           <div className="no-scrollbar flex gap-1.5 overflow-x-auto">
-            {["pending", "active", "suspended", "rejected", "all"].map((s) => <button key={s} onClick={() => setFilter(s)} className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${filter === s ? "bg-ink text-white" : "bg-ink/5"}`}>{s === "all" ? "Todos" : PST[s]}</button>)}
+            {["pending", "active", "suspended", "rejected", "all"].map((s) => <button key={s} onClick={() => setFilter(s)} className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${filter === s ? "bg-ink text-white" : "bg-cream/5"}`}>{s === "all" ? "Todos" : PST[s]}</button>)}
           </div>
         </div>
-        {shownPartners.length === 0 && <p className="text-xs text-ink/50">Nenhum parceiro neste estado.</p>}
+        {shownPartners.length === 0 && <p className="text-xs text-cream/50">Nenhum parceiro neste estado.</p>}
         {shownPartners.map((p) => {
           const d = due(p.id);
           return (
-            <div key={p.id} className="flex flex-wrap items-center gap-2 border-t border-ink/5 py-2">
-              <div className="min-w-0 flex-1"><p className="font-semibold">{p.display_name} · <span className="text-gold-700">{p.code}</span></p><p className="text-[11px] text-ink/50">{KIND[p.kind]} · {PST[p.status]} · {p.phone ?? "—"} · {p.region ?? "—"} · {p.channel ?? "—"}</p></div>
+            <div key={p.id} className="flex flex-wrap items-center gap-2 border-t border-cream/5 py-2">
+              <div className="min-w-0 flex-1"><p className="font-semibold">{p.display_name} · <span className="text-gold-700">{p.code}</span></p><p className="text-[11px] text-cream/50">{KIND[p.kind]} · {PST[p.status]} · {p.phone ?? "—"} · {p.region ?? "—"} · {p.channel ?? "—"}</p></div>
               {p.status !== "active" && <button onClick={() => setStatus(p, "active")} className="rounded-full bg-ink px-3 py-1 text-xs font-semibold text-white">Aprovar</button>}
               {p.status === "active" && <button onClick={() => setStatus(p, "suspended")} className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">Suspender</button>}
               {p.status === "pending" && <button onClick={() => setStatus(p, "rejected")} className="rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700">Rejeitar</button>}
@@ -89,11 +89,11 @@ export default function AdminPartners() {
 
       <div className="card mt-4 p-4 text-sm">
         <p className="mb-2 font-bold">Atribuição de vendas e comissões</p>
-        {comms.length === 0 && <p className="text-xs text-ink/50">Ainda sem vendas atribuídas.</p>}
+        {comms.length === 0 && <p className="text-xs text-cream/50">Ainda sem vendas atribuídas.</p>}
         {comms.map((c) => (
-          <div key={c.id} className="flex flex-wrap items-center gap-2 border-t border-ink/5 py-2 text-xs">
-            <div className="min-w-0 flex-1"><p className="font-semibold">#{c.order_number} · {c.partners.display_name} ({c.partners.code})</p><p className="text-[11px] text-ink/50">{new Date(c.created_at).toLocaleString("pt-AO")} · venda {kz(c.sale_amount)} · comissão plataforma {kz(c.platform_commission)}</p></div>
-            <b>{kz(c.amount)}</b><span className="rounded-full bg-ink/5 px-2 py-0.5">{CST[c.status]}</span>
+          <div key={c.id} className="flex flex-wrap items-center gap-2 border-t border-cream/5 py-2 text-xs">
+            <div className="min-w-0 flex-1"><p className="font-semibold">#{c.order_number} · {c.partners.display_name} ({c.partners.code})</p><p className="text-[11px] text-cream/50">{new Date(c.created_at).toLocaleString("pt-AO")} · venda {kz(c.sale_amount)} · comissão plataforma {kz(c.platform_commission)}</p></div>
+            <b>{kz(c.amount)}</b><span className="rounded-full bg-cream/5 px-2 py-0.5">{CST[c.status]}</span>
             {c.status === "pending" && <button onClick={() => commission(c, "approve")} className="rounded-full bg-ink px-3 py-1 font-semibold text-white">Aprovar</button>}
             {(c.status === "pending" || c.status === "approved") && <button onClick={() => commission(c, "reverse")} className="rounded-full bg-red-100 px-3 py-1 font-semibold text-red-700">Anular</button>}
           </div>

@@ -55,7 +55,7 @@ export function SnapShowcase({ items }: { items: FlexItem[] }) {
               <img src={it.src} alt={it.alt} decoding="async" className="h-full w-full object-contain p-5 mix-blend-multiply" />
             </div>
             <div className="glass absolute inset-x-2 bottom-2 rounded-2xl px-3 py-2">
-              <p className="line-clamp-1 text-sm font-semibold text-ink">{it.title}</p>
+              <p className="line-clamp-1 text-sm font-semibold text-cream">{it.title}</p>
               {it.subtitle && <p className="text-sm font-extrabold text-promo">{it.subtitle}</p>}
             </div>
           </Link>
@@ -63,7 +63,7 @@ export function SnapShowcase({ items }: { items: FlexItem[] }) {
       </div>
       <div className="mt-2 flex justify-center gap-1.5">
         {items.map((_, i) => (
-          <button key={i} type="button" aria-label={`Ver ${i + 1}`} onClick={() => go(i)} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-promo" : "w-1.5 bg-ink/20"}`} />
+          <button key={i} type="button" aria-label={`Ver ${i + 1}`} onClick={() => go(i)} className={`h-1.5 rounded-full transition-all ${i === active ? "w-5 bg-promo" : "w-1.5 bg-cream/20"}`} />
         ))}
       </div>
     </div>

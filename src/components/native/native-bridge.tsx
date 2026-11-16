@@ -34,7 +34,7 @@ export function NativeBridge() {
 
   if (!offline) return null;
   return (
-    <div role="alert" className="fixed inset-x-3 top-[calc(env(safe-area-inset-top)+8px)] z-[100] flex items-center gap-2 rounded-2xl bg-ink/90 px-4 py-3 text-sm font-semibold text-white shadow-xl backdrop-blur-xl">
+    <div role="alert" className="fixed inset-x-3 top-[calc(env(safe-area-inset-top)+8px)] z-[100] flex items-center gap-2 rounded-2xl bg-cream/90 px-4 py-3 text-sm font-semibold text-white shadow-xl backdrop-blur-xl">
       <WifiOff className="h-4 w-4 shrink-0 text-gold" /> Sem ligação. As alterações serão retomadas quando voltar a internet.
     </div>
   );

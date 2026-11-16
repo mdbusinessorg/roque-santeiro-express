@@ -72,11 +72,11 @@ export default function SellPage() {
           <p className="mt-3 text-white/85">Abra a sua loja no <HighlightedText inView barClassName="bg-white/25 [background-image:none]">Roque Santeiro Express</HighlightedText> e chegue a milhares de clientes.</p>
         </div>
       </section>
-      <div className="-mx-3 mt-2 text-ink/85">
+      <div className="-mx-3 mt-2 text-cream/85">
         <CurvedLoop marqueeText="Venda para toda Angola ✦ Loja pública própria ✦ Comissão só quando vende ✦" shape="wave" speed={1.2} curveAmount={120} fontSize={44} fontWeight={800} edgeFade={0.15} interactive className="" separatorColor="" />
       </div>
       <div className="mt-2 grid grid-cols-2 gap-2.5 lg:grid-cols-4" id="comissoes">
-        {perks.map(({ i: I, t, d }) => <div key={t} className="card p-4"><I className="h-6 w-6 text-brand-600" /><p className="mt-2 text-sm font-bold">{t}</p><p className="mt-1 text-xs text-ink/60">{d}</p></div>)}
+        {perks.map(({ i: I, t, d }) => <div key={t} className="card p-4"><I className="h-6 w-6 text-brand-600" /><p className="mt-2 text-sm font-bold">{t}</p><p className="mt-1 text-xs text-cream/60">{d}</p></div>)}
       </div>
 
       <div className="mx-auto mt-6 max-w-2xl">
@@ -110,7 +110,7 @@ export default function SellPage() {
             <label className="flex items-start gap-2 text-sm"><input type="checkbox" required checked={terms} onChange={(e) => setTerms(e.target.checked)} className="mt-1 accent-brand-600" />Aceito os termos de vendedor e a comissão da plataforma.</label>
             {err && <p className="rounded-xl bg-red-50 p-3 text-sm text-red-700">{err}</p>}
             <button disabled={busy} className="btn-primary h-12 w-full">{busy && <Loader2 className="h-4 w-4 animate-spin" />}Enviar pedido</button>
-            <p className="text-center text-xs text-ink/50">A sua loja fica “Pendente de aprovação” até a nossa equipa verificar os dados.</p>
+            <p className="text-center text-xs text-cream/50">A sua loja fica “Pendente de aprovação” até a nossa equipa verificar os dados.</p>
           </form>
         )}
       </div>

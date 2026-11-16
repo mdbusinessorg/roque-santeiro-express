@@ -28,7 +28,7 @@ export function RecoRail({ kind, title, subtitle, productId, exclude = [], limit
   return (
     <section className="mt-6" aria-label={title}>
       <div className="flex items-end justify-between gap-3">
-        <div><h2 className="text-lg font-extrabold tracking-tight">{title}</h2>{subtitle && <p className="text-xs text-ink/55">{subtitle}</p>}</div>
+        <div><h2 className="text-lg font-extrabold tracking-tight">{title}</h2>{subtitle && <p className="text-xs text-cream/55">{subtitle}</p>}</div>
         {href && <Link href={href} className="text-sm font-semibold text-brand-600">Ver mais</Link>}
       </div>
       <div className="no-scrollbar -mx-3 mt-3 flex snap-x gap-3 overflow-x-auto px-3 pb-2">

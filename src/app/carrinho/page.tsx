@@ -14,7 +14,7 @@ export default function CartPage() {
     <div className="card mx-auto mt-8 max-w-md p-8 text-center">
       <ShoppingBag className="mx-auto h-12 w-12 text-brand-400" />
       <h1 className="mt-3 text-xl font-bold">O seu carrinho está vazio</h1>
-      <p className="mt-1 text-sm text-ink/60">Explore milhares de produtos de várias lojas.</p>
+      <p className="mt-1 text-sm text-cream/60">Explore milhares de produtos de várias lojas.</p>
       <Link href="/" className="btn-primary mt-5">Começar a comprar</Link>
     </div>
   );
@@ -23,7 +23,7 @@ export default function CartPage() {
   return (
     <div className="pt-5 lg:grid lg:grid-cols-[1fr_340px] lg:gap-5">
       <div>
-        <h1 className="mb-3 px-1 text-2xl font-extrabold tracking-tight">Carrinho <span className="text-base font-medium text-ink/50">({count})</span></h1>
+        <h1 className="mb-3 px-1 text-2xl font-extrabold tracking-tight">Carrinho <span className="text-base font-medium text-cream/50">({count})</span></h1>
         <div className="space-y-3">
           {Object.values(groups).map((g) => (
             <div key={g[0].store_id} className="card p-4">
@@ -53,9 +53,9 @@ export default function CartPage() {
         </div>
       </div>
       <aside className="card mt-4 h-fit p-4 lg:sticky lg:top-36 lg:mt-12">
-        <div className="flex justify-between text-sm"><span className="text-ink/60">Subtotal</span><span className="font-semibold">{kz(subtotal)}</span></div>
-        <p className="mt-1 text-xs text-ink/50">Portes calculados no checkout, por loja.</p>
-        <p className="mt-1 text-xs text-ink/50">{Object.keys(groups).length} {Object.keys(groups).length === 1 ? "loja" : "lojas"} neste carrinho</p>
+        <div className="flex justify-between text-sm"><span className="text-cream/60">Subtotal</span><span className="font-semibold">{kz(subtotal)}</span></div>
+        <p className="mt-1 text-xs text-cream/50">Portes calculados no checkout, por loja.</p>
+        <p className="mt-1 text-xs text-cream/50">{Object.keys(groups).length} {Object.keys(groups).length === 1 ? "loja" : "lojas"} neste carrinho</p>
         <Link href="/checkout" className="btn-primary mt-4 h-12 w-full">Finalizar compra</Link>
       </aside>
       <div className="md:col-span-full">{items[0] && <RecoRail kind="bought_together" productId={items[0].product_id} exclude={items.map((i) => i.product_id)} title="Complete a sua compra" />}</div>

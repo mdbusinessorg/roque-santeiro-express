@@ -8,6 +8,7 @@ import { DELIVERY, discountPct, kz } from "@/lib/utils";
 import { Gallery } from "@/components/store/gallery";
 import { ProductActions } from "@/components/store/product-actions";
 import { StoreAvatar } from "@/components/store/store-avatar";
+import { StoreChat } from "@/components/store/store-chat";
 import { TrackView } from "@/components/store/recently-viewed";
 import { LeadLink, TrackEvent } from "@/components/tracking/track-event";
 import { ProductReviews } from "@/components/reviews/product-reviews";
@@ -63,11 +64,6 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             <div className="mt-4">
               <ProductActions item={{ product_id: p.id, slug: p.slug, name: p.name, image: p.images[0], price: Number(p.price), compare_at_price: p.compare_at_price, store_id: store.id, store_name: store.name, store_slug: store.slug, stock: p.stock }} />
             </div>
-            <a href="#bisno-talks" className="mt-3 flex items-center gap-3 rounded-2xl bg-neutral-950 px-4 py-3 text-white transition active:scale-[0.98]">
-              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gold text-white"><Mic className="h-4 w-4" /></span>
-              <span className="min-w-0 flex-1"><b className="block text-[14px] leading-tight">BISNO <span className="text-promo">TALKS</span></b><span className="block text-[12px] text-white/60">Fale ao vivo sobre este produto</span></span>
-              <span className="rounded-full bg-red-600 px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider">Ao vivo</span>
-            </a>
           </div>
           {p.description && <div className="card p-4"><h2 className="font-bold">Descrição</h2><p className="mt-2 whitespace-pre-line text-[14.5px] leading-relaxed text-ink/75">{p.description}</p></div>}
           {(p.shipping_fee != null || p.delivery_time) && (
@@ -108,6 +104,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
               <p className="mt-1 text-sm font-semibold text-brand-600">Visitar loja</p>
             </div>
           </Link>
+          <StoreChat storeId={store.id} storeName={store.name} />
           <div className="card space-y-3 p-4 text-sm">
             <p className="font-bold">Entrega</p>
             {store.delivery_methods.map((d) => <p key={d} className="flex items-start gap-2 text-ink/70"><Truck className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />{DELIVERY[d] ?? d}</p>)}

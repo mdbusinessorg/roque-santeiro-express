@@ -20,7 +20,18 @@ export async function getProducts(o: Opts = {}): Promise<{ products: Product[]; 
   const limit = o.limit ?? 20;
   const page = Math.max(1, o.page ?? 1);
   let q = supabasePublic().from("products").select(PRODUCT_SELECT, { count: "exact" }).eq("status", "active").eq("stores.status", "approved");
-  if (o.q) q = q.or(`name.ilike.%${o.q.replace(/[,%()]/g, " ")}%,brand.ilike.%${o.q.replace(/[,%()]/g, " ")}%`);
+  if (o.q) {
+    const raw = o.q.replace(/[,%()\"]/g, " ");
+    const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "");
+    const words = raw.split(/\s+/).filter((w) => w.length >= 3).slice(0, 6);
+    const conds: string[] = [];
+    for (const w of words) {
+      conds.push(`name.ilike.%${w}%,brand.ilike.%${w}%`);
+      const f = fold(w);
+      if (f !== w) conds.push(`name.ilike.%${f}%,brand.ilike.%${f}%`);
+    }
+    if (conds.length) q = q.or(conds.join(","));
+  }
   if (o.category) q = q.eq("category_id", o.category);
   if (o.store) q = q.eq("store_id", o.store);
   if (o.deals) q = q.not("compare_at_price", "is", null);

@@ -19,7 +19,7 @@ type Opts = { q?: string; category?: string; store?: string; sort?: string; deal
 export async function getProducts(o: Opts = {}): Promise<{ products: Product[]; total: number }> {
   const limit = o.limit ?? 20;
   const page = Math.max(1, o.page ?? 1);
-  let q = supabasePublic().from("products").select(PRODUCT_SELECT, { count: "exact" }).eq("status", "active").eq("stores.status", "approved");
+  let q = supabasePublic().from("products").select(PRODUCT_SELECT, { count: "exact" }).eq("status", "active").eq("stores.status", "approved").gt("stock", 0);
   if (o.q) {
     const raw = o.q.replace(/[,%()\"]/g, " ");
     const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "");
@@ -72,7 +72,7 @@ export async function getStore(slug: string): Promise<Store | null> {
 
 export type StoreShowcase = Record<string, { count: number; sold: number; images: string[] }>;
 export async function getStoreShowcase(): Promise<StoreShowcase> {
-  const { data } = await supabasePublic().from("products").select("store_id,images,sold_count").eq("status", "active").order("sold_count", { ascending: false }).limit(1000);
+  const { data } = await supabasePublic().from("products").select("store_id,images,sold_count").eq("status", "active").gt("stock", 0).order("sold_count", { ascending: false }).limit(1000);
   const out: StoreShowcase = {};
   for (const p of (data as { store_id: string; images: string[]; sold_count: number }[]) ?? []) {
     const s = (out[p.store_id] ??= { count: 0, sold: 0, images: [] });

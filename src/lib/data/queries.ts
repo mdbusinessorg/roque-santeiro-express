@@ -14,12 +14,13 @@ export async function getStores(): Promise<Store[]> {
 /** Tipos de loja de serviço: ficam fora dos feeds gerais (a Comida tem destaque próprio na página inicial). */
 export const SERVICE_TYPES = ["comida", "supermercado", "farmacia", "servicos"];
 
-type Opts = { q?: string; category?: string; store?: string; sort?: string; deals?: boolean; featured?: boolean; sponsored?: boolean; min?: number; max?: number; page?: number; limit?: number; audience?: string; storeType?: string; noServices?: boolean };
+type Opts = { q?: string; category?: string; store?: string; sort?: string; deals?: boolean; featured?: boolean; sponsored?: boolean; min?: number; max?: number; page?: number; limit?: number; audience?: string; storeType?: string; noServices?: boolean; includeOutOfStock?: boolean };
 
 export async function getProducts(o: Opts = {}): Promise<{ products: Product[]; total: number }> {
   const limit = o.limit ?? 20;
   const page = Math.max(1, o.page ?? 1);
-  let q = supabasePublic().from("products").select(PRODUCT_SELECT, { count: "exact" }).eq("status", "active").eq("stores.status", "approved").gt("stock", 0);
+  let q = supabasePublic().from("products").select(PRODUCT_SELECT, { count: "exact" }).eq("status", "active").eq("stores.status", "approved");
+  if (!o.includeOutOfStock) q = q.gt("stock", 0);
   if (o.q) {
     const raw = o.q.replace(/[,%()\"]/g, " ");
     const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "");
@@ -72,12 +73,20 @@ export async function getStore(slug: string): Promise<Store | null> {
 
 export type StoreShowcase = Record<string, { count: number; sold: number; images: string[] }>;
 export async function getStoreShowcase(): Promise<StoreShowcase> {
-  const { data } = await supabasePublic().from("products").select("store_id,images,sold_count").eq("status", "active").gt("stock", 0).order("sold_count", { ascending: false }).limit(1000);
+  const { data } = await supabasePublic().from("products").select("store_id,images,sold_count").eq("status", "active").order("sold_count", { ascending: false }).limit(1000);
   const out: StoreShowcase = {};
   for (const p of (data as { store_id: string; images: string[]; sold_count: number }[]) ?? []) {
     const s = (out[p.store_id] ??= { count: 0, sold: 0, images: [] });
     s.count++; s.sold += p.sold_count ?? 0;
     if (s.images.length < 3 && p.images?.[0]) s.images.push(p.images[0]);
   }
+  return out;
+}
+
+/** Contagem exacta de produtos activos em stock por loja (sem o limite do showcase). */
+export async function getStoreStockCounts(): Promise<Record<string, number>> {
+  const { data } = await supabasePublic().from("products").select("store_id").eq("status", "active").gt("stock", 0);
+  const out: Record<string, number> = {};
+  for (const p of (data as { store_id: string }[]) ?? []) out[p.store_id] = (out[p.store_id] ?? 0) + 1;
   return out;
 }

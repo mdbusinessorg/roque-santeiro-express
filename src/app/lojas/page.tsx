@@ -2,7 +2,7 @@ import Link from "@/components/ui/native-link";
 import { Suspense } from "react";
 import { StoreSearch } from "@/components/store/store-search";
 import { ArrowRight, BadgeCheck, Cigarette, MapPin, Pill, Shirt, ShoppingBasket, Smartphone, Sofa, Sparkles, Store as StoreIcon, Star, UtensilsCrossed, Wrench } from "lucide-react";
-import { getStores, getStoreShowcase } from "@/lib/data/queries";
+import { getStores, getStoreShowcase, getStoreStockCounts } from "@/lib/data/queries";
 import { STORE_TYPES, type Store } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { StoreAvatar } from "@/components/store/store-avatar";
@@ -55,15 +55,16 @@ function StoreCard({ s, sh }: { s: Store; sh?: { sold: number; count: number } }
 const fold = (s: string) => s.normalize("NFD").replace(/\p{M}/gu, "").toLowerCase();
 
 export default async function StoresPage({ searchParams }: { searchParams: Promise<{ tipo?: string; q?: string }> }) {
-  const [stores, show, sp] = await Promise.all([getStores(), getStoreShowcase(), searchParams]);
+  const [stores, show, sp, stockCounts] = await Promise.all([getStores(), getStoreShowcase(), searchParams, getStoreStockCounts()]);
+  const visible = stores.filter((s) => s.is_official || (stockCounts[s.id] ?? 0) > 0);
   const q = (sp.q ?? "").trim();
   const words = fold(q).split(/\s+/).filter(Boolean);
   const list0 = words.length
-    ? stores.filter((s) => {
+    ? visible.filter((s) => {
         const hay = fold(`${s.name} ${s.description ?? ""} ${s.city ?? ""} ${s.province ?? ""} ${STORE_TYPES[s.store_type ?? "geral"] ?? ""}`);
         return words.every((w) => hay.includes(w));
       })
-    : stores;
+    : visible;
   const official = list0.filter((x) => x.is_official);
   const rest = list0.filter((x) => !x.is_official);
   const rank = (a: Store, b: Store) => Number(b.is_official) - Number(a.is_official) || (show[b.id]?.sold ?? 0) - (show[a.id]?.sold ?? 0) || (show[b.id]?.count ?? 0) - (show[a.id]?.count ?? 0);

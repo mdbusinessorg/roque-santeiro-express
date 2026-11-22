@@ -26,17 +26,18 @@ export default async function StorePage({ params, searchParams }: { params: Prom
   const sp = await searchParams;
   const store = await getStore(slug);
   if (!store) notFound();
-  const [cats, { products, total }, all] = await Promise.all([
+  const [cats, { products, total }, all, top] = await Promise.all([
     getCategories(),
     getProducts({ store: store.id, category: sp.cat, sort: sp.ordem, limit: 40 }),
-    getProducts({ store: store.id, limit: 200 }),
+    getProducts({ store: store.id, limit: 200, includeOutOfStock: true }),
+    getProducts({ store: store.id, sort: "vendidos", limit: 4 }),
   ]);
   const storeCats = cats.filter((c) => all.products.some((p) => p.category_id === c.id));
   const url = `${SITE_URL}/loja/${store.slug}`;
   const sold = all.products.reduce((a, p) => a + (p.sold_count ?? 0), 0);
   const rc = all.products.reduce((a, p) => a + (p.rating_count ?? 0), 0);
   const avg = rc ? all.products.reduce((a, p) => a + Number(p.rating) * (p.rating_count ?? 0), 0) / rc : 0;
-  const highlights = [...all.products].sort((a, b) => (b.sold_count - a.sold_count) || (+new Date(b.created_at) - +new Date(a.created_at))).slice(0, 4);
+  const highlights = top.products;
   const stats: [typeof Package, string, string][] = [[Package, String(all.total), "produtos"], ...(sold > 0 ? [[ShoppingBag, String(sold), "vendidos"] as [typeof Package, string, string]] : []), ...(rc > 0 ? [[Star, avg.toFixed(1), `${rc} avaliações`] as [typeof Package, string, string]] : []), [CalendarDays, String(new Date(store.created_at).getFullYear()), "no Roque Santeiro"]];
 
   return (

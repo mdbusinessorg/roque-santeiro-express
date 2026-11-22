@@ -94,6 +94,7 @@ function SearchBox() {
       className="relative flex-1"
       onSubmit={(e) => { e.preventDefault(); setOpen(false); router.push(`/pesquisa?q=${encodeURIComponent(q.trim())}`); }}
     >
+      <input ref={fileRef} type="file" accept="image/*" capture="environment" onChange={photo} className="hidden" tabIndex={-1} aria-hidden="true" />
       <button type="button" onClick={() => fileRef.current?.click()} disabled={busyPhoto} aria-label="Pesquisar por foto" className="absolute left-1.5 top-1/2 z-10 grid h-8 w-8 -translate-y-1/2 place-items-center rounded-full text-ink/45 transition active:bg-neutral-900/5 disabled:opacity-40">
         {busyPhoto ? <Loader2 className="h-[18px] w-[18px] animate-spin" /> : <Camera className="h-[18px] w-[18px]" />}
       </button>

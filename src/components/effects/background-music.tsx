@@ -18,8 +18,15 @@ export function BackgroundMusic() {
     const a = new Audio("/audio/loja.mp3");
     a.loop = true;
     a.volume = 0.16;
-    a.preload = "auto";
+    a.preload = "none";
     audioRef.current = a;
+    const KEY = "rse_audio_time";
+    try { const t = Number(sessionStorage.getItem(KEY) || 0); if (t > 0.5 && Number.isFinite(t)) a.currentTime = t; } catch { /* sem posição guardada */ }
+    let lastSave = 0;
+    const savePos = () => { try { if (a.currentTime > 0) sessionStorage.setItem(KEY, String(a.currentTime)); } catch { /* ignore */ } };
+    const onTime = () => { const n = Date.now(); if (n - lastSave > 4000) { lastSave = n; savePos(); } };
+    a.addEventListener("timeupdate", onTime);
+    a.addEventListener("pause", savePos);
     const sync = () => setPlaying(!a.paused && !a.ended);
     a.addEventListener("play", sync);
     a.addEventListener("playing", sync);
@@ -47,6 +54,9 @@ export function BackgroundMusic() {
       window.removeEventListener("pointerdown", kick);
       window.removeEventListener("keydown", kick);
       window.removeEventListener("touchstart", kick);
+      a.removeEventListener("timeupdate", onTime);
+      a.removeEventListener("pause", savePos);
+      savePos();
       a.pause();
       audioRef.current = null;
     };

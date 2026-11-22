@@ -1,3 +1,6 @@
+"use client";
+
+import NextLink from "next/link";
 import { forwardRef, type AnchorHTMLAttributes } from "react";
 
 type Href = string | { pathname?: string; query?: Record<string, string | number | undefined> };
@@ -9,10 +12,18 @@ function toUrl(h: Href): string {
   return (h.pathname ?? "") + (q ? `?${q}` : "");
 }
 
-/** Navegação real do browser (spinner nativo na aba), em vez de transições client-side. */
+function isExternal(url: string) {
+  return /^(https?:)?\/\//i.test(url) || /^(mailto|tel|whatsapp|sms):/i.test(url);
+}
+
+/** Links internos usam navegação client-side (SPA): a página não recarrega por
+ *  completo, por isso a música de fundo continua e o site responde mais rápido.
+ *  Links externos continuam a abrir no browser/app como antes. */
 const Link = forwardRef<HTMLAnchorElement, Props>(function Link({ href, prefetch: _p, replace: _r, scroll: _s, ...rest }, ref) {
   void _p; void _r; void _s;
-  return <a ref={ref} href={toUrl(href)} {...rest} />;
+  const url = toUrl(href);
+  if (isExternal(url)) return <a ref={ref} href={url} {...rest} />;
+  return <NextLink ref={ref} href={url} prefetch={false} {...rest} />;
 });
 
 export default Link;
